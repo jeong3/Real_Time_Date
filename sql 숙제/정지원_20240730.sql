@@ -6,9 +6,9 @@ from hr.employees e join hr.departments d
 on e.department_id = d.department_id join hr.locations l
 on d.location_id = l.location_id ;
 --2. 부서가 없는 직원과 직원이 없는 부서를 출력하며 지역과 우편주소를 출력하시오.
-select e.department_id, d.location_id, street_address
-from hr.departments d right outer join hr.employees e 
-on d.department_id = e.department_id left outer join hr.locations l
+select employee_id, e.department_id, d.location_id, street_address
+from hr.departments d full outer join hr.employees e 
+on d.department_id = e.department_id join hr.locations l
 on d.location_id = l.location_id;
 --3. 직무, 직무내용, 부서명, 우편주소를 이름과 함께 출력하시오.
 select j.job_id, job_title
@@ -59,8 +59,8 @@ where city = 'Toronto';
 select employee_id , last_name
 , department_name
 , street_address, state_province
-from hr.employees e left outer join hr.departments d
-on e.department_id = d.department_id left outer join hr.locations l
+from hr.employees e join hr.departments d
+on e.department_id = d.department_id right outer join hr.locations l
 on d.location_id = l.location_id ;
 --11. 부서번호가 60인 사원의 성, 이름, 사원 번호, 급여, 부서명을 출력하시오.
 select last_name, first_name, employee_id, salary, department_name

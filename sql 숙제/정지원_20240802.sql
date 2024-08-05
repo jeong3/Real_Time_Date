@@ -1,5 +1,6 @@
 ---- 1. 부서번호, 부서명, 지역번호, 국가 번호를 출력하세요
 --      국가 번호 us만 출력 하세요
+select * from hr.locations;
 select department_id, department_name, l.location_id, country_id
 from hr.departments d join hr.locations l
 on d.location_id = l.location_id 
@@ -83,7 +84,7 @@ from hr.employees e join hr.jobs j
 on e.job_id = j.job_id  join hr.departments d
 on d.department_id = e.department_id left outer join hr.locations l
 on l.location_id = d.location_id
-where hire_date >= '2004.01.01' and min_salary*12*(1+(nvl(commission_pct,0))) >= 4000;
+where hire_date >= '2005.01.01' and min_salary*12*(1+(nvl(commission_pct,0))) >= 4000;
 --17 ANSI-JOIN을 사용해서 사원번호, 이름, 부서번호, 위치를 출력하는데 상사가 149인 사원들만 출력하시오.
 select employee_id, first_name, d.department_id, d.location_id from hr.employees e join hr.departments d
 on e.department_id = d.department_id join hr.locations l
@@ -114,7 +115,7 @@ having max(salary) > 10000;
 --10000을 초과하는 직무와 급여의 합계를 출력하시오.
 --또한 급여의 합계를 내림차순으로 정렬하여 출력
 select job_id, sum(salary) from hr.employees
-where job_id not like 'SA'
+where job_id not like '%SA%'
 group by job_id
 having sum(salary) > 10000
 order by 2 desc;

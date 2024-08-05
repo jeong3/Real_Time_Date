@@ -163,6 +163,6 @@ where board_num = 1;
 
 select * from board 
 where board_num = 1;
-
+commit;
 
 

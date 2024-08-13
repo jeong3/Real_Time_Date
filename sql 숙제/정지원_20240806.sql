@@ -44,6 +44,7 @@ add constraint MEMBER_USER_NUM_PK primary key(user_num);
 -- primary key 열
 alter table member
 modify (constraint MEMBER_USER_NUM_PK primary key(user_num));
+alter table member
 -- unique 테이블
 alter table member
 add (constraint USER_EMAIL_uk unique(USER_EMAIL),
@@ -112,7 +113,7 @@ alter table board
 modify (constraint board_user_num_fk foreign key(user_num) references member(user_num));
 
 desc member;
- desc board;
+desc board;
 select * from member;
 select * from board;
 --
@@ -120,11 +121,13 @@ select * from board;
 --회원번호는 mem_100001부터 부여된다.
 --insert into member (USER_num, user_id,USER_PW,USER_NAME,USER_BIRTH,USER_GENDER,USER_ADDR ,USER_PH1,USER_PH2,USER_REGIST,USER_EMAIL)
 --values(USER_num 자동부여, 'highland0','111111','이숭무','1999-12-12','1','서울','010-1234-1234',null,default,null);
+select concat('mem_',(nvl(substr(max(USER_num),5),100000)+1)) from member;
 insert into member (USER_num, user_id,USER_PW,USER_NAME,USER_BIRTH,USER_GENDER,USER_ADDR ,USER_PH1,USER_PH2,USER_REGIST,USER_EMAIL)
 values((select concat('mem_',(nvl(substr(max(USER_num),5),100000)+1)) from member)
-, 'highland1','111111','이숭무','1999-12-12','F','서울','010-1234-1234',null,default,null);
+, 'highland5','111111','이숭무','1999-12-12','F','서울','010-1234-1234',null,default,null);
 select * from member;
-
+delete from member;
+select max(nvl(substr(user_num,5),10000)) from member;
 
 --문제4)게시판 테이블에 데이터를 아래 내용 포함 6개 이상을 넣는데 위 회원들은 최소 한개 이상 게시글이 등록되게 하시오.
 --BOARD_NUM은 입력하지 않고 자동부여가 되게 작성하시오. 
@@ -146,11 +149,13 @@ on b.user_num = m.user_num;
 --         1번 게시글을 증가 시키시오.
 select read_count from board;
 select max(read_count) +1 from board;
+
 update board
 set read_count = read_count +1
-where board_num =1 ;
+where board_num = 2;
+
 select * from board
-where board_num = 1;
+where board_num = 2;
 --문제 7) 게시글 2번에 해당하는 회원을 출력하시오.
 select * from board
 where board_num = 2;
@@ -186,8 +191,7 @@ select replace(board_content,'\n','<br />'), board_num, board_subject from board
 where board_num = 1;
 
 --문제 14)  게시글 제목이 너무 길어서 화면에 다 출력되기 어렵다 . 제목을 첫번째 글자 부터 5글자를 출력하고 뒤에는 *를 5개가 출력되게 하시오.
-select rpad(substr(board_subject , 1 ,5), 14,'*') from board
-where board_num =1; 
+select substr(board_subject , 1 ,5) || '...' from board;
 
 --문제 15) '이숭무'회원이 아이디를 잊어버렸다고 한다. 이메일과 전화번호를 이용해서 아이디를 출력하는 데 아이디는 모두 출력해서는 안되고 첫글자부터 세글자 나머지는 '*'로 출력되게 하시오.
 select * from member;
@@ -206,7 +210,12 @@ group by user_num);
 select max(count(user_num))from board
 group by user_num;
 
-
+--
+select rownum, user_num, cnt
+from(select user_num, count(*) cnt from board
+    group by user_num    -- inline view : 기본으로 생성되는 칼럼 rownum 
+    order by cnt desc)
+    where rownum = 1;
 
 --문제 17) 지금까지의 작업을 모두 정상 종료 시키시오.
 commit;
@@ -241,7 +250,8 @@ select * from member;
 
 --문제 20) ‘asd’인 회원이 로그인을 하여 자신이 쓴 글인 1번 게시글을 삭제하려고 한다.
 select * from board;
+select * from member;
 delete from board 
-where user_id = 'asd' and board_num = 1 ;
-
+where user_id = (select user_id from member where user_id = 'highland2') and board_num = 1 ;
+select user_id from member where user_id = 'highland2';
 --해당 게시물이 삭제 되게 하시오.

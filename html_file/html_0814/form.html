@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!--form : 입력된 데이터를 한번에 서버에 전송한다. 전송한데이터는 웹서버가 처리-->
+    <form action="result.html" method="post">
+        <!--action : 웹서버-->
+        <!--method : 데이터가 전송될 때 데이터를 보이게(get)하거나 안보이게(post) 할 수 있다-->
+        아이디 : <input type="text" name="user_id" /> <br /><!--input의 name이 없다면 값이 전송되지 않는다.-->
+        비밀번호 : <input type="password" name="user_pw"/><br />
+        <input type="submit" value="로그인"/>
+    </form>
+    <!--a태그는 get방식으로만 주소를 이동할 수 있다.-->
+    <a href="https://www.google.com/search?q=form%ED%83%9C%EA%B7%B8&oq=form%ED%83%9C%EA%B7%B8&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTINCAEQLhivARjHARiABDIHCAIQABiABDIHCAMQABiABDIHCAQQABiABDIHCAUQABiABDIHCAYQABiABDIHCAcQABiABDIKCAgQABiABBiiBNIBCDI2NDhqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8">네이버</a>
+    <a href="https://www.naver.com">네이버</a>
+</body>
+
+</html>

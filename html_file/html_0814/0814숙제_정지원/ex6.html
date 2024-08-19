@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>.find-btn{
+        text-align: center;
+    }
+    .find-btn1{
+        display :inline-block;
+    }</style>
+</head>
+<body>
+    <fieldset>
+        <legend>회원가입</legend>
+        <form action="#" method="get">
+        <table border="1">
+            <colgroup>
+            <col style="width: 130px;">
+            </colgroup>
+            <caption>회원가입 서식 작성</caption>
+            <tr><td>이름</td><td colspan="2"><input type="text" name="user_name"></td></tr>
+            <tr><td>아이디</td><td colspan="2"><input type="text" name="user_id"></td></tr>
+            <tr><td>비밀번호</td><td colspan="2"><input type="password" name="user_pw"></td></tr>
+            <tr><td>비밀번호확인</td><td colspan="2"><input type="password" name="user_pwcom"></td></tr>
+            <tr><td >핸드폰번호</td><td colspan="2"><input type="tel" name="user_ph" placeholder="-대신 없이 숫자로만"></td></tr>
+            <tr><th>생일</th><td colspan="2"><input type="date" name="user_date"></td></tr>
+            <tr><th>SNS</th><td colspan="2"><input type="text" name="user_sns"></td></tr>
+            <tr><th>이메일</th><td colspan="2"><input type="email" name="user_Email"></td></tr>
+            <tr><td colspan="3"><div class="find-btn">
+                <button type="button" class="btn btn-navy navbar-btn find-btn1" onclick="location.href='/login'">전송</button>
+                <button type="button" class="btn btn-grey navbar-btn find-btn1" onclick="location.href='/findIdPw'">취소</button>
+            </div></td></tr>
+        </table>
+    </form>
+    </fieldset>
+</body>
+</html>

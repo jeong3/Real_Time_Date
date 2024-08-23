@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <h1>H1 Tag1</h1>
+    <h1>H1 Tag2</h1>
+    <h1>H1 Tag3</h1>
+    <!-- 태그명/클래스명이 같은 것이 여러 개 있다면 배열로 취급한다. -->
+    <h2 class="head2">index0 class</h2>
+    <h2 class="head2">index1 class</h2>
+    <h2 class="head2">index2 class</h2>
+    <h2 class="head2">index3 class</h2>
+    <h3 id="head3">head3 id</h3>
+    <h3 id="head3">head3 id</h3> 
+    <input type="text" id="id1" />
+    <input type="text" id="id" /><br />
+</body>
+<script type="text/javascript">
+    // <!-- DOM : Document Object Model -->
+    // DOM을 사용하기 위해서는 script를 아래에 적어야한다 (탑다운방식)
+    // document.getElementById("아이디") : 복수가 허용되지 않음
+    // document.getElementsByName("태그명") : 복수가 허용됨 s
+    // document.getElementsByClassName : 복수가 허용됨 s
+    // 선택자 : document.querySelector("div p")
+    document.getElementById("head3").innerHTML = "헤드3";//아이디가 중복됐을 경우 위에서 첫번째인 것만 id를 가진다.
+    console.log(document.getElementById("head3"))
+    document.getElementsByClassName("head2")[0].innerHTML="헤드2";
+    var eleTag = document.getElementsByTagName("h1");
+    console.log(eleTag);
+    document.getElementsByTagName("h1")[0].innerHTML = "<h2>ㅇㅁㄴㅇㄹ</h2>"; // 태그를 추가할 때는 innerHTML을 사용하고 그외에는 innerText
+    eleTag[1].innerText = "정지원";
+
+    document.getElementById("id").value = 2000; //input의 기본값 설정
+
+    document.write("두번째 h2의 값 : "+ document.getElementsByClassName("head2")[1].innerText)
+</script>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        function p_tag(){ // # , . ex)div p
+            document.querySelector("p").style.backgroundColor="red"; //첫번째 하나만 적용됨
+        }
+        function p_tag_all(){
+            var p_tag_all = document.querySelectorAll("p");
+            console.log(p_tag_all);
+            p_tag_all[2].style.backgroundColor="blue";
+           
+        }
+        function p_class_ex(){
+            document.querySelector(".ex").style.backgroundColor="green";
+        }
+        function span_id(){
+            document.querySelector("#sample").innerHTML="정지원";
+            document.querySelector("#sample").style.backgroundColor="aqua";
+        }
+        function div_p(){
+            document.querySelector("div p").style.color="white";
+            document.querySelector("div p").style.backgroundColor="black";
+        }
+        function a_target(){
+            document.querySelector("a[target='_blank']").style.border="10px solid gray";
+            document.querySelector("a[target='_blank']").text="naver"
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <h2>Element Control</h2>
+    <h3>query selector</h3>
+    <p>쿼리 셀렉터는 css의 셀렉터를 차용한 것입니다.</p>
+    <p class="ex">하지만 복수 개의 엘리멘트는 수용 하지 못합니다.</p>
+    <span id="sample"></span><br>
+    <a href="http://www.naver.com" target="_blank">네이버</a>
+    <div>
+        <p>특정 요소의 자식 요소를 선택할 수도 있습니다.</p>
+    </div>
+    <button onclick="p_tag();">버튼1</button><button onclick="p_tag_all();">버튼2</button>
+    <button onclick="p_class_ex();">버튼3</button><button onclick="span_id();">버튼4</button>
+    <button onclick="div_p();">버튼5</button><button onclick="a_target();">버튼6</button>
+
+
+</body>
+
+</html>

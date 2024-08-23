@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var fontColor =["#123456", "#987654","#abcdef","#123","#abc"];
+        var i = -1;
+        function font_color(){
+            i++;
+            document.querySelector("#p2").style.color = fontColor[i];
+            if(i>fontColor.length) i=0;
+        }
+        i = 1;
+        function image(){
+            i++;
+            document.querySelector("#image").src = "../img/img"+i+".jpg";
+            if(i>6)i = 1;
+        }
+        function p1(){
+            var ele = document.getElementById("p1");
+            if(ele.innerHTML=="답변글 닫기"){
+                ele.innerHTML="답변글 열기";
+            }else{
+                ele.innerHTML="답변글 닫기";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1 id="p2">글자 색상 변경 된다</h1>
+    <button onclick="font_color();">글자 색 변경</button><br>
+    <p id="p1">답변글 닫기</p><br>
+    <button onclick="p1();">innerHTML</button><br>
+    <img id="image" src="../img/img7.jpg" ><br>
+    <button onclick="image();">이미지변경</button>
+</body>
+</html>

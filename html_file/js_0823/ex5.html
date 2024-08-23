@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function cart(){
+            var con = confirm("장바구니로 이동하시겠습니까?");
+            if(con){
+                location.href = "http://www.naver.com";
+            }
+        }
+        function dlt(){
+            var con = confirm("정말로 탈퇴하시겠습니까?")
+            if(con){
+                location.href = "http://www.google.com";
+            }
+        }
+        function btn(){
+            var cnt = 10;              //콜백함수
+            var interval = setInterval(function(){
+                cnt--;
+                document.getElementById("count").innerHTML=cnt;
+            },1000);//1000 = 1초, 1초마다 실행
+            setTimeout(function(){
+                clearInterval(interval);
+                alert("페이지가 이동합니다.")
+                location.href="http://www.naver.com";
+            },11000);//10000 = 10초, 10초뒤 인터벌을 클리어하고 페이지 이동
+        }
+        
+    </script>
+</head>
+<body>
+    <!-- BOM 
+      alert, window.open, location, prompt, navicator.userAgen, confirm 확인 취소,
+      setInterval() 일정시간뒤에 실행, clearInterval(), setTimeout() -->
+    <button type="button" onclick="cart();">장바구니</button><br>
+    <button type="button" onclick="dlt();">탈퇴하기</button>
+    <h3><span id="count">10</span>초 후에 이동을 합니다.</h3>
+    <button type="button" onclick="btn();">버튼</button>
+
+
+
+</body>
+</html>

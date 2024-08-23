@@ -1,0 +1,136 @@
+#banner 
+{
+background: url(images/pic01.jpg) no-repeat center;
+height: 330px;
+background-size: cover;
+}
+body{
+    margin: 0;
+    background: #A80154;
+}
+*{text-decoration: none;}
+div#menu ul{
+    background-color: deeppink;
+    text-align: center;
+    margin: 0;
+}
+
+#logo a{
+    color: white;
+}
+#menu a:hover{
+    background-color: pink;
+    
+}
+#menu a{
+    color: white;
+}
+div#menu ul li{
+    display: inline-block;
+    color: white;
+    padding: 40px;
+    text-decoration: none;
+    
+}
+#logo{
+    color: white;
+    
+    text-align: center;
+    background-color: black;
+    margin: 0;
+    padding: 20px;
+}
+#header-wrapper, #menu-wrapper{
+    color: white;
+}
+h2{
+    color: deeppink;
+}
+#content{
+    width: 70%;
+    float: right;
+    
+}
+#sidebar{
+    width: 30%;
+    float: left;
+    
+}
+
+.style2{
+    list-style-type: none;
+    
+}
+.style2 li{
+    line-height:40px ;
+    border-bottom: 3px solid gray ;
+}
+.style2 li a{
+    
+    text-decoration: underline;
+}
+.title{
+    margin-left: 40px;
+}
+.box2 .style2 a{
+    color: black;
+}
+
+#portfolio{
+    
+   
+    display: inline;
+}
+#page{
+    background-color: white;
+    padding: 10px;
+    margin: 0;
+    background-image: url("../../img/bg01.png");
+    height: 400px;
+}
+#portfolio-wrapper a{
+    height: 50px;
+    
+    background-color: palevioletred;
+    color: white;
+}
+#portfolio #column1, #column2, #column3, #column4{
+    color: white;
+}
+#portfolio #column1 h2, #column2 h2, #column3 h2, #column4 h2{
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#footer-wrapper  {
+    background-color: black;
+    
+}
+
+#footer-wrapper #footer #box1{
+    color: white;
+}
+#footer ,#footer h2 {
+    color: white;
+}
+#footer a{
+    text-decoration: underline;
+    color: white;
+}
+#footer li{
+    list-style: none;
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+
+        function f(x, y) { // 피호출 함수 : x,y는 매개변수 parameter
+            z = x + 2 + y;
+            document.write(z);
+        }
+
+        function greet() {
+            alert("함수 실행");
+        }
+
+        var num = 1;
+        function nextGallery() {
+            num++;
+            if (num > 7) num = 1;
+            document.getElementById("gallery").src="../img/img"+num+".jpg";
+        }
+        function prevGallery() {
+            num--;
+            if (num < 1) num = 7;
+            document.getElementById("gallery").src="../img/img"+num+".jpg";
+        }
+
+
+    </script>
+</head>
+
+<body> <!-- 호출 함수 : 인자 argument -->
+    <button type="button" onclick="f(2,3)">함수1</button>
+    <button type="button" onclick="greet()">greet</button>
+    <hr />
+    <a href="javascript:prevGallery();"><img src="../img/left_btn.png"></a>
+    <img src="../img/img1.jpg" id="gallery">
+    <a href="javascript:nextGallery();"><img src="../img/right_btn.png"></a>
+</body>
+
+</html>

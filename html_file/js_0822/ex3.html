@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">
+        // String 객체
+        var theText = "Hello World"; //data(Method)영역
+        document.write(theText + "<br />");
+        document.write(theText.bold()+"<br />");
+        document.write(theText.length+"<br />");
+        document.write(theText.toLowerCase()+"<br />");
+        document.write(theText.toUpperCase()+"<br />");
+        // 특정문자의 index 찾기
+        document.write(theText.indexOf("W") + "<br />");
+        //index로 문자 찾기
+        document.write(theText.charAt(8) + "<br />");
+        //4글자부터 2글자 출력
+        document.write(theText.substr(0,2) + "<br />");
+        document.write(theText.substring(6,11) + "<br />");
+        //"world"을 "Bye"로 대체 : 원래의 값은 변하지 않는다.
+        document.write(theText.replace("World","Bye")+"<br />");
+        // 글자 연결
+        document.write(theText.concat(" good")+"<br />");
+        // 쪼개기 : 배열로 된다.
+        document.write(theText.split(" ")+"<br />");
+        // Hello[0], World[1] 
+        document.write(theText.split(" ")[0]+"<br />");
+
+        // [인덱스 값]으로 가져오기(= chat At)
+        document.write(theText[8]+"<br />");
+        // 마지막 문자 출력
+        document.write(theText[theText.length - 1]+"<br />");
+
+        //img10.jpg , img11.jpg, ... img99.jpg 이미지 랜덤으로 가져오기
+        var randNum = Math.floor(Math.random() * 90) + 10; //0 ~ 89 + 10
+        document.write(randNum+"<br />");
+
+        var randNum = Math.floor(Math.random() * 6) + 1; 
+        document.write(randNum+"<br />");
+        var theText2 = "'../img"+randNum+".png'";
+        document.write(theText2);
+        document.write("<img src='../img/"+randNum+".png' />");
+
+        var theText1 = new String("Hello World"); // Heap 영역
+        document.write(theText1+"<br />");
+
+
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

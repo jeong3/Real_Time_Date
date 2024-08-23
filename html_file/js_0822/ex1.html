@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript">       
+        // 기본자료형(리터널 자료형, 비즈니스 자료형) : 정수, 실수, 문자, 문자열, 부울
+        // 객체 : 자료형 : API 자료형 : Date, String, Math, Array
+        var i = 10;//정수 자료형
+        var toDate = new Date(); //날짜 자료형 , 현재날짜가 저장되어 있음
+        var toMonth = toDate.getMonth();
+        document.write(toMonth+ "<br />"); // 0~11 현재날짜를 가져오려면 +1
+        document.write(toMonth+1+ "월 <br />");
+        var toDay = toDate.getDay(); // 0~6 일요일부터
+        document.write(toDay+"<br />");
+        switch(toDay){
+            case 0 : week = "일"; break;
+            case 1 : week = "월"; break;
+            case 2 : week = "화"; break;
+            case 3 : week = "수"; break;
+            case 4 : week = "목"; break;
+            case 5 : week = "금"; break;
+            default : week = "토";
+        }
+        document.write(week+"요일 <br />");
+
+
+        var date = toDate.getDate();
+        document.write(date + "일 <br />");
+
+        var toYear = toDate.getFullYear();
+        document.write(toYear+"년 <br />");
+
+        var toHours = toDate.getHours();
+        document.write(toHours + "시 <br />");
+
+        var toMin = toDate.getMinutes();
+        document.write(toMin + "분 <br />");
+
+        var toSec = toDate.getSeconds();
+        document.write(toSec + "초 <br />");
+
+        document.write(toYear + "-" + (toMonth+1) + "-" + date + "<br />");
+        document.write(toDate + "<br />");
+
+
+        document.write(toDate.getDay()+"<br />");
+        var arrDayStr = ["일","월","화","수","목","금","토"];
+        document.write(arrDayStr[toDate.getDay()] + "요일 <br />");
+
+        document.write(toDate.getMonth()+"<br />");
+        var arrMonthStr = [1,2,3,4,5,6,7,8,9,10,11,12];
+        document.write(arrMonthStr[toDate.getMonth()] + "월 <br />");
+
+        // 년 월 일만 출력
+        document.write(toDate.toDateString()+"<br />"); 
+        document.write(toDate.toLocaleDateString()+"<br />");
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

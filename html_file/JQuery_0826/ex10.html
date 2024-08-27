@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#btn").click(function () {
+                $("#frm").append(
+                    '<div id = "appd">'
+                    + '<input type="text" size="6"/>'
+                    + '<input type="text" size="15" name="ddd"/>'
+                    + '<button class="item" >삭제</button>'
+                    + ' </div>'
+                );
+            });
+            $(document).on("click", ".item", function () {
+                $(this).parent().remove();
+            });
+        });
+
+
+
+
+
+    </script>
+</head>
+
+<body>
+    <form id="frm" name="frm" action="#">
+        이름&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전화번호<br />
+        <span id="btn" style="color: red;">추가</span>를 누르세요.
+        <div id="appd">
+            <input type="text" size="6" />
+            <input type="text" size="15" name="ddd" />
+            <button class="item">삭제</button>
+        </div>
+
+    </form>
+</body>
+
+</html>

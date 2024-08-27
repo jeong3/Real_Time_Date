@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#btn").click(function () {
+                $("#textzone").css("color", "yellow");
+            });
+
+            $("#btn1").bind("click", function () {
+                $("#textzone").css("color", "green");
+            });
+
+            $("#btn2").on("click", function () {
+                $("#textzone").css("color", "blue");
+            });
+
+            $("#btn3").on("click", function () {
+                $("#textzone").css("color", "red");
+            });
+
+            $("#btn4").bind("mouseenter focus", function () {
+                $("#textzone").css("border", "2px solid yellow");
+            });
+
+            $("#btn5").bind("mouseenter blur", function () {
+                $("#textzone").css("border", "");
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    <p id="textzone">이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무
+        이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무
+        이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무이숭무
+    </p>
+    <!-- (p>button#btn$)*4 -->
+    <p><button id="btn">click</button></p>
+    <p><button id="btn1">bind1</button></p>
+    <p><button id="btn2">on1</button></p>
+    <p><button id="btn3">bind2</button></p>
+    <p><button id="btn4">on2</button></p>
+    <p><button id="btn5">on2</button></p>
+
+
+</body>
+
+</html>

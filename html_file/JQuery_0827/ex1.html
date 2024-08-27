@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        $(function(){
+            //$(".list1").css("display", "none");
+            $(".list1").hide("fast"); // 숫자, slow, fast 
+            $("#btn4").click(function(){
+                $(".list1").slideDown(1000); // 1000 = 1초 / 숫자, slow, fast 
+            });
+            $("#btn5").click(function(){
+                $(".list1").slideUp("fast"); // 숫자, slow, fast 
+            });
+            $("#wrap").hover(function(){
+                $(".list1").slideToggle("slow");
+            });
+            $("#btn6").hover(function(){
+                $(this).parent().next().children("li").slideToggle("slow");
+            });
+            
+        });
+    </script>
+</head>
+
+<body>
+    <p>
+        <button id="btn4">slideDown</button>
+        <button id="btn5">slideup</button>
+        <button id="btn6">slideToggle</button>
+    </p>
+
+    <div id="wrap">
+        <h3>관련 사이트</h3>
+        <ul class="list1">
+            <li><a href="#">list1</a></li>
+            <li><a href="#">list2</a></li>
+            <li><a href="#">list3</a></li>
+            <li><a href="#">list4</a></li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        $(function () {
+            interval = setInterval(down_content, 1000);
+            $("#content").mouseenter(function () {
+                clearInterval(interval);
+            });
+            $("#content").mouseleave(function () {
+                interval = setInterval(down_content, 1000);
+            });
+        });
+        function up_content() {
+            $("#content li:last").after($("#content li:first"));
+        };
+        function down_content() {
+            $("#content li:first").before($("#content li:last"));
+        };
+    </script>
+    <style>
+        #content {
+            width: 100px;
+            height: 21px;
+            border: 2px solid black;
+           
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <ul id="content">
+            <li>정지원0</li>
+            <li>정지원1</li>
+            <li>정지원2</li>
+            <li>정지원3</li>
+            <li>정지원4</li>
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+package J20240828;
+
+
+import lombok.Data;
+
+@Data
+public class Inquire {
+	int inqNum;
+	String inqSubject;
+	String inqKind;
+	String inqAnswer;
+}

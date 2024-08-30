@@ -1,0 +1,14 @@
+package Bank;
+
+import lombok.Data;
+
+@Data
+
+public class Request {
+	int accountNo;
+	String owner;
+	int balance;	
+	int pageNum;
+	
+	
+}

@@ -1,0 +1,49 @@
+package Bank_Front;
+
+import Bank.Request;
+import Bank_View.AccountCreate;
+import Bank_View.MainPage;
+
+public class FrontController {
+	public static void main(String[] args) {
+
+		int pageNum = 0; // 메인페이지
+		boolean run = true;
+		Request request = null;
+		while (run) {
+			if (pageNum == 0) {
+				MainPage mainPage = new MainPage();
+				request = mainPage.view();
+				pageNum = request.getPageNum();
+			} else if (pageNum == 1) {// 계좌 생성
+				System.out.println("계좌생성");
+				AccountCreate accountcreate = new AccountCreate();
+				request = accountcreate.view();
+				
+				pageNum = request.getPageNum();
+				
+			} else if(pageNum == 6) {
+				//계좌생성 페이지
+				
+				pageNum = 0;
+			}
+			else if (pageNum == 2) {// 계좌 목록
+				System.out.println("계좌목록");
+				pageNum = 0;
+				
+			} else if (pageNum == 3) {// 입금
+				System.out.println("입금");
+				pageNum = 0;
+				
+			} else if (pageNum == 4) {// 출금
+				System.out.println("출금");
+				pageNum = 0;
+				
+			} else if (pageNum == 5) {// 프로그램 종료
+				run = false;
+				System.out.println("프로그램이 종료되었습니다.");
+
+			}
+		}
+	}
+}

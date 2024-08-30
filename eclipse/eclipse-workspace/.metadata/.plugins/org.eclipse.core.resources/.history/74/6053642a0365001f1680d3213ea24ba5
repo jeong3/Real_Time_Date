@@ -1,0 +1,12 @@
+package Bank_Model;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+public class Account {
+	int accountNo;
+	String owner;
+	int balance;
+}

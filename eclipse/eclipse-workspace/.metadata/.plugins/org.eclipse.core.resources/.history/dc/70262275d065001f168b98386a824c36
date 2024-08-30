@@ -1,0 +1,9 @@
+package Bank_View;
+
+import Bank_Model.AccountDTO;
+
+public class AccountDepositView {
+	public void view(AccountDTO dto) {
+		
+	}
+}

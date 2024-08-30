@@ -1,0 +1,11 @@
+package Bank_Service;
+
+import Bank.Request;
+import Bank_Model.AccountDAO;
+
+public class AccountService {
+	public void execute(Request request) {
+		AccountDAO dao = new AccountDAO();
+		dao.accountOne(request.getAccountNo());
+	}
+}

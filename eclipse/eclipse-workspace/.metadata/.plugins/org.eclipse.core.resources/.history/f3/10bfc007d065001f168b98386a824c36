@@ -1,0 +1,7 @@
+package Bank_View;
+
+public class AccountDepositView {
+	public void view(AccountDTO dto) {
+		
+	}
+}

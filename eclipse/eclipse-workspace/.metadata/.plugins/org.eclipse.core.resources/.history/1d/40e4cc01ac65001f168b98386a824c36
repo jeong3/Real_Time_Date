@@ -1,0 +1,5 @@
+package Bank_Model;
+
+public class AccountDTO {
+
+}

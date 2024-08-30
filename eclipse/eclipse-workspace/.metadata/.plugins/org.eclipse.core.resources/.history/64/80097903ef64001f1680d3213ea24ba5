@@ -1,0 +1,18 @@
+package J20240828;
+
+public class Ex10 {
+
+	public static void main(String[] args) {
+		Calculator cal = new Calculator(10,20);
+		int result = cal.add(); // add()함수의 리턴값을 받기위해선 변수가 있어야한다.
+		System.out.println(result);
+		result = cal.div();
+		System.out.println(result);
+		
+		FourCalculator cal1 = new FourCalculator(20, 10);
+		System.out.println(cal1.add());
+		System.out.println(cal1.mul());
+		
+	}
+
+}

@@ -1,0 +1,11 @@
+package J20240828;
+
+public class Ex06 {
+
+	public static void main(String[] args) {
+		Board board1 = new Board(10,"제목","내용",0);
+		
+
+	}
+
+}

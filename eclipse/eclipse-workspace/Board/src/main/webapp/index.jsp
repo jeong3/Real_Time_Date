@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script type = "text/javascript">
-	location.href ="boardWrite.nhn";
-</script>
+	 <script type="text/javascript">
+	 	location.href="boardList.com"
+	 </script>
 </body>
 </html>

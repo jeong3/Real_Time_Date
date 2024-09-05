@@ -1,9 +1,0 @@
-/**
- * 
- */
-/**
- * 
- */
-module BankApplication {
-	requires static lombok;
-}

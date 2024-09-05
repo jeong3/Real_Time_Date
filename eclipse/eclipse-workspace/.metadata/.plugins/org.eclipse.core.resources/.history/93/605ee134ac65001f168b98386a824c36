@@ -1,7 +1,0 @@
-package Bank_Model;
-
-public class AccountDTO {
-	int accountNo;
-	String owner;
-	int balance;	
-}

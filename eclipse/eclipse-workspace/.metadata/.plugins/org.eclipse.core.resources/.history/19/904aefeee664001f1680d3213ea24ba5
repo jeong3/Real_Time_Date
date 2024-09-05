@@ -1,8 +1,0 @@
-package J20240828;
-
-public class employees {
-	String empNum;
-	String empName;
-	int salary;
-	double commissionPct;
-}

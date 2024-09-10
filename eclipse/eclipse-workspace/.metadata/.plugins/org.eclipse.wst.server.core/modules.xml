@@ -6,4 +6,5 @@
   <module moduleId="org.eclipse.jst.jee.server:servletTest" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:board1" serverId="Tomcat v9.0 Server at localhost"/>
   <module moduleId="org.eclipse.jst.jee.server:Board" serverId="Tomcat v9.0 Server at localhost"/>
+  <module moduleId="org.eclipse.jst.jee.server:jspMVCmisoshopping" serverId="Tomcat v9.0 Server at localhost"/>
 </modules>

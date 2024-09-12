@@ -192,9 +192,44 @@ public class MemberDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(memberNum);
 		
 		
 	}
+	public String memberNumSelect(String memberId) {
+		String memberNum = null;
+		con = getConnection();
+		sql = " select member_num from members where member_id = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rs = pstmt.executeQuery();
+			rs.next();
+			memberNum = rs.getString(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return memberNum;
+	}
+	
+	public void MemberPwUpdate(String newPw, String userId) {
+		con = getConnection();
+		sql = "update members set member_pw = ? where member_id = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, newPw);
+			pstmt.setString(2, userId);
+			int i = pstmt.executeUpdate();
+			System.out.println(i+"행 비밀번호가 변경");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+	}
+	
 
 	public void close() {
 		if (rs != null)
@@ -213,6 +248,12 @@ public class MemberDAO {
 			} catch (Exception e) {
 			}
 	}
+
+	
+
+	
+
+	
 
 	
 

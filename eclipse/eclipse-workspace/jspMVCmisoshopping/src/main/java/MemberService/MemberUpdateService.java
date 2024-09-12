@@ -5,18 +5,31 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import model.AuthInfoDTO;
 import model.MemberDAO;
 import model.MemberDTO;
 
 public class MemberUpdateService {
 
-	public void execute(HttpServletRequest request) {
+	public int execute(HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		
+		String memberNum = request.getParameter("memberNum");
+		HttpSession session = request.getSession();
+		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
+		MemberDAO dao = new MemberDAO();
+		if(memberNum == null) {
+			memberNum = dao.memberNumSelect(auth.getUserId());
+			System.out.println(memberNum);
+		}
+		
+		
 		MemberDTO dto = new MemberDTO();
 		dto.setGender(request.getParameter("gender"));
 		dto.setMemberAddr(request.getParameter("memberAddr"));
@@ -24,7 +37,7 @@ public class MemberUpdateService {
 		dto.setMemberEmail(request.getParameter("memberEmail"));
 		dto.setMemberId(request.getParameter("memberId"));
 		dto.setMemberName(request.getParameter("memberName"));
-		dto.setMemberNum(request.getParameter("memberNum"));
+		dto.setMemberNum(memberNum);
 		dto.setMemberPhone1(request.getParameter("memberPhone1"));
 		dto.setMemberPhone2(request.getParameter("memberPhone2"));
 		dto.setMemberPost(request.getParameter("memberPost"));
@@ -39,9 +52,14 @@ public class MemberUpdateService {
 		} catch (Exception e) {e.printStackTrace();}
 		dto.setMemberBirth(date);
 		
-		MemberDAO dao = new MemberDAO();
-		dao.MemberUpdate(dto);
-		
+		int i = 0;
+		if(auth.getUserPw().equals(request.getParameter("memberPw"))) {
+			dao.MemberUpdate(dto);
+			i = 1;
+		}else {
+			request.setAttribute("errPw", "비밀번호가 틀렸습니다.");
+			
+		}return i;
 		
 		
 	}

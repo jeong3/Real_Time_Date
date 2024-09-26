@@ -16,12 +16,15 @@
 	<c:if test="${auth.grade == 'emp' }">
 	<li> <a href="memberList.mem">회원관리</a> </li>
 	<li> <a href="employeeList.emp">직원관리</a> </li>
-	<li> <a href="memberMyPage.my">내 정보 보기</a> </li>
+	<li><a href="goodsList.goods">상품관리</a></li>
+	<li> <a href="employeeMyPage.my">내 정보 보기</a> </li>
 	</c:if>
 	
 	<!-- 회원 -->
 	<c:if test="${auth.grade == 'mem' }">
 	<li> <a href="memberMyPage.my">내 정보 보기</a> </li>
+	<li> <a href="wishItem.item">관심상품</a></li>
+	<li> <a href="cartList.item">장바구니</a></li>
 	</c:if>
 	<li> <a href="logout.login">로그아웃</a> </li>
 	
@@ -53,5 +56,21 @@
 </table>   
 </form>
 </c:if>
+<table width="800" align="center">
+   <tr>
+      <c:forEach items="${list }" var="list" varStatus="idx">
+      <td> 
+      <a href="detailView.item?goodsNum=${list.goodsNum }">
+      <img src="goods/upload/${list.goodsMainImage }" width="300" height="150"/><br />
+         상품이름 : ${list.goodsName }<br/>
+         상품가격 : ${list.goodsPrice }<br />
+         </a>
+      </td>
+      <c:if test="${idx.count % 3 == 0 }"></tr><tr></c:if>
+      </c:forEach>
+   </tr>
+</table>
+
+
 </body>
 </html>

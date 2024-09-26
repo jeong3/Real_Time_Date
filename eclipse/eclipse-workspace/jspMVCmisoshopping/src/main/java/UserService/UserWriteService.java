@@ -1,5 +1,7 @@
 package UserService;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import model.MemberDTO;
@@ -8,6 +10,12 @@ import model.UserDAO;
 public class UserWriteService {
 
 	public void execute(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		MemberDTO dto = new MemberDTO();
 		dto.setMemberNum(request.getParameter("memberNum"));
 		dto.setMemberId(request.getParameter("memberId"));

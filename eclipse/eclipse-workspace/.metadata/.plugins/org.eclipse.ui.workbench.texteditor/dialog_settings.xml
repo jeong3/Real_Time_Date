@@ -6,8 +6,11 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="sysdate"/>
+		<item key="selection" value="employeePwModify.my"/>
 		<list key="findhistory">
+			<item value="employeePwModify.my"/>
+			<item value="empPw"/>
+			<item value="at"/>
 			<item value="sysdate"/>
 			<item value="package D20240710;"/>
 		</list>

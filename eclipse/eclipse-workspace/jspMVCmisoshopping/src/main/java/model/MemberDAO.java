@@ -204,8 +204,11 @@ public class MemberDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, memberId);
 			rs = pstmt.executeQuery();
-			rs.next();
-			memberNum = rs.getString(1);
+			if(rs.next()) {
+				memberNum = rs.getString(1);
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {

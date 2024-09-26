@@ -54,32 +54,34 @@ public class UserDAO {
 			close();
 		}
 	}
-	public AuthInfoDTO loginSelect(String userId) {
-		AuthInfoDTO dto = null;
-		con = getConnection();
-		sql = "select member_id user_id, member_pw user_pw, member_name user_name, member_email user_email, 'mem' grade";
+	 public AuthInfoDTO loginSelect(String userId) {
+	      AuthInfoDTO dto = null;
+	      con = getConnection();
+	      sql = "select member_id user_id, member_pw user_pw, member_name user_name, member_email user_email, 'mem' grade";
 	      sql += " from members where member_id = ? union select emp_id, emp_pw, emp_name, emp_email, 'emp'";
 	      sql += " from employees where emp_id = ?";
-		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, userId);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				dto = new AuthInfoDTO();
-				dto.setGrade(rs.getString("grade"));
-				dto.setUserEmail(rs.getString("user_email"));
-				dto.setUserId(rs.getString("user_id"));
-				dto.setUserName(rs.getString("user_name"));
-				dto.setUserPw(rs.getString("user_pw"));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close();
-		}
-		return dto;
-	}
+	      try {
+	         pstmt = con.prepareStatement(sql);
+	         pstmt.setString(1, userId);
+	         pstmt.setString(2, userId);
+	         rs = pstmt.executeQuery();
+	         if(rs.next()) {
+	            dto = new AuthInfoDTO();
+	            dto.setUserId(rs.getString("user_id"));
+	            dto.setUserPw(rs.getString("user_pw"));
+	            dto.setUserName(rs.getString("user_name"));
+	            dto.setGrade(rs.getString("grade"));
+	            dto.setUserEmail(rs.getString("user_email"));
+	         }
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         close();
+	      }
+	      return dto;
+	   }
+
 	
 	
 	public void close() {

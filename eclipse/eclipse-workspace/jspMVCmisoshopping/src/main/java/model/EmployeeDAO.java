@@ -180,8 +180,60 @@ public class EmployeeDAO {
 		return num;
 		
 	}
-
-	
+	public String employeeNumSelect(String empId) {
+		
+		con = getConnection();
+		sql = "select emp_num from employees where emp_id = ?";
+		String empNum = null;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, empId);
+			rs = pstmt.executeQuery();
+			rs.next();
+			empNum = rs.getString(1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return empNum;
+	}
+	public void EmployeePwUpdate(String newPw, String userId) {
+		con = getConnection();
+		sql = "update employees set emp_pw = ? where emp_id = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, newPw);
+			pstmt.setString(2, userId);
+			int i = pstmt.executeUpdate();
+			System.out.println(i+"행 비밀번호 변경");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+	}
+	public String empNumSelect(String empId) {
+		String empNum = null;
+		con =  getConnection();
+		sql = "select emp_num from employees where emp_id = ?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, empId);
+			rs = pstmt.executeQuery();
+			rs.next();
+			empNum = rs.getString(1);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return empNum;
+	}
 	
 	
 	public void close() {
@@ -208,6 +260,12 @@ public class EmployeeDAO {
 			}
 		
 	}
+
+
+
+	
+
+	
 
 	
 	

@@ -1,5 +1,7 @@
 package EmployeeService;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import model.EmployeeDAO;
@@ -8,6 +10,12 @@ import model.EmployeeDTO;
 public class EmployeeWriteService {
 
 	public void execute(HttpServletRequest request) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		EmployeeDTO dto = new EmployeeDTO();
 		dto.setEmpNum(request.getParameter("empNum"));
 		dto.setEmpId(request.getParameter("empId"));

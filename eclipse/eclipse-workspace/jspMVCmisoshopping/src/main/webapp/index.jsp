@@ -17,7 +17,9 @@
 	<li> <a href="memberList.mem">회원관리</a> </li>
 	<li> <a href="employeeList.emp">직원관리</a> </li>
 	<li><a href="goodsList.goods">상품관리</a></li>
+	<li><a href="inquire.inq">문의관리</a></li>
 	<li> <a href="employeeMyPage.my">내 정보 보기</a> </li>
+	<li> <a href="purchaseList.deli">회원구매정보</a> </li>
 	</c:if>
 	
 	<!-- 회원 -->
@@ -25,6 +27,7 @@
 	<li> <a href="memberMyPage.my">내 정보 보기</a> </li>
 	<li> <a href="wishItem.item">관심상품</a></li>
 	<li> <a href="cartList.item">장바구니</a></li>
+	<li> <a href="purchaseList.item">주문조회</a></li>
 	</c:if>
 	<li> <a href="logout.login">로그아웃</a> </li>
 	
@@ -36,9 +39,11 @@
 <c:if test="${empty auth }">	
 <form action="Login.login" method="post">
 <table border="1" align="center">
-   <tr><td colspan="2">로그인유지 | 아이디저장 </td></tr>
+   <tr><td colspan="2"> 
+   <input type="checkbox" name="keepLogin" value="on" />로그인유지 |
+   <input type="checkbox" name="storeId" value="store" <c:if test="${!empty sid }">checked</c:if>/> 아이디저장 </td></tr>
    <tr><td>
-         <input type="text" name="userId" placeholder="아이디" />
+         <input type="text" name="userId" placeholder="아이디" value="${sid }"/>
          <div style="color:red" >${errId }</div>
       </td>
       <td rowspan="2">

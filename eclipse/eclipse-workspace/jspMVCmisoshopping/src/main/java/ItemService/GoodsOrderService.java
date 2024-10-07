@@ -45,6 +45,7 @@ public class GoodsOrderService extends MemberAuthService {
 		dto.setDeliveryPost(deliveryPost);
 		dto.setDeliveryPhone(deliveryPhone);
 		dto.setMessage(message);
+		dto.setMemberNum(memberNum);
 		
 		ItemDAO dao = new ItemDAO();
 		dao.purchaseInsert(dto);

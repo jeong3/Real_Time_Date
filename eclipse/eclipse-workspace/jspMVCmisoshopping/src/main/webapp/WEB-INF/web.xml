@@ -99,4 +99,31 @@
   <url-pattern>*.item</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  <servlet-name>deli</servlet-name>
+  <servlet-class>controller.DeliveryFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>deli</servlet-name>
+  <url-pattern>*.deli</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>review</servlet-name>
+  <servlet-class>controller.ReviewFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>review</servlet-name>
+  <url-pattern>*.review</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  <servlet-name>inquire</servlet-name>
+  <servlet-class>controller.InquireFrontController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>inquire</servlet-name>
+  <url-pattern>*.inq</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

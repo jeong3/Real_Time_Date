@@ -12,7 +12,7 @@
 		//#############################
 		// 인증결과 파라미터 일괄 수신
 		//#############################
-		request.setCharacterEncoding("UTF-8");
+		
 
 		Map<String,String> paramMap = new Hashtable<String,String>();
 
@@ -109,10 +109,10 @@
 				//#####################
 				String netcancelResultString = httpUtil.processHTTP(authMap, netCancel);	// 망취소 요청 API url(고정, 임의 세팅 금지)
 
-				out.println("## 망취소 API 결과 ##");
+				System.out.println("## 망취소 API 결과 ##");
 
 				// 취소 결과 확인
-				out.println("<p>"+netcancelResultString.replaceAll("<", "&lt;").replaceAll(">", "&gt;")+"</p>");
+				System.out.println("<p>"+netcancelResultString.replaceAll("<", "&lt;").replaceAll(">", "&gt;")+"</p>");
 			}
 
 		}else{

@@ -6,8 +6,16 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="employeePwModify.my"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="log"/>
+			<item value="thymeleaf"/>
+			<item value="board"/>
+			<item value="jar"/>
+			<item value="goodsdeta"/>
+			<item value="purchaseModifyService"/>
+			<item value="purchase_sta"/>
+			<item value="INIstdpay_pc_return.item"/>
 			<item value="employeePwModify.my"/>
 			<item value="empPw"/>
 			<item value="at"/>
@@ -15,11 +23,12 @@
 			<item value="package D20240710;"/>
 		</list>
 		<list key="replacehistory">
+			<item value="result"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="785"/>
-		<item key="DIALOG_Y_ORIGIN" value="222"/>
+		<item key="DIALOG_X_ORIGIN" value="1232"/>
+		<item key="DIALOG_Y_ORIGIN" value="206"/>
 		<item key="DIALOG_WIDTH" value="369"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

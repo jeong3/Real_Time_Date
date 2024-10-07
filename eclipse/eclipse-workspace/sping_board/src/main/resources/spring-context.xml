@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			"
+>
+	<!-- 객체생성할 때 필요한 xml : BoardFrontController boardFrontController = new BoardFrontController();
+	<bean class="board.controller.BoardFrontController" id="boardFrontController" 
+	아이디는 직접 명시하지 않으면 앞이 소문자인 boardFrontController로 생성된다
+	 -->
+	 <bean class="BoardController.BoardFrontController" id="boardFrontController" />
+	 <bean class="boardService.BoardListService" />
+	 <bean class="boardService.BoardDetailService" />
+	 <bean class="boardService.BoardDeleteService" />
+	 <bean class="boardService.BoardWriteService" />
+	 <bean class="boardService.BoardUpdateService" />
+	 <bean class="model.BoardDAO" />
+</beans>

@@ -9,6 +9,12 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		descript();
+		reviewList();
+		$("#buyItem").click(function(){
+			location.href="buyItem.item?goodsNum=${dto.goodsNum}&cartQty="+$("#cartQty").val();
+		});
+		
 		$("#cartBtn").click(function(){
 			if(${!empty auth}){
 				$.ajax({
@@ -53,7 +59,62 @@
 				}
 			});//ajax는 json으로 값을 전달
 		}); // json : {"key":"value"}
+		$("#descript").click(function(){
+			descript();
+		});
+		$("#review").click(function(){
+			reviewList();
+		});
+		
+		
 	});
+	function descript(){
+		
+		$.ajax({
+			type : "post",
+			url : "descript.item",
+			data : {"goodsNum":"${dto.goodsNum}"},
+			dataType : "html",
+			success : function(result){
+				$("#content").html(result);
+			},
+			error : function(){
+				alert("에러 발생");
+				return;
+			}
+		});
+	}
+	function reviewList(){
+		$.ajax({
+			type : "post",
+			url : "reviewList.review",
+			data : {"goodsNum" : "${dto.goodsNum}"},
+			dataType : "html",
+			success : function(result){
+				$("#content").html(result);
+			},
+			error : function(){
+				alert("에러 발생");
+				return;
+			}
+		});
+	}
+	function inquire(){
+		$.ajax({
+			type : "post",
+			url : "inquireList.inq",
+			data : {"goodsNum" : "${dto.goodsNum}"},
+			dataType : "html",
+			success : function(result){
+				$("#content").html(result);
+			},
+			error : function(){
+				alert("에러러ㅓㅓㅓ");
+				return;
+			}
+		})
+	}
+	
 </script>
 </head>
 <body>
@@ -88,7 +149,7 @@
 		</tr>
 		<tr>
 			<td colspan="2"><span id="descript">제품 상세 설명</span> | 
-			<span id="review">리뷰</span> | <span id="inquire" onclick="">상품문의</span></td>
+			<span id="review">리뷰</span> | <span id="inquire" onclick="inquire();">상품문의</span></td>
 		</tr>
 		<tr>
 			<td colspan="2"><div id="content"></div></td>

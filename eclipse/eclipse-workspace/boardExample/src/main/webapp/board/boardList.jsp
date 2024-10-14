@@ -20,7 +20,7 @@
 		</tr>
 		<c:forEach items="${list }" var="dto">
 			<tr>
-				<td> <a href="boardDetail.com?boardNum=${dto.boardNum }"> ${dto.boardNum }</a></td>
+				<td> <a href="boardDetail?boardNum=${dto.boardNum }"> ${dto.boardNum }</a></td>
 				<td>${dto.boardWriter }</td>
 				<td>${dto.boardSubject }</td>
 			</tr>

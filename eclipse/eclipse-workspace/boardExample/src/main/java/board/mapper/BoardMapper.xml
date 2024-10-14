@@ -12,7 +12,26 @@ values(( <include refid="boardNum"></include> ), #{boardWriter}, #{boardSubject}
 </insert>
 
 <select id="boardSelectAll" resultType="dto">
-select board_num boardNum, board_writer boardWriter, board_subject boardSubject, board_content boardContent from board
+select board_num as boardNum, board_writer as boardWriter, board_subject as boardSubject
+, board_content as boardContent from board order by boardNum
 </select>
+
+<select id="boardSelectOne" resultType="dto" parameterType="String">
+select board_num as boardNum, board_writer as boardWriter, board_subject as boardSubject
+, board_content as boardContent from board 
+where board_num=#{boardNum}
+</select>
+
+<update id="boardUpdate" parameterType="dto">
+update board set 
+  board_writer = #{boardWriter}
+, board_subject = #{boardSubject}
+, board_content = #{boardContent}
+where board_num = #{boardNum}
+</update>
+
+<delete id="boardDelete" parameterType="Integer">
+	delete from board where board_num = #{boardNum}
+</delete>
 
 </mapper>

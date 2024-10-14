@@ -1,13 +1,21 @@
 package board.command;
-
-public class BoardCommand {
 	// dto === table의 컬럼
 	// request.getParameter("input의 name")
 	// request === command의 멤버변수
+public class BoardCommand {
+	
+	Integer boardNum;
 	String boardWriter;
 	String boardSubject;
 	String boardContent;
 	
+	
+	public Integer getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(Integer boardNum) {
+		this.boardNum = boardNum;
+	}
 	public String getBoardWriter() {
 		return boardWriter;
 	}

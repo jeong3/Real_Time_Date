@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+게시글 수정
+<form action="boardModify" method="post">
+번호 : <input type="text" name="boardNum" th:value="${dto.boardNum}" readonly="readonly" /> <br />
+작성자 : <input type="text" name="boardWriter" th:value="${dto.boardWriter}"> <br />
+제목 : <input type="text" name="boardSubject" th:value="${dto.boardSubject}"> <br />
+내용 : <textarea rows="5" name="boardContent" cols="60">[[${dto.boardContent}]]</textarea> <br />
+<input type="submit" value="수정">
+</form>
+
+</body>
+</html>

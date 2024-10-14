@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	리스트
+	<br>
+	<a href="boardWrite">작성</a>
+
+	<table border="1">
+		<tr>
+			<th>번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+		</tr>
+
+		<tr th:each="dto : ${list}">
+			<th> <a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardNum}]]</a> </th>
+			<th>[[${dto.boardSubject}]]</th>
+			<th>[[${dto.boardWriter}]]</th>
+		</tr>
+
+
+	</table>
+</body>
+</html>

@@ -11,5 +11,11 @@ public interface BoardMapper {
 	public void boardInsert(BoardDTO dto);
 
 	public List<BoardDTO> boardSelectAll();
+
+	public BoardDTO boardSelectOne(String boardNum);
+
+	public void boardUpdate(BoardDTO dto);
+
+	public void boardDelete(Integer boardNum);
 	
 }

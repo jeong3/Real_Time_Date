@@ -12,6 +12,11 @@ public interface AutoNumMapper {
 			,@Param("len") Integer len
 			,@Param("tableName") String tableName);
 
-
+	void numsDelete(
+			@Param("nums") String[] nums
+			,@Param("tableName") String tableName
+			,@Param("columnName") String columnName);
+			
+	
 
 }

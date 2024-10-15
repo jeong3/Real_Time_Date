@@ -8,10 +8,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import springBootMVCShopping.command.MemberCommand;
 import springBootMVCShopping.service.AutoNumService;
+import springBootMVCShopping.service.member.MemberListService;
 import springBootMVCShopping.service.member.MemberWriteService;
+import springBootMVCShopping.service.member.MembersDeleteService;
 
 @Controller
 @RequestMapping("member") // 공통주소 처리
@@ -20,10 +24,16 @@ public class MemberController {
 	MemberWriteService memberWriteService;
 	@Autowired
 	AutoNumService autoNumService;
-
+	@Autowired
+	MemberListService memberListService;
+	@Autowired
+	MembersDeleteService membersDeleteService;
+	
+	
 	@GetMapping("memberList") // 절대주소
-	public String list() {
-
+	public String list(@RequestParam(value="page", required=false, defaultValue="1") Integer page,
+			@RequestParam(value="searchWord", required=false) String searchWord, Model model) {
+		memberListService.execute(page,searchWord,model);
 		return "thymeleaf/member/memberList";
 		// return "member/memberList";
 	}
@@ -43,7 +53,6 @@ public class MemberController {
 		if (result.hasErrors()) {
 			return "thymeleaf/member/memberForm";
 		}
-		
 		if (!memberCommand.isMemberPwEqualMemberPwCon()) {
 			//model.addAttribute("errPw", "비밀번호가 일치하지 않습니다.");
 			result.rejectValue("memberPwcon", "memberCommand.memberPwcon", "비밀번호가 일치하지 않습니다.");
@@ -51,7 +60,12 @@ public class MemberController {
 		}
 		memberWriteService.execute(memberCommand);
 		return "redirect:memberList";
-
 	}
-
+	
+	@RequestMapping(value = "membersDelete")
+	public String Delete(@RequestParam("nums") String memberNums []) { 
+		// nums의 값을 매개변수 memberNums []로 받음 name과 같은 값으로도 받을 수 있다.
+		membersDeleteService.execute(memberNums);
+		return "redirect:memberList";
+	}
 }

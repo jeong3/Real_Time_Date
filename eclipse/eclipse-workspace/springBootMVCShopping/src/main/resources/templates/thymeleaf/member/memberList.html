@@ -34,7 +34,7 @@
 		<tr th:each="dto : ${list}">
 			<th><input type="checkbox" name="nums"
 				th:value="${dto.memberNum}"></th>
-			<th>[[${dto.memberNum}]]</th>
+			<th> <a th:href="|memberDetail/${dto.memberNum}|">[[${dto.memberNum}]]</a> </th>
 			<th>[[${dto.memberName}]]</th>
 			<th>[[${dto.memberId}]]</th>
 			<th>[[${#dates.format(dto.memberRegist,'yyyy-MM-dd HH:mm')}]]</th>

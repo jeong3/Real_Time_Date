@@ -6,14 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import springBootMVCShopping.command.MemberCommand;
 import springBootMVCShopping.service.AutoNumService;
+import springBootMVCShopping.service.member.MemberDetailService;
 import springBootMVCShopping.service.member.MemberListService;
+import springBootMVCShopping.service.member.MemberUpdateService;
 import springBootMVCShopping.service.member.MemberWriteService;
 import springBootMVCShopping.service.member.MembersDeleteService;
 
@@ -28,8 +30,10 @@ public class MemberController {
 	MemberListService memberListService;
 	@Autowired
 	MembersDeleteService membersDeleteService;
-	
-	
+	@Autowired
+	MemberDetailService memberDetailService;
+	@Autowired
+	MemberUpdateService memberUpdateService;
 	@GetMapping("memberList") // 절대주소
 	public String list(@RequestParam(value="page", required=false, defaultValue="1") Integer page,
 			@RequestParam(value="searchWord", required=false) String searchWord, Model model) {
@@ -68,4 +72,42 @@ public class MemberController {
 		membersDeleteService.execute(memberNums);
 		return "redirect:memberList";
 	}
+	//PathVariable
+	@GetMapping("memberDetail/{memberNum}")
+	public String memberDetail(@PathVariable("memberNum") String memberNum, Model model) {
+		memberDetailService.execute(memberNum, model);
+		return "thymeleaf/member/memberInfo";
+	}
+	@GetMapping("memberUpdate") 
+	// memberDetail에서 PathVariable을 사용했기 때문에 주소가 
+	///member/memberDetail/memberUpdate가 되므로 수정으로 가는 a태그 앞에 ../를 붙혀 상위폴더로 가야한다
+	public String memberUpdate(String memberNum,Model model) {
+		memberDetailService.execute(memberNum, model);
+		return "thymeleaf/member/memberModify";
+	}
+	@PostMapping("memberUpdate")
+	public String memberUpdate(@Validated MemberCommand memberCommand, BindingResult result) {
+		if(result.hasErrors()) {
+			return "thymeleaf/member/memberModify";
+		}
+		memberUpdateService.execute(memberCommand);
+		return "redirect:memberDetail/"+memberCommand.getMemberNum(); //memberDetail에서 PathVariable방식이기 때문에 /+멤버넘값
+	}
+	
+	@GetMapping("memberDelete/{memberNum}")
+	public String memberDelete(@PathVariable("memberNum") String [] memberNums) {
+		membersDeleteService.execute(memberNums);
+		return "redirect:../memberList";
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+

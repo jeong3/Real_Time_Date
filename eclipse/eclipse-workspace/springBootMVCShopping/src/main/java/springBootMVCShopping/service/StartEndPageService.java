@@ -14,6 +14,7 @@ import springBootMVCShopping.mapper.MemberMapper;
 public class StartEndPageService {
 	@Autowired
 	MemberMapper memberMapper;
+
 	public StartEndPageDTO execute(int page, String searchWord, int limit) {
 	      int startRow = ((page - 1) * limit) + 1;
 	      int endRow = startRow + limit - 1;
@@ -29,6 +30,7 @@ public class StartEndPageService {
 	      int maxPage = (int)((double)count / limit + 0.95);
 	      if(endPageNum > maxPage) endPageNum = maxPage;
 	      if(searchWord == null) searchWord="";
+	      
 	      model.addAttribute("list", list);
 	      model.addAttribute("searchWord", searchWord);
 	      model.addAttribute("page", page);

@@ -7,5 +7,7 @@ import org.apache.ibatis.annotations.Param;
 public interface LoginMapper {
 
 	Integer idCheckSelectOne(@Param("userId") String userId);
+
+	Integer EmailCheckSelectOne(@Param("userEmail") String userEmail);
 	
 }

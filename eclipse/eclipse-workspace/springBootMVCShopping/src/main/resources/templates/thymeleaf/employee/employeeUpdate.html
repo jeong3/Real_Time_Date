@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="employeeModify" method="post" >
+<table border=1 align="center" th:object="${employeeCommand}" >
+	<tr><th>직원번호</th><th><input type="text" name="empNum" th:value="${employeeCommand.empNum }" readonly="readonly"></th></tr>
+	<tr><th>직원이름</th><th><input type="text" name="empName" th:value="${employeeCommand.empName }">
+	<span style = "color : red" th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}" /></th></tr>
+	
+	<tr><th>아이디</th><th><input type="text" name="empId" th:value="${employeeCommand.empId }" readonly="readonly">
+	<span style = "color : red" th:if="${#fields.hasErrors('empId')}" th:errors="*{empId}" /></th></tr>
+
+	
+	<tr><th>직원주소</th><th><input type="text" name="empAddr" th:value="${employeeCommand.empAddr }">
+	<span style = "color : red" th:if="${#fields.hasErrors('empAddr')}" th:errors="*{empAddr}" /></th></tr>
+	
+	<tr><th>상세주소</th><th><input type="text" name="empAddrDetail" th:value="${employeeCommand.empAddrDetail }"></th></tr>
+	<tr><th>우편번호</th><th><input type="text" name="empPost" th:value="${employeeCommand.empPost }"></th></tr>
+	
+	<tr><th>전화번호</th><th><input type="text" name="empPhone" th:value="${employeeCommand.empPhone }">
+	<span style = "color : red" th:if="${#fields.hasErrors('empPhone')}" th:errors="*{empPhone}" /></th></tr>
+	
+	<tr><th>주민번호</th><th><input type="text" name="empJumin" th:value="${employeeCommand.empJumin }"></th></tr>
+	
+	<tr><th>이메일</th><th><input type="text" name="empEmail" th:value="${employeeCommand.empEmail }">
+	<span style = "color : red" th:if="${#fields.hasErrors('empEmail')}" th:errors="*{empEmail}" /></th></tr>
+	<tr><th colspan="2"><input type="submit" value="직원정보수정"></th></tr>
+</table>
+</form>
+</body>
+</html>

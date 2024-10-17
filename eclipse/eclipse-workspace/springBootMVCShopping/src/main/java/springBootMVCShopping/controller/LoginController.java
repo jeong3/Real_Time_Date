@@ -15,7 +15,7 @@ public class LoginController {
 	IdCheckService idCheckService;
 	
 	@PostMapping("userIdCheck")
-	//@ResponseBody html파일 , jsp파일의 경로가 아닌 값을 리턴하기 위해서 필요하다
+	//@ResponseBody는 spring방식으로 html파일 , jsp파일의 경로가 아닌 값이나 오브젝트를 리턴하기 위해서 필요하다
 	public @ResponseBody Integer userIdCheck(String userId) {
 		System.out.println("userId : " + userId);
 		Integer i = idCheckService.execute(userId);

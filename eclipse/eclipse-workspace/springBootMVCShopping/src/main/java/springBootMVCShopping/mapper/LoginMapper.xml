@@ -7,8 +7,12 @@
 select 1 from members where member_id = #{userId}
 union
 select 1 from employees where emp_id = #{userId}
-
 </select>
 
+<select id="EmailCheckSelectOne" parameterType="string" resultType="integer">
+select 1 from members where MEMBER_EMAIL = #{userEmail}
+union
+select 1 from employees where EMP_EMAIL = #{userEmail}
+</select>
 
 </mapper>

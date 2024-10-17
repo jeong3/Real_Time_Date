@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border=1 align="center" >
+	<tr><th>직원번호</th><th>[[${employeeCommand.empNum}]]</th></tr>
+	<tr><th>직원이름</th><th>[[${employeeCommand.empName }]]</th></tr>
+	<tr><th>아이디</th><th>[[${employeeCommand.empId }]]</th></tr>
+	<tr><th>비밀번호</th><th>[[${employeeCommand.empPw }]]</th></tr>
+	<tr><th>직원주소</th><th>[[${employeeCommand.empAddr }]]</th></tr>
+	<tr><th>상세주소</th><th>[[${employeeCommand.empAddrDetail }]]</th></tr>
+	<tr><th>우편번호</th><th>[[${employeeCommand.empPost }]]</th></tr>
+	<tr><th>전화번호</th><th>[[${employeeCommand.empPhone }]]</th></tr>
+	<tr><th>주민번호</th><th>[[${employeeCommand.empJumin }]]</th></tr>
+	<tr><th>이메일</th><th>[[${employeeCommand.empEmail }]]</th></tr>
+	<tr><th colspan="2"> 
+	<a th:href="|../employeeModify?empNum=${employeeCommand.empNum}|">수정</a>
+	<a th:href="|../employeeDelete?nums=${employeeCommand.empNum}|">삭제</a>
+	</th></tr>
+</table>
+	
+</body>
+</html>

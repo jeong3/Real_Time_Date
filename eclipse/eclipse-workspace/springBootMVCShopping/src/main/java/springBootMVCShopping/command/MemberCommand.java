@@ -40,6 +40,8 @@ public class MemberCommand {
 	//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	Date memberBirth;
+	@DateTimeFormat(pattern = "yyyy-MM-dd") 
+	Date memberRegist;
 	
 	public boolean isMemberPwEqualMemberPwCon() {
 		return memberPw.equals(memberPwcon);

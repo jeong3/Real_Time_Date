@@ -24,6 +24,7 @@ public class MemberDTO {
 	//SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd")
 	@DateTimeFormat(pattern = "yyyy-MM-dd") 
 	Date memberBirth;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date memberRegist;
 	String memberEmailConf;
 	

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="/static/js/daumAddressScript.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/check.js"></script>
+</head>
+<body>
+직원등록하시게요??<br>
+<form action="employeeWrite" method="post" th:object="${employeeCommand}">
+<table border=1 align="center" >
+	<tr><th>직원번호</th><td><input type="text" name="empNum" th:value="${employeeCommand.empNum}" ></td></tr>
+	
+	<tr><th>직원이름</th><td><input type="text" name="empName" th:value="${employeeCommand.empName}"> 
+	<span style = "color : red" th:if="${#fields.hasErrors('empName')}" th:errors="*{empName}" /></td></tr>
+	
+	<tr><th>아이디</th><td><input type="text" name="empId" id="userId" th:value="${employeeCommand.empId}">
+	<span id="idCheck"></span>
+	<span style = "color : red" th:if="${#fields.hasErrors('empId')}" th:errors="*{empId}" /></td></tr>
+	
+	<tr><th>비밀번호</th><td><input type="password" name="empPw" th:value="${employeeCommand.empPw}">
+	<span style = "color : red" th:if="${#fields.hasErrors('empPw')}" th:errors="*{empPw}" /></td></tr>
+	
+	<tr><th>비밀번호확인</th><td><input type="password" name="empPwCon" th:value="${employeeCommand.empPwCon}">
+	<span style = "color : red" th:if="${#fields.hasErrors('empPwCon')}" th:errors="*{empPwCon}" /></th></tr>
+	
+	<tr><th>직원주소</th><td><input type="text" name="empAddr" id="sample4_roadAddress"  th:value="${employeeCommand.empAddr}" readonly="readonly"> <button type="button" onclick="execDaumPostcode();">주소검색</button>
+	<span style = "color : red" th:if="${#fields.hasErrors('empAddr')}" th:errors="*{empAddr}" /></td></tr>
+	
+	<tr><th>상세주소</th><td><input type="text" name="empAddrDetail"  th:value="${employeeCommand.empAddrDetail}"></td></tr>
+	<tr><th>우편번호</th><td><input type="text" name="empPost" id="sample4_postcode" readonly="readonly"  th:value="${employeeCommand.empPost}"></td></tr>
+	<tr><th>전화번호</th><td><input type="text" name="empPhone" th:value="${employeeCommand.empPhone}">
+	<span style = "color : red" th:if="${#fields.hasErrors('empPhone')}" th:errors="*{empPhone}" /></td></tr>
+	<tr><th>주민번호</th><td><input type="text" name="empJumin"  th:value="${employeeCommand.empJumin}"></td></tr>
+	<tr><th>이메일</th><td><input type="text" name="empEmail" th:value="${employeeCommand.empEmail}">
+	<span id="emailCheck"></span>
+	<span style = "color : red" th:if="${#fields.hasErrors('empEmail')}" th:errors="*{empEmail}" /></td></tr>
+	<tr><th colspan="2"><input type="submit" value="직원등록"></th></tr>
+</table>
+</form>
+
+</body>
+</html>

@@ -6,29 +6,8 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="/static/js/daumAddressScript.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$("#userId").on("change keyup",function(){
-		$.ajax({
-			type : "post",
-			url : "/login/userIdCheck",
-			data : {"userId":$("#userId").val()},
-			dataType : "text" ,
-			success : function(result){
-				if(result == "1"){
-					$("#idCheck").text("사용중인 아이디입니다.");
-					$("#idCheck").css("color","red");
-				} else {
-					$("#idCheck").text("사용가능한 아이디입니다.");
-					$("#idCheck").css("color","blue");
-				}
-			},
-			error : function(){
-				alert("서버오류");
-			}
-		});
-	});
-});
+<script type="text/javascript" src="/static/js/check.js">
+
 </script>
 </head>
 <body>
@@ -48,7 +27,6 @@ $(function(){
 <span style = "color : red" th:if="${#fields.hasErrors('memberPw')}" th:errors="*{memberPw}"  ></span><br /> 
 
 회원비밀번호확인 : <input type="password" name="memberPwcon" />
-			<span style="color: red">[[${errPw}]]</span>
 			<span style = "color : red" th:if="${#fields.hasErrors('memberPwcon')}" th:errors="*{memberPwcon}" ></span><br />
 			
 회원주소 : <input type="text" name="memberAddr" id="sample4_roadAddress" th:value="${memberCommand.memberAddr}" readonly="readonly"/><button type="button" onclick="execDaumPostcode();" >주소검색</button>
@@ -65,10 +43,12 @@ $(function(){
 <span style = "color : red" th:if="${#fields.hasErrors('memberPhone1')}" th:errors="*{memberPhone1}"></span><br /> 
 
 회원연락처2 : <input type="tel" name="memberPhone2" th:value="${memberCommand.memberPhone2}" /> <br /> 
-회원이메일 : <input type="email" name="memberEmail" th:value="${memberCommand.memberEmail}" /> 
+회원이메일 : <input type="email" name="memberEmail" id="userEmail" th:value="${memberCommand.memberEmail}" /> 
+<span id="emailCheck"></span>
 <span style = "color : red" th:if="${#fields.hasErrors('memberEmail')}" th:errors="*{memberEmail}"></span><br /> 
 
-회원생년월일 : <input type="date" name="memberBirth" th:value="${memberCommand.memberBirth}"  /> <br /> 
+회원생년월일 : <input type="date" name="memberBirth" th:value="${memberCommand.memberBirth}"  />
+ <span style = "color : red" th:if="${#fields.hasErrors('memberBirth')}" th:errors="${memberCommand.memberBirth}"></span> <br /> 
 <input type="submit" value="회원등록" >
 </form>
 </body>

@@ -18,4 +18,10 @@ public interface MemberMapper {
 
 	Integer memberCount();
 
+
+	MemberDTO memberSelectOne(String memberNum);
+
+
+	void memberUpdate(MemberDTO dto);
+
 }

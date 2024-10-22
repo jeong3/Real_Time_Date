@@ -1,11 +1,16 @@
 package springBootMVCShopping;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import springBootMVCShopping.command.LoginCommand;
+import springBootMVCShopping.service.EmailSendService;
+import springBootMVCShopping.service.SMSMessageService;
 
 @Controller
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
@@ -19,5 +24,26 @@ public class SpringBootMvcShoppingApplication {
 	public String index(LoginCommand loginCommand) {
 		return "thymeleaf/index";
 	}
-	
+	@GetMapping("/mailling")
+	public String mail() {
+		return "thymeleaf/email";
+	}
+	@Autowired
+	EmailSendService emailSendService;
+	@PostMapping("/mailling")
+	public String mail(String fromEmail, String toEmail, String subject, String contents) {
+		emailSendService.mailSend(fromEmail, toEmail, subject, contents);
+		return "redirect:/";
+	}
+	@GetMapping("/smsSend")
+	public String smsSend() {
+		return "thymeleaf/sms";
+	}
+	@Autowired
+	SMSMessageService sMSMessageService;
+	@PostMapping("/smsSend")
+	public String smsSend(String userPhone, String message) {
+		sMSMessageService.smsSend(userPhone, "010-3911-2494", message);
+		return "redirect:/";
+	}
 }

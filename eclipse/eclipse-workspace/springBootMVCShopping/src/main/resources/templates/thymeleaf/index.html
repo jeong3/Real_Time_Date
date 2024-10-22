@@ -5,11 +5,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-Hello miso shopping
+Hello miso shopping <br>
+<a href="smsSend">문자보내기</a>
+
 <div th:if="${session.auth != null}">
 <ul>
+	<th:block th:if="${session.auth.grade == 'emp'}">
 	<li><a href="member/memberList">회원 목록</a></li>
 	<li><a href="employee/employeeList">직원 목록</a></li>
+	<li><a href="/mailling">메일 보내기</a></li>
+	</th:block>
+	<th:block th:if="${session.auth.grade == 'mem'}">
+	<li><a href="myPage/memberMyPage">내정보 보기</a></li>
+	</th:block>
 	<li><a href="/login/logout">로그아웃</a></li>
 </ul>
 </div>

@@ -24,4 +24,7 @@ public interface MemberMapper {
 
 	void memberUpdate(MemberDTO dto);
 
+
+	int memberEmailCheckUpdate(String userEmail);
+
 }

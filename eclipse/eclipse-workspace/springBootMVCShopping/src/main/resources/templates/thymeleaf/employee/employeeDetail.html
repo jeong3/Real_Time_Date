@@ -16,6 +16,8 @@
 	<tr><th>전화번호</th><th>[[${employeeCommand.empPhone }]]</th></tr>
 	<tr><th>주민번호</th><th>[[${employeeCommand.empJumin }]]</th></tr>
 	<tr><th>이메일</th><th>[[${employeeCommand.empEmail }]]</th></tr>
+	<tr><th>등록일</th><th>[[${employeeCommand.empHireDate}]]</th></tr>
+	
 	<tr><th colspan="2"> 
 	<a th:href="|../employeeModify?empNum=${employeeCommand.empNum}|">수정</a>
 	<a th:href="|../employeeDelete?nums=${employeeCommand.empNum}|">삭제</a>

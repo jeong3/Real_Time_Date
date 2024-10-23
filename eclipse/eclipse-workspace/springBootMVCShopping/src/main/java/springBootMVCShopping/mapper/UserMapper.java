@@ -1,6 +1,7 @@
 package springBootMVCShopping.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import springBootMVCShopping.domain.MemberDTO;
 
@@ -8,5 +9,7 @@ import springBootMVCShopping.domain.MemberDTO;
 public interface UserMapper {
 
 	Integer userInsert(MemberDTO dto);
+
+	
 	
 }

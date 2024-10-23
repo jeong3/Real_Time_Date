@@ -4,19 +4,19 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import springBootMVCShopping.domain.EmpDTO;
+import springBootMVCShopping.domain.EmployeeDTO;
 import springBootMVCShopping.domain.StartEndPageDTO;
 
 @Mapper
 public interface EmployeeMapper {
 
-	void empInsert(EmpDTO dto);
+	void empInsert(EmployeeDTO dto);
 
-	List<EmpDTO> empSelectList(StartEndPageDTO sepDTO);
+	List<EmployeeDTO> empSelectList(StartEndPageDTO sepDTO);
 
-	EmpDTO empSelectOne(String empNum);
+	EmployeeDTO empSelectOne(String empNum);
 
-	void empUpdate(EmpDTO dto);
+	void empUpdate(EmployeeDTO dto);
 
 	void empDelete(String[] empNum);
 

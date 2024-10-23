@@ -6,36 +6,40 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="userCommand"/>
+		<item key="selection" value="validation"/>
 		<list key="findhistory">
-			<item value="memberCommand"/>
-			<item value="getMember"/>
-			<item value="td"/>
-			<item value="limit"/>
-			<item value="empcommand"/>
-			<item value="th"/>
-			<item value="employeeCommand"/>
-			<item value="EmpCommand"/>
-			<item value="empCommand"/>
-			<item value="$"/>
-			<item value="value"/>
+			<item value="validation"/>
 			<item value="dto"/>
-			<item value="dto."/>
-			<item value="userIdCheck"/>
-			<item value="log"/>
+			<item value="value"/>
+			<item value="}"/>
+			<item value="$"/>
+			<item value="pag"/>
+			<item value="empMyPage"/>
+			<item value="content"/>
+			<item value="empCommand"/>
+			<item value="empcommand"/>
+			<item value="vis"/>
+			<item value="visi"/>
+			<item value="span"/>
+			<item value="td"/>
+			<item value="]"/>
 		</list>
 		<list key="replacehistory">
+			<item value="goodsCommand"/>
+			<item value="th:value"/>
+			<item value="}]]"/>
+			<item value="[[$"/>
+			<item value="employeeCommand"/>
+			<item value="memberCommand"/>
+			<item value="th"/>
+			<item value="]]"/>
+			<item value="[["/>
+			<item value="}]"/>
+			<item value="[$"/>
 			<item value="userCommand"/>
 			<item value="getUser"/>
-			<item value="th"/>
 			<item value="empCommand"/>
 			<item value="td"/>
-			<item value="employeeCommand"/>
-			<item value="EmpCommand"/>
-			<item value="th:value"/>
-			<item value="*"/>
-			<item value="field"/>
-			<item value="result"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

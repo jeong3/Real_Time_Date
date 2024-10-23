@@ -12,9 +12,6 @@ import springBootMVCShopping.mapper.MemberMapper;
 
 @Service
 public class StartEndPageService {
-	@Autowired
-	MemberMapper memberMapper;
-
 	public StartEndPageDTO execute(int page, String searchWord, int limit) {
 	      int startRow = ((page - 1) * limit) + 1;
 	      int endRow = startRow + limit - 1;

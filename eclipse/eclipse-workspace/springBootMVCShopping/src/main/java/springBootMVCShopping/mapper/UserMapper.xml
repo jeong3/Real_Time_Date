@@ -14,4 +14,7 @@
 		values (( <include refid="memberNum"/> ), #{memberName}, #{memberId}, #{memberPw}, #{memberAddr}, #{memberAddrDetail}
 		, #{memberPost}, sysdate, #{gender}, #{memberPhone1}, #{memberPhone2}, #{memberEmail}, #{memberBirth}, 0, null)
 	</insert>
+	
+	
+	
 </mapper>

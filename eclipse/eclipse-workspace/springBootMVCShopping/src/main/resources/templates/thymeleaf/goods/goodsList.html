@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<ul>
+		<li><a href="/">홈</a></li>
+		<li><a href="goodsRegist">상품 추가</a></li>
+		<li><a href="goodsIpgo">상품 입고</a></li>
+		<li><a href="goodsIpgoList">상품 입고 현황</a></li>
+	</ul>
+	<table border=1 width="600" align="center">
+		<caption>상품 목록</caption>
+		<tr>
+			<th>번호</th>
+			<th>상품번호</th>
+			<th>상품명</th>
+			<th>상품가격</th>
+		</tr>
+		<tr th:each="dto, status : ${list}">
+			<th><a th:text="${status.index + 1}" th:href="|goodsDetail?goodsNum=${dto.goodsNum}|"></a></th>
+			<th>[[${dto.goodsNum }]]</th>
+			<th>[[${dto.goodsName}]]</th>
+			<th>[[${dto.goodsPrice }]]</th>
+		</tr>
+
+	</table>
+</body>
+</html>

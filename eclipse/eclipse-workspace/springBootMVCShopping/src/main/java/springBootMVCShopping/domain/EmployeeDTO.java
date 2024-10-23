@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Alias("EmpDTO")
 @Data
-public class EmpDTO {
+public class EmployeeDTO {
 	String empNum;
 	String empId;
 	String empPw;

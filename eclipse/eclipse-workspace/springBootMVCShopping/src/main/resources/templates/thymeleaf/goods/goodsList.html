@@ -3,29 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/checkbox.js"></script>
 </head>
 <body>
 	<ul>
 		<li><a href="/">홈</a></li>
-		<li><a href="goodsRegist">상품 추가</a></li>
-		<li><a href="goodsIpgo">상품 입고</a></li>
-		<li><a href="goodsIpgoList">상품 입고 현황</a></li>
+		<li><a href="goodsWrite">상품 추가</a></li>
+		<li><a href="/goodsIpgo/goodsIpgo">상품 입고</a></li>
+		<li><a href="/goodsIpgo/goodsIpgoList">상품 입고 현황</a></li>
 	</ul>
+	<form action="goodsList" method="get">
 	<table border=1 width="600" align="center">
-		<caption>상품 목록</caption>
+		<caption>상품 목록 (상품 수 : [[${count}]])</caption>
+		<tr><th colspan="6">상품검색 : <input type="search"> <input type="button" value="검색"> </th></tr>
+		</form>
+		<form action="goodsDelete" method="post" id="frm">
 		<tr>
+			<th> <input type="checkbox" id="checkBoxs" > </th>
 			<th>번호</th>
 			<th>상품번호</th>
 			<th>상품명</th>
 			<th>상품가격</th>
+			<th>
+				<button type="submit">선택삭제</button>
+			</th>
 		</tr>
 		<tr th:each="dto, status : ${list}">
+			<th> <input type="checkbox" name="nums" th:value="${dto.goodsNum}" > </th>
 			<th><a th:text="${status.index + 1}" th:href="|goodsDetail?goodsNum=${dto.goodsNum}|"></a></th>
 			<th>[[${dto.goodsNum }]]</th>
 			<th>[[${dto.goodsName}]]</th>
 			<th>[[${dto.goodsPrice }]]</th>
+			<th><button type="button" th:attr="onclick=|javascript:location.href='goodsDelete?nums=${dto.goodsNum}'|">삭제</button></th>
 		</tr>
-
+		
+		
+		</form>
 	</table>
 </body>
 </html>

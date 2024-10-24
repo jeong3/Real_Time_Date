@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="validation"/>
+		<item key="selection" value="goods"/>
 		<list key="findhistory">
+			<item value="member"/>
 			<item value="validation"/>
 			<item value="dto"/>
 			<item value="value"/>
@@ -22,9 +23,9 @@
 			<item value="visi"/>
 			<item value="span"/>
 			<item value="td"/>
-			<item value="]"/>
 		</list>
 		<list key="replacehistory">
+			<item value="goods"/>
 			<item value="goodsCommand"/>
 			<item value="th:value"/>
 			<item value="}]]"/>
@@ -39,7 +40,6 @@
 			<item value="userCommand"/>
 			<item value="getUser"/>
 			<item value="empCommand"/>
-			<item value="td"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

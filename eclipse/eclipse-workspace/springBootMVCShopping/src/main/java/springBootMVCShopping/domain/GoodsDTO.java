@@ -4,21 +4,25 @@ import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @Alias("goodsDTO")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class GoodsDTO {
 	String goodsNum;
 	String goodsName;
-	int goodsPrice;
+	Integer goodsPrice;
 	String goodsContents;
-	int visitCount;
+	Integer visitCount;
 	String goodsMainImage;
-	String goodsMainDetailImage;
 	String goodsMainStoreImage;
+	String goodsDetailImage;
 	String goodsDetailStoreImage;
-	Date goodsRegist;
-	Date goodsUpdateDate;
 	String empNum;
+	Date goodsRegist;
 	String updateEmpNum;
+	Date goodsUpdateDate;
 }

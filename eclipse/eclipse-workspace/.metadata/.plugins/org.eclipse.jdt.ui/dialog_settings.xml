@@ -37,7 +37,7 @@
 	</section>
 	<section name="quick_assist_proposal_size">
 		<item key="size.x" value="538"/>
-		<item key="size.y" value="314"/>
+		<item key="size.y" value="316"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.text.QuickOutline">
 		<item key="GoIntoTopLevelTypeAction.isChecked" value="false"/>

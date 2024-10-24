@@ -3,9 +3,12 @@ package springBootMVCShopping.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.command.GoodsCommand;
@@ -38,10 +41,18 @@ public class goodsController {
 	
 	
 	@GetMapping("goodsList")
-	public String goodsList(Model model) {
-		goodsListService.execute(model);
+	public String goodsList(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+			@RequestParam(value = "searchWord", required = false) String searchWord
+			, Model model) {
+		goodsListService.execute(page, searchWord, model);
 		return "thymeleaf/goods/goodsList";
 	}
+	@GetMapping("goodsWrite")
+	public String form() {
+		
+		return "thymeleaf/goods/goodsWrite";
+	}
+	
 	@GetMapping("goodsRegist")
 	public String goodsRegist(Model model, HttpSession session ) {
 		String autoNum = autoNumService.execute("goods_", "goods_num", 7, "goods");
@@ -52,13 +63,18 @@ public class goodsController {
 		model.addAttribute("goodsCommand", goodsCommand);
 		return "thymeleaf/goods/goodsForm";
 	}
-	@PostMapping("goodsRegist")
-	public String goodsRegist(GoodsCommand goodsCommand) {
+	@RequestMapping("goodsRegist")
+	public String goodsRegist(@Validated GoodsCommand goodsCommand , BindingResult result
+			, HttpSession session) {
+		if(result.hasErrors()) {
+			return "thymeleaf/goods/goodsForm";
+		}
 		goodsRegistService.execute(goodsCommand);
-		return "redirect:goodsList";
+		return "thymeleaf/goods/goodsRedirect";
 	}
 	@GetMapping("goodsDetail")
 	public String goodsDetail(String goodsNum,  Model model) {
+		
 		goodsDetailService.execute(goodsNum, model);
 		return "thymeleaf/goods/goodsDetail";
 	}
@@ -74,10 +90,9 @@ public class goodsController {
 		goodsUpdateService.execute(goodsCommand);
 		return "redirect:goodsDetail?goodsNum="+goodsCommand.getGoodsNum();
 	}
-	@GetMapping("goodsDelete")
-	public String goodsDelete(String goodsNum) {
-		goodsDeleteService.execute(goodsNum);
-		
+	@RequestMapping("goodsDelete")
+	public String goodsDelete(@RequestParam("nums") String goodsNums []) {
+		goodsDeleteService.execute(goodsNums);
 		return "redirect:goodsList";
 	}
 	

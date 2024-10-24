@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import springBootMVCShopping.domain.GoodsDTO;
+import springBootMVCShopping.domain.StartEndPageDTO;
 
 @Mapper
 public interface GoodsMapper {
@@ -14,12 +15,16 @@ public interface GoodsMapper {
 
 	String empNumSelect(@Param("empId_") String empId);
 
-	List<GoodsDTO> goodsSelectAll();
+	List<GoodsDTO> goodsSelectAll(StartEndPageDTO sepDTO);
 
 	GoodsDTO goodsSelectOne(String goodsNum);
 
 	Integer goodsUpdate(GoodsDTO dto);
 
-	Integer goodsDelete(String goodsNum);
+	Integer goodsDelete (String [] goodsNum);
+
+	Integer goodsCount();
+
+	List<GoodsDTO> goodsSelectList(String[] goodsNums);
 	
 }

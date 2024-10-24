@@ -9,17 +9,45 @@ GOODS_NUM,GOODS_NAME,GOODS_PRICE,GOODS_CONTENTS,VISIT_COUNT,GOODS_MAIN_IMAGE,GOO
 <insert id="goodsInsert" parameterType="goodsDTO">
 insert into goods (GOODS_NUM,GOODS_NAME,GOODS_PRICE,GOODS_CONTENTS,VISIT_COUNT,GOODS_MAIN_IMAGE,GOODS_MAIN_STORE_IMAGE
 ,GOODS_DETAIL_IMAGE,GOODS_DETAIL_STORE_IMAGE,EMP_NUM,GOODS_REGIST,UPDATE_EMP_NUM,GOODS_UPDATE_DATE)
-values (#{goodsNum}, #{goodsName}, #{goodsPrice}, #{goodsContents},  0 , null, null, null, null, #{empNum}
+values (#{goodsNum}, #{goodsName}, #{goodsPrice}, #{goodsContents},  0 
+, #{goodsMainImage}, #{goodsMainStoreImage}
+<if test="goodsDetailImage != null">
+, #{goodsDetailImage}, #{goodsDetailStoreImage}
+</if>
+<if test="goodsDetailImage == null">
+, null, null
+</if>
+, #{empNum}
 , sysdate, null, null )
 </insert>
 
-<select id="empNumSelect">
+<select id="empNumSelect" >
 		select emp_num from employees where emp_id = #{empId_}
 </select>
+
+<resultMap type="goodsDTO" id="goodsResultMap">
+<constructor>
+
+<idArg column="GOODS_NUM" jdbcType="VARCHAR" javaType="string"/>
+<arg column="GOODS_NAME" jdbcType="VARCHAR" javaType="string"/>
+<arg column="GOODS_PRICE" jdbcType="BIGINT" javaType="integer"/>
+<arg column="GOODS_CONTENTS" jdbcType="VARCHAR" javaType="string"/>
+<arg column="VISIT_COUNT" jdbcType="BIGINT" javaType="integer"/>
+<arg column="GOODS_MAIN_IMAGE" jdbcType="VARCHAR" javaType="string"/>
+<arg column="GOODS_MAIN_STORE_IMAGE" jdbcType="VARCHAR" javaType="string"/>
+<arg column="GOODS_DETAIL_IMAGE" jdbcType="VARCHAR" javaType="string"/>
+<arg column="GOODS_DETAIL_STORE_IMAGE" jdbcType="VARCHAR" javaType="string"/>
+<arg column="EMP_NUM" jdbcType="VARCHAR" javaType="string"/>
+<arg column="GOODS_REGIST" jdbcType="DATE" javaType="java.util.Date"/>
+<arg column="UPDATE_EMP_NUM" jdbcType="VARCHAR" javaType="string"/>
+<arg column="GOODS_UPDATE_DATE" jdbcType="DATE" javaType="java.util.Date"/>
+
+</constructor>
+</resultMap>
 	
-<select id="goodsSelectAll">
+<select id="goodsSelectAll" resultMap="goodsResultMap">
 	select <include refid="goodsColumn"/> from goods order by goods_num
-</select>	
+</select>
 
 <select id="goodsSelectOne" parameterType="string">
 	select <include refid="goodsColumn"/> from goods where goods_num = #{goodsNum}
@@ -36,9 +64,20 @@ values (#{goodsNum}, #{goodsName}, #{goodsPrice}, #{goodsContents},  0 , null, n
 	
 </update>
 
-<delete id="goodsDelete">
-delete from goods where goods_num = #{goodsNum}
+<select id="goodsCount">
+select count(*) from goods
+</select>
 
 
-</delete>
+   <select id="goodsSelectList" resultType = "goodsDTO">
+      select <include refid="goodsColumn"></include>
+      from goods
+      <where>
+         goods_num in 
+         <foreach collection="goodsNums" index="index" item="goodsNum" open="(" close=")" separator=",">
+         #{goodsNum}
+         </foreach>
+      </where>
+   </select>
+
 </mapper>

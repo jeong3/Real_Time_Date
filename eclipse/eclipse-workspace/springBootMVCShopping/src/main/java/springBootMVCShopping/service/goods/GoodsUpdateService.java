@@ -15,8 +15,8 @@ public class GoodsUpdateService {
 		GoodsDTO dto = new GoodsDTO();
 		dto.setGoodsContents(goodsCommand.getGoodsContents());
 		dto.setGoodsDetailStoreImage(goodsCommand.getGoodsDetailStoreImage());
-		dto.setGoodsMainDetailImage(goodsCommand.getGoodsMainDetailImage());
-		dto.setGoodsMainImage(goodsCommand.getGoodsMainImage());
+		//dto.setGoodsMainDetailImage(goodsCommand.getGoodsMainDetailImage());
+		//dto.setGoodsMainImage(goodsCommand.getGoodsMainImage());
 		dto.setGoodsMainStoreImage(goodsCommand.getGoodsMainStoreImage());
 		dto.setGoodsName(goodsCommand.getGoodsName());
 		dto.setGoodsNum(goodsCommand.getGoodsNum());

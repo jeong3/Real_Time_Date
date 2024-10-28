@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.command.GoodsCommand;
 import springBootMVCShopping.service.AutoNumService;
-import springBootMVCShopping.service.goods.EmpNumSelectService;
+import springBootMVCShopping.service.EmpNumSelectService;
 import springBootMVCShopping.service.goods.GoodsDeleteService;
 import springBootMVCShopping.service.goods.GoodsDetailService;
 import springBootMVCShopping.service.goods.GoodsListService;

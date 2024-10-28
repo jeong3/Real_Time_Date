@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ipgoDetail</title>
+</head>
+<body>
+<ul>
+	<li><a href="/">홈</a></li>
+	<li><a href="/goods/goodsWrite">상품 추가</a></li>
+	<li><a href="goodsIpgo">상품 입고</a></li>
+	<li><a href="goodsIpgoList">상품 입고 현황</a></li>
+	<li><a href="/goods/goodsList">상품목록</a></li>
+</ul>
+
+<table border="1" align="center">
+<caption>입고 정보</caption>
+<tr> <th>입고번호</th> <th>[[${ipgoCommand.ipgoNum}]]</th> </tr>
+<tr> <th>상품번호</th> <th>[[${ipgoCommand.goodsNum}]]</th> </tr>
+<tr> <th>입고일</th> <th>[[${ipgoCommand.ipgoDate}]]</th> </tr>
+<tr> <th>입고수량</th> <th>[[${ipgoCommand.ipgoQty}]]</th> </tr>
+<tr> <th>제조일</th> <th>[[${ipgoCommand.madeDate}]]</th> </tr>
+<tr> <th>가격</th> <th>[[${ipgoCommand.ipgoPrice}]]</th> </tr>
+<tr> <th>등록한사원</th> <th>[[${ipgoCommand.empNum}]]</th> </tr>
+<tr> <th colspan="2"> <a th:href="|goodsIpgoUpdate?ipgoNum=${ipgoCommand.ipgoNum}|">수정</a> |  
+<a th:href="|goodsIpgoDelete?nums=${ipgoCommand.ipgoNum}|">삭제</a></th> </tr>
+</table>
+
+</body>
+</html>

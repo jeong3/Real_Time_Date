@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="goods"/>
+		<item key="selection" value="th"/>
 		<list key="findhistory">
+			<item value="td"/>
 			<item value="member"/>
 			<item value="validation"/>
 			<item value="dto"/>
@@ -22,9 +23,9 @@
 			<item value="vis"/>
 			<item value="visi"/>
 			<item value="span"/>
-			<item value="td"/>
 		</list>
 		<list key="replacehistory">
+			<item value="th"/>
 			<item value="goods"/>
 			<item value="goodsCommand"/>
 			<item value="th:value"/>
@@ -32,7 +33,6 @@
 			<item value="[[$"/>
 			<item value="employeeCommand"/>
 			<item value="memberCommand"/>
-			<item value="th"/>
 			<item value="]]"/>
 			<item value="[["/>
 			<item value="}]"/>

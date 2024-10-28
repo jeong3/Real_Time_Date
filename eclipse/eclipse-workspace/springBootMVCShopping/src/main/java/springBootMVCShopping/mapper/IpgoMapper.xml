@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootMVCShopping.mapper.IpgoMapper">
+<sql id="ipgoColumn">
+GOODS_NUM,IPGO_NUM,IPGO_QTY,IPGO_DATE,MADE_DATE,IPGO_PRICE,EMP_NUM
+</sql>
+
+<insert id="ipgoInsert">
+insert into goods_ipgo ( <include refid="ipgoColumn"/> )
+values ( #{goodsNum}, #{ipgoNum}, #{ipgoQty}, sysdate, #{madeDate}, #{ipgoPrice}, #{empNum} )
+</insert>
+
+<select id="ipgoSelectAll">
+select <include refid="ipgoColumn"/> from goods_ipgo
+</select>
+
+<select id="ipgoSelectOne">
+select <include refid="ipgoColumn"/> from goods_ipgo where ipgo_num = #{ipgoNum}
+</select>
+
+<update id="ipgoUpdate">
+update goods_ipgo set
+GOODS_NUM = #{goodsNum}
+,IPGO_QTY = #{ipgoQty}
+,IPGO_DATE = #{ipgoDate}
+,MADE_DATE = #{madeDate}
+,IPGO_PRICE = #{ipgoPrice}
+,EMP_NUM = #{empNum}
+where IPGO_NUM = #{ipgoNum}
+</update>
+
+</mapper>

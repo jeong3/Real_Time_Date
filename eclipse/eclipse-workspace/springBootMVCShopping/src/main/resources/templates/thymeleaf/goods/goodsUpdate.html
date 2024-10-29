@@ -3,9 +3,48 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+function fileDel(btn, orgFile, storeFile, kind){
+	$.ajax({
+		type : "post",
+		url : "/file/fileDel",
+		data : {"orgFile": orgFile, "storeFile" : storeFile},
+		dataType : "text",
+		success : function(result){
+			if(result == 1){
+				$(btn).text("삭제취소");
+				if(kind == 'main'){
+					$("#main").css("display","none");
+					$("#mainFile").html("<input type='file' name='goodsMainImage'/>")
+				}
+			}else{
+				$(btn).text("삭제");
+				if(kind == 'main'){
+					$("#main").css("display","");
+					$("#mainFile").css("display","none");
+				}
+			}
+			
+		},
+		error : function(){
+			alert("서버오류");
+		}
+	});
+}
+
+function fileChk(){
+	let fileInput = $("input[name = 'goodsMainImage']");
+	if(fileInput.length > 0 && !fileInput[0].files.length){
+		alert("파일 선택해주세요");
+		return false;
+	}
+}
+
+</script>
 </head>
 <body>
-<form action="goodsUpdate" method="post" th:object="${goodsCommand}" >
+<form action="goodsUpdate" method="post" th:object="${goodsCommand}" enctype="multipart/form-data" onsubmit="return fileChk();">
 <table border=1 align="center" width="600">
 	<caption> 상품 상세보기</caption>
 	<tr><th width="150" >상품번호</th>
@@ -26,12 +65,14 @@
 		<td><input type="text" name="updateEmpNum" th:value="${goodsCommand.updateEmpNum }"></td></tr>
 	<tr><th>마지막 수정일</th>
 		<td><input type="date" name="goodsUpdateDate" th:value="${#dates.format(goodsCommand.goodsUpdateDate, 'yyyy-MM-dd') }"></td></tr>
-	<tr> <th>대문이미지</th> <td> <input type="file" name="goodsMainImage" id="mainFile"><button type="button" style="display:none" >삭제</button>
-				[[${goodsCommand.goodsMainImage}]] </td> </tr>
+	<tr> <th>대문이미지</th> <td> <span id="mainFile"></span> <span id="main">[[${goodsCommand.goodsMainImage}]]</span>
+	<button type="button" th:attr="onclick=|javascript:fileDel(this, '${goodsCommand.goodsMainImage}' ,'${goodsCommand.goodsMainStoreImage}','main');|" >삭제</button>
+				 </td> </tr>
 		
-		<tr> <th>상세이미지</th> <td> <input type="file" name="goodsDetailImage" id="multiFile"> 
-		<div th:each="image : ${#strings.arraySplit(goodsCommand.goodsDetailImage,'/')}">
-			[[${image}]] <button type="button" style="display:none">삭제</button>	</div> </td> </tr>
+		<tr> <th>상세이미지</th> <td> <input type="file" name="goodsDetailImage" id="multiFile" multiple="multiple" > 
+		<div th:each="image, idx : ${#strings.arraySplit(goodsCommand.goodsDetailImage,'[`/]')}" >
+			[[${image}]] 
+			<button type = "button" th:attr = "onclick=|javascript:fileDel(this, '${image}', '${#strings.arraySplit(goodsCommand.goodsDetailStoreImage, '[`/]')[idx.index]}');|">삭제</button>	</div> </td> </tr>
 	<tr><th colspan="2">
 		<input type="submit" value="수정" />
 		<button type="button" onclick="window.history.back();">수정취소</button> 

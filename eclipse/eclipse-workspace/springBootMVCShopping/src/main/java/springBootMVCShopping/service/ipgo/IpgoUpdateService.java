@@ -1,5 +1,8 @@
 package springBootMVCShopping.service.ipgo;
 
+import java.sql.Timestamp;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,20 +12,13 @@ import springBootMVCShopping.mapper.IpgoMapper;
 
 @Service
 public class IpgoUpdateService {
-	@Autowired
-	IpgoMapper ipgoMapper;
-
-	public void execute(IpgoCommand ipgoCommand) {
-		IpgoDTO dto = new IpgoDTO();
-		dto.setEmpNum(ipgoCommand.getEmpNum());
-		dto.setGoodsNum(ipgoCommand.getGoodsNum());
-		dto.setIpgoDate(ipgoCommand.getIpgoDate());
-		dto.setIpgoNum(ipgoCommand.getIpgoNum());
-		dto.setIpgoPrice(ipgoCommand.getIpgoPrice());
-		dto.setIpgoQty(ipgoCommand.getIpgoQty());
-		dto.setMadeDate(ipgoCommand.getMadeDate());
-		ipgoMapper.ipgoUpdate(dto);
-	}
-	
-	
+   @Autowired
+   IpgoMapper goodsIpgoMapper;
+   public void execute(IpgoCommand ipgoCommand) {
+      IpgoDTO dto = new IpgoDTO();
+      BeanUtils.copyProperties(ipgoCommand, dto);
+      dto.setMadeDate(Timestamp.valueOf(ipgoCommand.getMadeDate()));
+      goodsIpgoMapper.ipgoUpdate(dto);
+   }
+   
 }

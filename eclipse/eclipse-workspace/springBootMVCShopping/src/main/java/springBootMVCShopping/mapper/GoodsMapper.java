@@ -26,5 +26,8 @@ public interface GoodsMapper {
 	Integer goodsCount();
 
 	List<GoodsDTO> goodsSelectList(String[] goodsNums);
+
+	List<GoodsDTO> MaingoodsSelectList(@Param("startRow") int startRow
+			,@Param("endRow") int endRow);
 	
 }

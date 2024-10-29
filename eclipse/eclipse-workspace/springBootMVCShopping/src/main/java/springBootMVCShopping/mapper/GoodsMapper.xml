@@ -46,7 +46,15 @@ values (#{goodsNum}, #{goodsName}, #{goodsPrice}, #{goodsContents},  0
 </resultMap>
 	
 <select id="goodsSelectAll" resultMap="goodsResultMap">
-	select <include refid="goodsColumn"/> from goods order by goods_num
+	select * from (select row_number() over(order by goods_num)rn, <include refid="goodsColumn"/> from goods
+	<where>
+<if test="searchWord !=null">
+goods_num like '%'||#{searchWord}||'%' or
+goods_name like '%'||#{searchWord}||'%' or
+goods_price like '%'||#{searchWord}||'%'
+</if>
+</where>)
+where rn between #{startRow} and #{endRow}
 </select>
 
 <select id="goodsSelectOne" parameterType="string">
@@ -54,12 +62,21 @@ values (#{goodsNum}, #{goodsName}, #{goodsPrice}, #{goodsContents},  0
 </select>
 
 <update id="goodsUpdate">
+
 	update goods set
-	GOODS_NAME = #{goodsName},
-	GOODS_PRICE = #{goodsPrice},
-	GOODS_CONTENTS = #{goodsContents},
-	UPDATE_EMP_NUM = #{updateEmpNum},
-	GOODS_UPDATE_DATE = sysdate
+	GOODS_NAME = #{goodsName}
+	,GOODS_PRICE = #{goodsPrice}
+	,GOODS_CONTENTS = #{goodsContents}
+	,UPDATE_EMP_NUM = #{updateEmpNum}
+	,GOODS_UPDATE_DATE = sysdate
+	<if test="goodsMainImage != null">
+	,GOODS_MAIN_IMAGE = #{goodsMainImage}
+	,GOODS_MAIN_STORE_IMAGE = #{goodsMainStoreImage}
+	</if>
+	<if test="goodsDetailImage != null">
+	,GOODS_DETAIL_IMAGE = #{goodsDetailImage}
+	,GOODS_DETAIL_STORE_IMAGE = #{goodsDetailStoreImage}
+	</if>
 	where goods_num = #{goodsNum}
 	
 </update>
@@ -78,6 +95,14 @@ select count(*) from goods
          #{goodsNum}
          </foreach>
       </where>
+   </select>
+   
+   <select id="MaingoodsSelectList" resultMap="goodsResultMap">
+   select * from(
+   select rownum rn, GOODS_NUM,GOODS_NAME,GOODS_PRICE,GOODS_CONTENTS,VISIT_COUNT,GOODS_MAIN_IMAGE,GOODS_MAIN_STORE_IMAGE
+,GOODS_DETAIL_IMAGE,GOODS_DETAIL_STORE_IMAGE,EMP_NUM,GOODS_REGIST,UPDATE_EMP_NUM,GOODS_UPDATE_DATE
+   from goods)
+   where rn between #{startRow} and #{endRow}
    </select>
 
 </mapper>

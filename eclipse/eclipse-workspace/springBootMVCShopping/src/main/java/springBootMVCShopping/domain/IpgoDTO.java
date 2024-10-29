@@ -1,20 +1,26 @@
 package springBootMVCShopping.domain;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Alias("ipgoDTO")
 public class IpgoDTO {
-	String goodsNum;
-	String goodsName;
 	String ipgoNum;
+	String goodsNum;
 	Integer ipgoQty;
 	Date ipgoDate;
-	Date madeDate;
+	Timestamp madeDate;
 	Integer ipgoPrice;
 	String empNum;
+	
 }

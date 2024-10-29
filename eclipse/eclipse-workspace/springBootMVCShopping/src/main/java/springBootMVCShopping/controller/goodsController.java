@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.command.GoodsCommand;
@@ -74,12 +75,13 @@ public class goodsController {
 	}
 	@GetMapping("goodsDetail")
 	public String goodsDetail(String goodsNum,  Model model) {
-		
 		goodsDetailService.execute(goodsNum, model);
 		return "thymeleaf/goods/goodsDetail";
 	}
 	@GetMapping("goodsUpdate")
-	public String goodsUpdate(String goodsNum,  Model model) {
+	public String goodsUpdate(String goodsNum,  Model model, HttpSession session) {
+		//수정취소 했을 때 삭제할 파일 정보를 가지고 있는 세션 삭제
+		session.removeAttribute("fileList");
 		goodsDetailService.execute(goodsNum, model);
 		return "thymeleaf/goods/goodsUpdate";
 	}
@@ -87,7 +89,7 @@ public class goodsController {
 	public String goodsUpdate(GoodsCommand goodsCommand , Model model, HttpSession session) {
 		String empNum = empNumSelectService.execute(session,  model);
 		goodsCommand.setUpdateEmpNum(empNum);
-		goodsUpdateService.execute(goodsCommand);
+		goodsUpdateService.execute(goodsCommand, session);
 		return "redirect:goodsDetail?goodsNum="+goodsCommand.getGoodsNum();
 	}
 	@RequestMapping("goodsDelete")
@@ -95,5 +97,7 @@ public class goodsController {
 		goodsDeleteService.execute(goodsNums);
 		return "redirect:goodsList";
 	}
+	
+	
 	
 }

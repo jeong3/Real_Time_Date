@@ -7,23 +7,65 @@
 <script type="text/javascript" src="/static/js/checkbox.js"></script>
 </head>
 <body>
-<ul>
-	<li><a href="/">홈</a></li>
-	<li><a href="/goods/goodsWrite">상품 추가</a></li>
-	<li><a href="goodsIpgo">상품 입고</a></li>
-	<li><a href="goodsIpgoList">상품 입고 현황</a></li>
-	<li><a href="/goods/goodsList">상품목록</a></li>
-</ul>
-<table border=1 width="800" align="center">
-	<caption>입고현황</caption>
-	<tr><th>번호</th><th>입고번호</th><th>상품번호</th><th>상품입고가격</th><th>수량</th><th>입고일</th></tr>
-	<tr th:each="dto , status : ${list}"><th )>
-	<a th:text="${status.index + 1}" th:href="|goodsIpgoDetail?ipgoNum=${dto.ipgoNum}|"></a></th><th>[[${dto.ipgoNum}]]</th>
-	<th>[[${dto.goodsNum}]]</th><th>[[${dto.ipgoPrice}]]</th>
-	<th>[[${dto.ipgoQty}]]</th><th>[[${dto.ipgoDate}]]</th></tr>
-</table>
-	
-	
+	<ul>
+		<li><a href="/">홈</a></li>
+		<li><a href="/goods/goodsWrite">상품 추가</a></li>
+		<li><a href="goodsIpgo">상품 입고</a></li>
+		<li><a href="goodsIpgoList">상품 입고 현황</a></li>
+		<li><a href="/goods/goodsList">상품목록</a></li>
+	</ul>
+
+	<table border=1 width="800" align="center">
+		<caption>입고현황 (입고 수 : [[${count}]])</caption>
+		<form action="goodsIpgoList" method="get">
+			<tr>
+				<th colspan="8">입고검색 : <input type="search"> <input
+					type="button" value="검색">
+				</th>
+			</tr>
+		</form>
+		<form action="goodsIpgoDelete" method="post" id="frm">
+		<tr>
+			<th><input type="checkbox" id="checkBoxs"></th>
+			<th>번호</th>
+			<th>입고번호</th>
+			<th>상품번호</th>
+			<th>상품입고가격</th>
+			<th>수량</th>
+			<th>입고일</th>
+			<th>
+				<button type="submit">선택삭제</button>
+			</th>
+		</tr>
+
+		<tr th:each="dto , status : ${list}">
+			<th><input type="checkbox" name="nums"
+				th:value="${dto.goodsNum}"></th>
+			<th><a th:text="${status.index + 1}"
+				th:href="|goodsIpgoDetail?ipgoNum=${dto.ipgoNum}&goodsNum=${dto.goodsNum}|"></a></th>
+			<th>[[${dto.ipgoNum}]]</th>
+			<th>[[${dto.goodsNum}]]</th>
+			<th>[[${#numbers.formatCurrency(dto.ipgoPrice) + "원"}]]</th>
+			<th>[[${dto.ipgoQty}]]</th>
+			<th>[[${#dates.format(dto.ipgoDate, 'yyyy-MM-dd')}]]</th>
+			<th><button type="button"
+					th:attr="onclick=|javascript:location.href='goodsIpgoDelete?nums=${dto.ipgoNum}'|">삭제</button></th>
+		</tr>
+		</form>
+		<tr>
+			<th colspan="8"><span th:if="${page <= 1}">[이전]</span> 
+			<span th:if="${page > 1}"> 
+			<a th:href="|goodsIpgoList?page=${page - 1}&searchWord=${searchWord}|">[이전]</a></span>
+				<th:block th:each="i : ${#numbers.sequence(startPageNum,endPageNum)}">
+					<a th:href="|goodsIpgoList?page=${i}&searchWord=${searchWord}|">[[${i}]]</a>
+				</th:block> <span th:if="${page >= maxPage}">[다음]</span> 
+				<span th:if="${page < maxPage}">
+				<a th:href="|goodsIpgoList?page=${page + 1}&searchWord=${searchWord}|">[다음]</a></span>
+			</th>
+		</tr>
+	</table>
+
+
 
 </body>
 </html>

@@ -1,5 +1,7 @@
 package springBootMVCShopping.service.ipgo;
 
+import java.sql.Timestamp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,7 @@ public class IpgoWriteService {
 		dto.setIpgoNum(ipgoCommand.getIpgoNum());
 		dto.setIpgoPrice(ipgoCommand.getIpgoPrice());
 		dto.setIpgoQty(ipgoCommand.getIpgoQty());
-		dto.setMadeDate(ipgoCommand.getMadeDate());
+		dto.setMadeDate(Timestamp.valueOf(ipgoCommand.getMadeDate()));
 		ipgoMapper.ipgoInsert(dto);
 	}
 

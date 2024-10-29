@@ -9,9 +9,9 @@ import springBootMVCShopping.mapper.IpgoMapper;
 @Service
 public class IpgoDeleteService {
 	@Autowired
-	AutoNumMapper autoNumMapper;
-	public void execute(String[] ipgoNums) {
-		autoNumMapper.numsDelete(ipgoNums, "goods_ipgo", "ipgo_num");
+	IpgoMapper ipgoMapper;
+	public void execute(String nums) {
+		ipgoMapper.ipgoDelete(nums);
 	}
 	
 }

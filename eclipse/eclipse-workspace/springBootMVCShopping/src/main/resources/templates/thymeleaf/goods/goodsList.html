@@ -10,8 +10,8 @@
 	<ul>
 		<li><a href="/">홈</a></li>
 		<li><a href="goodsWrite">상품 추가</a></li>
-		<li><a href="/goodsIpgo/goodsIpgo">상품 입고</a></li>
-		<li><a href="/goodsIpgo/goodsIpgoList">상품 입고 현황</a></li>
+		<li><a href="/goods/goodsIpgo">상품 입고</a></li>
+		<li><a href="/goods/goodsIpgoList">상품 입고 현황</a></li>
 	</ul>
 	<form action="goodsList" method="get">
 	<table border=1 width="600" align="center">
@@ -37,7 +37,15 @@
 			<th>[[${dto.goodsPrice }]]</th>
 			<th><button type="button" th:attr="onclick=|javascript:location.href='goodsDelete?nums=${dto.goodsNum}'|">삭제</button></th>
 		</tr>
-		
+		<tr><th colspan="6">
+		<span th:if="${page <= 1}">[이전]</span> 
+		<span th:if="${page > 1}"> <a th:href="|goodsList?page=${page - 1}&searchWord=${searchWord}|">[이전]</a></span> 
+		<th:block th:each="i : ${#numbers.sequence(startPageNum,endPageNum)}">
+			<a th:href="|goodsList?page=${i}&searchWord=${searchWord}|">[[${i}]]</a>
+		</th:block>
+		<span th:if="${page >= maxPage}">[다음]</span>
+		<span th:if="${page < maxPage}"><a th:href="|goodsList?page=${page + 1}&searchWord=${searchWord}|">[다음]</a></span>
+		</th></tr>
 		
 		</form>
 	</table>

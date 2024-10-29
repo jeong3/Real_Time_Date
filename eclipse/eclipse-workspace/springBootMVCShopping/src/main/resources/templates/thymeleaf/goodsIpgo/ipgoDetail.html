@@ -3,28 +3,53 @@
 <head>
 <meta charset="UTF-8">
 <title>ipgoDetail</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $.ajax({
+       type : "post",
+       url : "goodsIpgoDetail",
+       data : {"ipgoNum" : "[[${ipgoNum}]]", "goodsNum" : "[[${goodsNum}]]"},
+       success : function(dto){
+          var ipgoDate = new Date(dto.ipgoDTO.ipgoDate);
+          var ipgoYear = ipgoDate.getFullYear();
+          var ipgoMonth = ("0" + (ipgoDate.getMonth() + 1)).slice(-2);
+          var ipgoDay = ("0" + ipgoDate.getDate()).slice(-2);
+          
+          var madeDate = new Date(dto.ipgoDTO.madeDate);
+          var madeYear = madeDate.getFullYear();
+          var madeMonth = ("0" + (madeDate.getMonth() + 1)).slice(-2);
+          var madeDay = ("0" + madeDate.getDate()).slice(-2);
+          
+          var html = "입고번호 : " + dto.ipgoDTO.ipgoNum + "<br />";
+          html += "상품번호 : "+dto.ipgoDTO.goodsNum + "<br />";
+          html += "상품명 : "+dto.goodsName+"<br />";
+          html += "입고일 : "+ ipgoYear+"년 "+ipgoMonth+"월 "+ipgoDay+"일"+"<br />";
+          html += "입고 수량 : "+dto.ipgoDTO.ipgoQty+"<br />";
+          html += "제조일 : "+ madeYear+"년 "+madeMonth+"월 "+madeDay+"일"+"<br />";
+          html += "가격 : "+dto.ipgoDTO.ipgoPrice+"<br />";
+          html += "등록한 사원 : "+dto.ipgoDTO.empNum+"<br />";
+          html += "<button type='button' onclick=\"ipgoUpdate('" + dto.ipgoDTO.ipgoNum + "', '" + dto.ipgoDTO.goodsNum + "');\">입고 수정</button> | ";
+          html += "<button type='button' onclick = \"ipgoDelete('" + dto.ipgoDTO.ipgoNum + "','" + dto.ipgoDTO.goodsNum + "');\">입고 삭제</button>";
+          $("#detail").html(html);
+       },
+       error : function(){
+          alert("서버 오류");
+       }
+    });
+ })
+function ipgoUpdate(ipgoNum, goodsNum){
+	location.href="goodsIpgoUpdate?ipgoNum="+ipgoNum+"&goodsNum="+goodsNum;
+}
+function ipgoDelete(ipgoNum, goodsNum){
+	location.href="goodsIpgoDelete?nums="+ipgoNum+"-"+goodsNum;
+}
+</script>
 </head>
 <body>
-<ul>
-	<li><a href="/">홈</a></li>
-	<li><a href="/goods/goodsWrite">상품 추가</a></li>
-	<li><a href="goodsIpgo">상품 입고</a></li>
-	<li><a href="goodsIpgoList">상품 입고 현황</a></li>
-	<li><a href="/goods/goodsList">상품목록</a></li>
-</ul>
+<div id="detail"></div>
 
-<table border="1" align="center">
-<caption>입고 정보</caption>
-<tr> <th>입고번호</th> <th>[[${ipgoCommand.ipgoNum}]]</th> </tr>
-<tr> <th>상품번호</th> <th>[[${ipgoCommand.goodsNum}]]</th> </tr>
-<tr> <th>입고일</th> <th>[[${ipgoCommand.ipgoDate}]]</th> </tr>
-<tr> <th>입고수량</th> <th>[[${ipgoCommand.ipgoQty}]]</th> </tr>
-<tr> <th>제조일</th> <th>[[${ipgoCommand.madeDate}]]</th> </tr>
-<tr> <th>가격</th> <th>[[${ipgoCommand.ipgoPrice}]]</th> </tr>
-<tr> <th>등록한사원</th> <th>[[${ipgoCommand.empNum}]]</th> </tr>
-<tr> <th colspan="2"> <a th:href="|goodsIpgoUpdate?ipgoNum=${ipgoCommand.ipgoNum}|">수정</a> |  
-<a th:href="|goodsIpgoDelete?nums=${ipgoCommand.ipgoNum}|">삭제</a></th> </tr>
-</table>
 
 </body>
 </html>

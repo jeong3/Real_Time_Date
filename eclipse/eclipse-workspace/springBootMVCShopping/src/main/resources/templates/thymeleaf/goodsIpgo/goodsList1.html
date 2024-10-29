@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+function setGoods() {
+    $("#goodsNum").val($(opener.document).find("#goodsNum").val($("#goodsNum").text()));
+    $("#goodsName").val($(opener.document).find("#goodsName").val($("#goodsName").text()));
+    window.close();
+}
+</script>
+</head>
+<body>
+	
+	<form action="goodsList" method="get">
+	<table border=1 width="600" align="center">
+		<caption>상품 목록 (상품 수 : [[${count}]])</caption>
+		<tr><th colspan="6">상품검색 : <input type="search"> <input type="button" value="검색"> </th></tr>
+		</form>
+		<form action="goodsDelete" method="post" id="frm">
+		<tr>
+			
+			<th>번호</th>
+			<th>상품번호</th>
+			<th>상품명</th>
+			<th>상품가격</th>
+			<th>
+				
+			</th>
+		</tr>
+		<tr th:each="dto, status : ${list}">
+			
+			<th th:text="${status.count}"></th>
+			<th id="goodsNum">[[${dto.goodsNum }]]</th>
+			<th id="goodsName">[[${dto.goodsName}]]</th>
+			<th>[[${dto.goodsPrice }]]</th>
+			<th><button type="button" onclick="setGoods();">상품 선택</button></th>
+		</tr>
+		<tr><th colspan="6">
+		<span th:if="${page <= 1}">[이전]</span> 
+		<span th:if="${page > 1}"> <a th:href="|goodsList?page=${page - 1}&searchWord=${searchWord}|">[이전]</a></span> 
+		<th:block th:each="i : ${#numbers.sequence(startPageNum,endPageNum)}">
+			<a th:href="|goodsList?page=${i}&searchWord=${searchWord}|">[[${i}]]</a>
+		</th:block>
+		<span th:if="${page >= maxPage}">[다음]</span>
+		<span th:if="${page < maxPage}"><a th:href="|goodsList?page=${page + 1}&searchWord=${searchWord}|">[다음]</a></span>
+		</th></tr>
+		
+		</form>
+	</table>
+</body>
+</html>

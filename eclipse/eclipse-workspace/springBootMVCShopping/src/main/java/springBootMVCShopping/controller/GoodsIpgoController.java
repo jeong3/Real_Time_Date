@@ -1,5 +1,7 @@
 package springBootMVCShopping.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.command.IpgoCommand;
@@ -16,6 +19,7 @@ import springBootMVCShopping.domain.GoodsIpgoGoodsNameDTO;
 import springBootMVCShopping.service.AutoNumService;
 import springBootMVCShopping.service.EmpNumSelectService;
 import springBootMVCShopping.service.goods.GoodsListService;
+import springBootMVCShopping.service.ipgo.GoodsItemService;
 import springBootMVCShopping.service.ipgo.IpgoDeleteService;
 import springBootMVCShopping.service.ipgo.IpgoDetailService;
 import springBootMVCShopping.service.ipgo.IpgoListService;
@@ -41,7 +45,8 @@ public class GoodsIpgoController {
 	IpgoUpdateService ipgoUpdateService;
 	@Autowired
 	IpgoDeleteService ipgoDeleteService;
-	
+	@Autowired
+	GoodsItemService goodsItemService;
 	
 	@GetMapping("goodsIpgoList")
 	public String ipgoList(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
@@ -66,6 +71,19 @@ public class GoodsIpgoController {
 		//return "redirect:goodsIpgoList";
 		return "200";
 	}
+	@GetMapping("goodsItem")
+	public String goodsItem() {
+		return "thymeleaf/goodsIpgo/goodsItem";
+	}
+	@PostMapping("goodsItem")
+	public @ResponseBody Map<String, Object> goodsItem(String searchWord, int page, Model model) {
+		//ModelAndView mav = new ModelAndView();
+		//mav.setViewName("jsonView");
+		Map<String, Object> map = (Map<String, Object>) goodsItemService.execute(searchWord, page, model);
+		return map;
+	}
+	
+	
 	@GetMapping("goodsList1")
 	public String goodsList(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
 			@RequestParam(value = "searchWord", required = false) String searchWord

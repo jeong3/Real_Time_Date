@@ -23,7 +23,7 @@ public class GoodsListService {
 		StartEndPageDTO sepDTO = startEndPageService.execute(page, searchWord, limit);
 		
 		List<GoodsDTO> list = goodsMapper.goodsSelectAll(sepDTO);
-		Integer count = goodsMapper.goodsCount();
+		Integer count = goodsMapper.goodsCount(searchWord);
 		startEndPageService.execute(page, limit, count, searchWord, list, model);
 		
 	}

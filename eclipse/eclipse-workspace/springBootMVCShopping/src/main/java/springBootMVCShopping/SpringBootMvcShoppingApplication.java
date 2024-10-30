@@ -27,9 +27,10 @@ public class SpringBootMvcShoppingApplication {
 	MainGoodsListService mainGoodsListService;
 	
 	@GetMapping("/")
-	public String index(@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
-			,LoginCommand loginCommand, Model model) {
-		mainGoodsListService.execute(page,model);
+	public String index(LoginCommand loginCommand) {
+			//@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			//,LoginCommand loginCommand, Model model) {  SSR
+		//mainGoodsListService.execute(page,model);
 		return "thymeleaf/index";
 	}
 	@PostMapping("/")

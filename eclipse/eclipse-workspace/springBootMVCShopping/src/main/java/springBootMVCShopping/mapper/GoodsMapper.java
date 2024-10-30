@@ -23,7 +23,7 @@ public interface GoodsMapper {
 
 	Integer goodsDelete (String [] goodsNum);
 
-	Integer goodsCount();
+	Integer goodsCount(String searchWord);
 
 	List<GoodsDTO> goodsSelectList(String[] goodsNums);
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title><!-- single페이지처럼 만들거라 ajax를 이용합니다. -->
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	itemList(page,searchWord);
+});
+var page = 1;
+var searchWord ="";
+function itemList(page, searchWord){
+	if($("#searchWord").val() != null){
+		searchWord = $("#searchWord").val();
+	}
+	$.ajax({
+		type:"post",
+		url : "goodsItem",
+		data : {"page": page, "searchWord" : searchWord},
+		dataType : "json",
+		success : function(model){
+			
+			var i = model.startPageNum;
+			var html = "";
+			html += '<table align="center", border="1" >';
+			html += '<tr><th colspan="4">검색 : <input type="search" name="searchWord" id="searchWord" value='+searchWord+' > <button type="button" onclick="itemList(page,searchWord);">검색</button></th></tr>';
+			html += '<tr><th>번호</th><th>상품번호</th><th>상품명</th><th>상품가격</th></tr> ';
+			$.each(model.list, function(idx, dto){
+				html += '<tr><th><a href="javascript:setGoods(\''+dto.goodsNum+'\',\''+dto.goodsName+'\')">'+(idx+1)+'</a></th><th>'+dto.goodsNum+'</th><th>'+dto.goodsName+'</th><th>'+dto.goodsPrice+'</th></tr>';
+			});
+			html += page+"page"
+			html += '<tr><th colspan="4">';
+			if(page <= 1){
+				html += '[이전]';
+			} else {
+				html += '<a href="javascript:itemList(--page,searchWord)">[이전]</a>';
+			}
+			while(i <= model.endPageNum){
+				html += '<a href="javascript:itemList('+i+')">'+i+'</a>';
+				i++;
+			}
+			if(page < model.maxPage){
+				html += '<a href="javascript:itemList(++page,searchWord)">[다음]</a>';
+			}else {
+				html += '[다음]';
+			}
+			html += '</th></tr>';
+			html += '</table>';
+			$("#goodsList").html(html);
+		},
+		error : function(){
+			alert("서버오류");
+		}
+	});
+}
+function setGoods(goodsNum,goodsName) {
+	
+    $("#goodsNum").val($(opener.document).find("#goodsNum").val(goodsNum));
+    $("#goodsName").val($(opener.document).find("#goodsName").val(goodsName));
+    window.close();
+}
+
+
+</script>
+</head>
+<body>
+상품 검색<br />
+<span id="goodsList"></span>
+
+
+</body>
+</html>

@@ -82,7 +82,14 @@ where rn between #{startRow} and #{endRow}
 </update>
 
 <select id="goodsCount">
-select count(*) from goods
+select count(*) from (select <include refid="goodsColumn"/> from goods
+	<where>
+<if test="searchWord !=null">
+goods_num like '%'||#{searchWord}||'%' or
+goods_name like '%'||#{searchWord}||'%' or
+goods_price like '%'||#{searchWord}||'%'
+</if>
+</where>)
 </select>
 
 

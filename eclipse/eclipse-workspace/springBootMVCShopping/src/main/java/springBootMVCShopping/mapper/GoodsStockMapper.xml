@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootMVCShopping.mapper.GoodsStockMapper">
+<resultMap type="goodsStockDTO" id="goodsStockResultMap">
+<result column="stock" jdbcType="VARCHAR" property="stock"/>
+<association property="goodsDTO" javaType="goodsDTO">
+	<id column="goods_num" jdbcType="VARCHAR" property="goodsNum"/>
+	<result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+	<result column="goods_price" jdbcType="BIGINT" property="goodsPrice"/>
+	<result column="goods_contents" jdbcType="VARCHAR" property="goodsContents"/>
+	<result column="visit_count" jdbcType="BIGINT" property="visitCount"/>
+	<result column="goods_main_image" jdbcType="VARCHAR" property="goodsMainImage"/>
+	<result column="goods_Main_Store_Image" jdbcType="VARCHAR" property="goodsMainStoreImage"/>
+	<result column="goods_Detail_Image" jdbcType="VARCHAR" property="goodsDetailImage"/>
+	<result column="goods_Detail_Store_Image" jdbcType="VARCHAR" property="goodsDetailStoreImage"/>
+	<result column="emp_Num" jdbcType="VARCHAR" property="empNum"/>
+	<result column="goods_Regist" jdbcType="DATE" property="goodsRegist"/>
+	<result column="update_EmpNum" jdbcType="VARCHAR" property="updateEmpNum"/>
+	<result column="goods_Update_Date" jdbcType="DATE" property="goodsUpdateDate"/>
+</association>
+</resultMap>
+
+<select id="goodsStockSelectOne" resultMap="goodsStockResultMap">
+select g.GOODS_NUM,GOODS_NAME,GOODS_PRICE,GOODS_CONTENTS,VISIT_COUNT,GOODS_MAIN_IMAGE,GOODS_MAIN_STORE_IMAGE
+,GOODS_DETAIL_IMAGE,GOODS_DETAIL_STORE_IMAGE,EMP_NUM,GOODS_REGIST,UPDATE_EMP_NUM,GOODS_UPDATE_DATE
+,nvl(stock, 0)
+from goods g left outer join 
+(select ip.goods_num, ipqty - nvl(plqty,0) as stock from(select goods_num, sum(ipgo_qty) as ipqty
+from goods_ipgo 
+group by goods_num 
+) ip
+left outer join ( 
+select goods_num, sum(purchase_qty) plqty from purchase_list
+group by goods_num
+) pl on ip.goods_num = pl.goods_num) st
+on g.goods_num = st.goods_num
+where g.goods_num = #{goodsNum}
+
+</select>
+
+</mapper>

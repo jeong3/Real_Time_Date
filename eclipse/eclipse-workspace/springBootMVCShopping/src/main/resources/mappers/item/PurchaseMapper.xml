@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootMVCShopping.mapper.PurchaseMapper">
+<sql id="purchaseColumn">
+purchase_num, purchase_date, purchase_price, delivery_addr, delivery_addr_detail
+, delivery_post, delivery_phone, message, purchase_status, member_num, delivery_name, purchase_name
+</sql>
+
+<select id="purchaseSelectAll">
+select <include refid="purchaseColumn"></include>
+from purchase where member_num = #{memberNum}
+</select>
+</mapper>

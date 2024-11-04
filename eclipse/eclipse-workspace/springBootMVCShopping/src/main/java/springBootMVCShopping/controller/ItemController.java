@@ -7,17 +7,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.servlet.http.HttpSession;
+import springBootMVCShopping.service.item.CartListService;
 import springBootMVCShopping.service.item.GoodsDetailViewService;
+import springBootMVCShopping.service.item.WishListService;
 
 @Controller
 @RequestMapping("item")
 public class ItemController {
 	@Autowired
 	GoodsDetailViewService goodsDetailViewService;
+	@Autowired
+	CartListService cartListService;
+	@Autowired
+	WishListService wishListService;
 	
 	@GetMapping("detailView/{goodsNum}")
 	public String detailView(@PathVariable("goodsNum") String goodsNum, Model model) {
 		goodsDetailViewService.execute(goodsNum,model);
 		return "thymeleaf/item/detailView";
 	}
+	@GetMapping("cartList")
+	public String cartList(HttpSession session, Model model) {
+		cartListService.execute(session, model);
+		return "thymeleaf/item/cartList";
+	}
+	@GetMapping("wishList")
+	public String wishList(HttpSession session, Model model) {
+		wishListService.execute(session,model);
+		return "thymeleaf/item/wishList";
+	}
+	
 }

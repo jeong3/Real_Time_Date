@@ -6,12 +6,16 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="mainGoodsListService"/>
+		<item key="selection" value="dto.goodsDTO."/>
 		<list key="findhistory">
+			<item value="dto.goodsDTO"/>
+			<item value="dto."/>
+			<item value="list"/>
+			<item value="oncli"/>
+			<item value="}"/>
+			<item value="${"/>
 			<item value="mainGoodsListService"/>
 			<item value="MainGoodsListService"/>
-			<item value="list"/>
-			<item value="dto."/>
 			<item value="ipgoCommand"/>
 			<item value="ipgoipgoCommand"/>
 			<item value="dto"/>
@@ -19,14 +23,14 @@
 			<item value="execute"/>
 			<item value="goodsIpgoDTO"/>
 			<item value="item"/>
-			<item value="ipgoSelectOne"/>
-			<item value="del"/>
-			<item value="main"/>
-			<item value="dis"/>
 		</list>
 		<list key="replacehistory">
-			<item value="dto.ipgoDTO."/>
+			<item value="dto.goodsDTO."/>
+			<item value="dto.goodsDTO"/>
 			<item value="dto"/>
+			<item value="}]]"/>
+			<item value="[[${"/>
+			<item value="dto.ipgoDTO."/>
 			<item value="ipgoDTO"/>
 			<item value="ipgoCommand"/>
 			<item value="goodsIpgoCommand"/>
@@ -35,11 +39,7 @@
 			<item value="goods"/>
 			<item value="goodsCommand"/>
 			<item value="th:value"/>
-			<item value="}]]"/>
 			<item value="[[$"/>
-			<item value="employeeCommand"/>
-			<item value="memberCommand"/>
-			<item value="]]"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

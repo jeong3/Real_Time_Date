@@ -29,5 +29,7 @@ public interface GoodsMapper {
 
 	List<GoodsDTO> MaingoodsSelectList(@Param("startRow") int startRow
 			,@Param("endRow") int endRow);
+
+	List<GoodsDTO> wishSelectAll(String memberNum);
 	
 }

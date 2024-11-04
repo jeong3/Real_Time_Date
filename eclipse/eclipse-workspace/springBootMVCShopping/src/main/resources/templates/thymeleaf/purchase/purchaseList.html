@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table width="800" align="center" border="1">
+		<tr>
+			<th>주문일(결제번호)</th>
+			<th>상품명/주문번호</th>
+			<th>주문상태</th>
+		</tr>
+		<tr th:each="dto : ${list}">
+			<td>[[${#dates.format(dto.purchaseDate,'yyyy-MM-dd')}]]</td>
+			<td>[[${dto.purchaseName}]]/[[${dto.purchaseNum}]]</td>
+			<td>[[${dto.purchaseStatus}]]</td>
+		</tr>
+	</table>
+</body>
+</html>

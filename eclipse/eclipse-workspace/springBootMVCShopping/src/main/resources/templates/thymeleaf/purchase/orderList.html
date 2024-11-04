@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+</head>
+<body>
+	<table width="800" align="center" border="1">
+		<tr>
+			<th>주문번호 / 결제번호</th>
+			<th>상품명</th>
+			<th>주문상태</th>
+			</tr>
+		<tr th:each="dto : ${list}">
+			<td>[[${dto.purchaseNum}]]</td>
+			<td>[[${dto.purchaseName}]]</td>
+			<td>[[${dto.purchaseStatus}]]</td>
+		</tr>
+	</table>
+</body>
+</html>

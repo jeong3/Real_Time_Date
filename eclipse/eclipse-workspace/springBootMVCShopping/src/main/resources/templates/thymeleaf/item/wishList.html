@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="/static/js/checkbox.js"></script>
+<script type="text/javascript">
+</script>
+</head>
+<!-- 여기까지해서 관심상품에 대한 내용을 마무리하겠습니다. -->
+<body>
+<form action="#" id="frm" method="post">
+	<table width="600" border = 1 align="center">
+		<tr><th>번호</th><th>이미지</th><th>상품이름</th><th>가격</th>
+			<td><input type="checkbox" id="checkBoxs" />
+				<input type="submit" value="선택 삭제" /> 
+			</td>
+		</tr>
+		<tr th:each="dto , idx : ${list}">
+			<td>[[${idx.count}]]</td>
+			<td><img th:src="|/static/upload/${dto.goodsMainStoreImage}|" width="30"/></td>
+			<td> <a th:href="|/goods/goodsDetail?goodsNum=${dto.goodsNum}|">[[${dto.goodsName}]]</a></td>
+			<td>[[${dto.goodsPrice}]]</td>
+			<td><input type="checkbox" name="nums" th:value="${dto.goodsNum}"/>
+				<button type="button" 
+					th:attr='onclick=|location.href="wishDel?goodsNum=${dto.goodsNum}"|'>삭제</button></td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>

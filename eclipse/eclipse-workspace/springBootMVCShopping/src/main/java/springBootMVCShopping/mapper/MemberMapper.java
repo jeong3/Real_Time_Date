@@ -27,4 +27,7 @@ public interface MemberMapper {
 
 	int memberEmailCheckUpdate(String userEmail);
 
+
+	String memberNumSelect(String memberId);
+
 }

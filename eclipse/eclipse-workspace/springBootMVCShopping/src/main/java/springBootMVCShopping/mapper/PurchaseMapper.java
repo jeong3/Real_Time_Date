@@ -9,6 +9,8 @@ import springBootMVCShopping.domain.PurchaseDTO;
 @Mapper
 public interface PurchaseMapper {
 
-	List<PurchaseDTO> purchaseSelectAll(String memberNum);
+	List<PurchaseDTO> purchaseSelectAll();
+
+	List<PurchaseDTO> orderSelectAll(String memberNum);
 	
 }

@@ -4,9 +4,13 @@ import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Alias("purchaseDTO")
 public class PurchaseDTO {
 	String purchaseNum;
@@ -14,7 +18,7 @@ public class PurchaseDTO {
 	Integer purchasePrice;
 	String deliveryAddr;
 	String deliveryAddrDetail;
-	Integer deliveryPost;
+	String deliveryPost;
 	String deliveryPhone;
 	String message;
 	String purchaseStatus;

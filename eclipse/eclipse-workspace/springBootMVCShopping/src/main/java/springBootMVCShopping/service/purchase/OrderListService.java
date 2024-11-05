@@ -21,7 +21,7 @@ public class OrderListService {
 	public void execute(HttpSession session, Model model) {
 		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
 		String memberNum = memberMapper.memberNumSelect(auth.getUserId());
-		List<PurchaseDTO> list = purchaseMapper.purchaseSelectAll(memberNum);
+		List<PurchaseDTO> list = purchaseMapper.orderSelectAll(memberNum);
 		model.addAttribute("list", list);
 		
 	}

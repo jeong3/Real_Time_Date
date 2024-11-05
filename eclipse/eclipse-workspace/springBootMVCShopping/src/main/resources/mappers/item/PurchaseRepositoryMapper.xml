@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="purchaseRepositorySql">
+<select id="selectPurchaseNum" resultType="string">
+select concat( to_char(sysdate, 'yyyyMMdd') , nvl(max(substr(purchase_num, 9)),0 ) + 1) from purchase
+where substr(purchase_num, 1, 8) = to_char(sysdate, 'yyyyMMdd')
+</select>
+
+<sql id="purchaseColumn">
+PURCHASE_NUM, PURCHASE_DATE, PURCHASE_PRICE, DELIVERY_ADDR, DELIVERY_ADDR_DETAIL
+,DELIVERY_POST,DELIVERY_PHONE,MESSAGE,PURCHASE_STATUS, MEMBER_NUM, DELIVERY_NAME, PURCHASE_NAME
+</sql>
+
+<insert id="purchaseInsert" parameterType="purchaseDTO">
+ insert into purchase( <include refid="purchaseColumn"/> )
+ values( #{purchaseNum}, sysdate, #{purchasePrice}
+ , #{deliveryAddr}, #{deliveryAddrDetail}, #{deliveryPost}
+ , #{deliveryPhone}, #{message}, '결제 대기중', #{memberNum}
+ , #{deliveryName}, #{purchaseName} )
+</insert>
+<insert id="purchaseListInsert" parameterType="hashmap">
+ insert into purchase_List (GOODS_NUM, PURCHASE_NUM, PURCHASE_QTY, GOODS_UNIT_PRICE)
+ select c.goods_num , #{purchaseNum}, cart_qty, cart_qty * goods_price
+ from cart c join goods g
+ on c.goods_num = g.goods_num
+ where member_num = #{memberNum} 
+ and c.goods_num in 
+ <foreach collection="goodsNums" item="goodsNum" open="(" close=")" index="index" separator=",">
+ #{goodsNum}
+ </foreach>
+</insert>
+</mapper>

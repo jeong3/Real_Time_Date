@@ -75,11 +75,12 @@ Hello miso shopping <br>
 <div th:if="${session.auth == null}">
 <form action="/login/login" method="post" th:object="${loginCommand}">
 <table border="1" align="center">
-	<tr><th colspan="3"><a href="#">자동로그인</a> | <a href="#">아이디저장</a></th> </tr>
+	<tr><th colspan="3">자동로그인 <input type="checkbox" name="autoLogin" th:checked="${loginCommand.autoLogin}">
+	 | 아이디저장 <input type="checkbox" name="idStore" th:checked="${loginCommand.userId}" > </th> </tr>
 	<tr><th>ID</th><th> <input type="text" name="userId" th:field="*{userId}"> <br />
 	<span style="color: red;" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" />
 	 </th> <th rowspan="2"> <input type="image" src="/static/images/버튼.png" width="40"> </th> </tr>
-	<tr><th>PW</th><th> <input type="password" name="userPw"> <br>
+	<tr><th>PW</th><th> <input type="password" name="userPw" > <br>
 	<span style="color: red;" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" /></th></tr>
 	<tr><th colspan="3"><a href="#">아이디 / 비밀번호찾기</a> | <a href="register/userAgree">회원가입</a></th></tr>
 </table>

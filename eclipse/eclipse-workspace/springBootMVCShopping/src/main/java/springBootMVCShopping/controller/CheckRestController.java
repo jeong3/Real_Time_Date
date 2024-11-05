@@ -15,6 +15,7 @@ import springBootMVCShopping.service.EmailCheckService;
 import springBootMVCShopping.service.FileDelService;
 import springBootMVCShopping.service.item.CartInsertService;
 import springBootMVCShopping.service.item.CartQtyDownService;
+import springBootMVCShopping.service.item.GoodsCartDelsService;
 import springBootMVCShopping.service.item.ItemCartService;
 import springBootMVCShopping.service.item.ItemWishService;
 
@@ -32,6 +33,9 @@ public class CheckRestController {
 	CartInsertService cartInsertService;
 	@Autowired
 	CartQtyDownService cartQtyDownService;
+	@Autowired
+	GoodsCartDelsService goodsCartDelsService;
+	
 	
 	@PostMapping("/checkRest/userEmailCheck")
 	public Integer emailCheck(String userEmail) {
@@ -74,6 +78,10 @@ public class CheckRestController {
 	@GetMapping("/item/cartQtyDown")
 	public void cartQtyDown(String goodsNum, HttpSession session )  {
 		cartQtyDownService.execute(goodsNum, session);
+	}
+	@RequestMapping("/item/cartDels")
+	public String cartDels(@RequestBody String goodsNums[], HttpSession session) {
+		return goodsCartDelsService.execute(goodsNums, session);
 	}
 	
 }

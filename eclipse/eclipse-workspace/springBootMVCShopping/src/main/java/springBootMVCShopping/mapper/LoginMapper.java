@@ -13,5 +13,7 @@ public interface LoginMapper {
 	Integer EmailCheckSelectOne(@Param("userEmail") String userEmail);
 
 	AuthInfoDTO LoginSelectOne(@Param("userId") String userId);
+
+	AuthInfoDTO loginSelect(String value);
 	
 }

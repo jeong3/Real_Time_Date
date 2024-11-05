@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+<script src = "https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type = "text/javascript" src = "/static/js/daumAddressScript.js"></script>
+</head>
+<body>
+<form action="goodsOrder" method="post">
+<input type="hidden" name="goodsNums" th:value="${goodsNums}">
+<input type="hidden" name="totalPaymentPrice" th:value="${sumPrice + DeliveryCost}">
+<input type="hidden" name="purchaseName" th:value="${list[0].goodsDTO.goodsName + ' 외' + (list.size() - 1)}">
+	<table width="700" align="center" >
+		<tr>
+			<th>주문서
+				<hr /> 1. 주문상품<br />
+			</th>
+		</tr>
+	</table>
+	<table width="700" align="center" >
+		<tr>
+			<th>상품 대표 이미지</th>
+			<th>주문 상품 정보</th>
+			<th>수량 / 상품금액</th>
+			<th>금액</th>
+		</tr>
+		<tr th:each="dto : ${list}">
+			<th> <img th:src="|/static/upload/${dto.goodsDTO.goodsMainStoreImage}|" width="40"> </th>
+			<th>[[${dto.goodsDTO.goodsName}]]</th>
+			<th>[[${#numbers.formatInteger(dto.cartDTO.cartQty,"1","COMMA")}]] / [[${#numbers.formatCurrency(dto.goodsDTO.goodsPrice)}]]</th>
+			<th>[[${#numbers.formatCurrency(dto.cartDTO.cartQty * dto.goodsDTO.goodsPrice)}]]원</th>
+		</tr>
+	</table>
+	<table width="700" align="center" >
+		
+			<td>
+				<table width="350" >
+					<tr>
+						<td colspan="2">2. 배송정보</td>
+					</tr>
+					<tr>
+						<th>받는사람</th>
+						<td>
+						<input type="text" name="deliveryName">
+						</td>
+					</tr>
+					<tr>
+						<th>받는사람 주소</th>
+						<td>
+						<input type="text" name="deliveryAddr" id="sample4_roadAddress" onclick="execDaumPostcode();" readonly="readonly">
+						</td>
+					</tr>
+					<tr>
+						<th>받는사람 상세주소</th>
+						<td>
+						<input type="text" name="deliveryAddrDetail">
+						</td>
+					</tr>
+					<tr>
+						<th>받는사람 우편번호</th>
+						<td>
+						<input type="text" name="deliveryPost" id="sample4_postcode" readonly="readonly">
+						</td>
+					</tr>
+					<tr>
+						<th>받는 사람 연락처</th>
+						<td>
+						<input type="tel" name="deliveryPhone">
+						</td>
+					</tr>
+					<tr>
+						<th>배송 메세지</th>
+						<td>
+						<input type="text" name="message">
+						</td>
+					</tr>
+				</table>
+			</td>
+		
+		
+			<td>
+				<table width="350" >
+					<tr>
+						<td colspan="2">3. 결제정보</td>
+					</tr>
+					<tr>
+						<th>총 금액</th>
+						<td>[[${#numbers.formatCurrency(sumPrice)}]]원</td>
+					</tr>
+					<tr>
+						<th>총 배송비</th>
+						<td>
+						<span th:if="${DeliveryCost == 0}">무료배송</span>
+						<span th:if="${DeliveryCost != 0}">[[${#numbers.formatCurrency(DeliveryCost)}]]원</span>
+						</td>
+					</tr>
+					<tr>
+						<th>총 결제금액</th>
+						<td>[[${#numbers.formatCurrency(sumPrice + DeliveryCost)}]]원</td>
+					</tr>
+					<tr>
+						<td align="center" colspan="2">
+							<input type="submit" value="구매하기">
+						</td>
+					</tr>
+				</table>
+			</td>
+		
+	</table>
+</form>
+</body>
+</html>

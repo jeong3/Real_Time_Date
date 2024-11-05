@@ -22,7 +22,7 @@ public class CartListService {
 		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
 		String memberId = auth.getUserId();
 		String memberNum = memberMapper.memberNumSelect(memberId);
-		List<GoodsCartDTO> list = cartMapper.cartSelectAll(memberNum);
+		List<GoodsCartDTO> list = cartMapper.cartSelectAll(memberNum, null);
 		model.addAttribute("list", list);
 		//auth가 null일 때를 예외처리 try~catch로 두고 세션이 없을 때와
 		//세션이 직원일 때를 나누는 편이 좋다.

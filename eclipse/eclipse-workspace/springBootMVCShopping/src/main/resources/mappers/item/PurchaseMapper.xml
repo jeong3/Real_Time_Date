@@ -7,9 +7,12 @@
 purchase_num, purchase_date, purchase_price, delivery_addr, delivery_addr_detail
 , delivery_post, delivery_phone, message, purchase_status, member_num, delivery_name, purchase_name
 </sql>
-
-<select id="purchaseSelectAll">
+<select id="orderSelectAll">
 select <include refid="purchaseColumn"></include>
 from purchase where member_num = #{memberNum}
+</select>
+<select id="purchaseSelectAll">
+select <include refid="purchaseColumn"></include>
+from purchase 
 </select>
 </mapper>

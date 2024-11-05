@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.command.LoginCommand;
 import springBootMVCShopping.service.IdCheckService;
+import springBootMVCShopping.service.login.AutoLoginService;
 import springBootMVCShopping.service.login.UserLoginService;
 
 @Controller
@@ -22,6 +26,8 @@ public class LoginController {
 	IdCheckService idCheckService;
 	@Autowired
 	UserLoginService userLoginService;
+	@Autowired
+	AutoLoginService autoLoginService;
 	
 	@PostMapping("userIdCheck")
 	//@ResponseBody는 spring방식으로 html파일 , jsp파일의 경로가 아닌 값이나 오브젝트를 리턴하기 위해서 필요하다
@@ -32,15 +38,20 @@ public class LoginController {
 		return i;
 	}
 	@RequestMapping("login")
-	public String login(@Validated LoginCommand loginCommand, BindingResult result ,HttpSession session) {
-		userLoginService.execute(loginCommand, result, session);
+	public String login(@Validated LoginCommand loginCommand, BindingResult result ,HttpSession session, HttpServletResponse response) {
+		userLoginService.execute(loginCommand, result, session, response);
 		if(result.hasErrors()) {
 			return "thymeleaf/index";
 		}
 		return "redirect:/";
 	}
 	@GetMapping("logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, HttpServletResponse response, Model model, HttpServletRequest request, LoginCommand loginCommand) {	
+		Cookie cookie = new Cookie("autoLogin", "");
+		cookie.setMaxAge(0);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		
 		session.invalidate(); // 세션종료
 		return "redirect:/";
 	}

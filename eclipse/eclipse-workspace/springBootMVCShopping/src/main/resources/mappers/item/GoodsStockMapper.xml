@@ -25,9 +25,9 @@
 <select id="goodsStockSelectOne" resultMap="goodsStockResultMap">
 select g.GOODS_NUM,GOODS_NAME,GOODS_PRICE,GOODS_CONTENTS,VISIT_COUNT,GOODS_MAIN_IMAGE,GOODS_MAIN_STORE_IMAGE
 ,GOODS_DETAIL_IMAGE,GOODS_DETAIL_STORE_IMAGE,EMP_NUM,GOODS_REGIST,UPDATE_EMP_NUM,GOODS_UPDATE_DATE
-,nvl(stock, 0) as stock
+,coalesce(stock, 0) as stock
 from goods g left outer join 
-(select ip.goods_num, (ipqty - nvl(plqty,0)) as stock from(select goods_num, sum(ipgo_qty) as ipqty
+(select ip.goods_num, (ipqty - coalesce(plqty,0)) as stock from(select goods_num, sum(ipgo_qty) as ipqty
 from goods_ipgo 
 group by goods_num 
 ) ip

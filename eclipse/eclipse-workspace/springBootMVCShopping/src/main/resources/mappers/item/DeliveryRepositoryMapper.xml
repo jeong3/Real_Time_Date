@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="deliveryRepositorySql">
+
+<insert id="deliveryInsert" parameterType="deliveryDTO">
+      insert into delivery (PURCHASE_NUM, DELIVERY_NUM, DELIVERY_DATE, delivery_status)
+      values (#{purchaseNum}, #{deliveryNum} , now()<!-- sysdate -->, '배송중')
+</insert>
+
+<update id="deliveryStatusUpdate" parameterType="string">
+update delivery set
+ DELIVERY_STATUS = '배송완료'
+where purchase_Num = #{purchaseNum}
+</update>
+
+<delete id="deliveryDelete" parameterType="string">
+delete from delivery
+where purchase_num = #{purchaseNum}
+</delete>
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reviewRepositorySql">
+
+<select id="reviewSelectOne" parameterType="reviewDTO" resultType="string">
+select  review_contents
+ from reviews
+ where goods_num = #{goodsNum} and purchase_num = #{purchaseNum}
+</select>
+
+<update id="reviewUpdate" parameterType="reviewDTO">
+INSERT INTO reviews (goods_num, purchase_num, review_date, review_contents, member_id)
+VALUES (#{goodsNum}, #{purchaseNum}, NOW(), #{reviewContents}, #{memberId})
+where goods_num=#{goodsNum} and purchase_num = #{purchaseNum}
+ON DUPLICATE KEY UPDATE
+  review_date = NOW(),
+  member_id = #{memberId},
+  review_contents = #{reviewContents};
+
+</update>
+
+
+
+</mapper>

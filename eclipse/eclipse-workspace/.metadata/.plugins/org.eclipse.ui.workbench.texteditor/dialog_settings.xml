@@ -6,40 +6,40 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="Spring"/>
 		<list key="findhistory">
-			<item value="cartMerge"/>
+			<item value="spring"/>
+			<item value="mem"/>
+			<item value="DATE"/>
+			<item value="sysdate"/>
+			<item value="sys"/>
+			<item value="delivery_num"/>
+			<item value="delivery"/>
+			<item value="del"/>
 			<item value="merge"/>
-			<item value="td"/>
-			<item value="list"/>
-			<item value="checkQty"/>
-			<item value="cartQty"/>
-			<item value="dto.goodsDTO"/>
-			<item value="dto."/>
-			<item value="oncli"/>
-			<item value="}"/>
-			<item value="${"/>
-			<item value="mainGoodsListService"/>
-			<item value="MainGoodsListService"/>
-			<item value="ipgoCommand"/>
-			<item value="ipgoipgoCommand"/>
+			<item value="nvl"/>
+			<item value="rownum"/>
+			<item value="row"/>
+			<item value="HelpDTO"/>
+			<item value="{"/>
+			<item value="dto"/>
 		</list>
 		<list key="replacehistory">
+			<item value="now()"/>
+			<item value="coalesce"/>
+			<item value="AuthInfoDTO"/>
+			<item value="helpDTO"/>
+			<item value="}]]"/>
+			<item value="[[${"/>
+			<item value="th:value"/>
+			<item value="model"/>
+			<item value="result"/>
 			<item value="th"/>
 			<item value="dto"/>
 			<item value="dto.goodsDTO."/>
 			<item value="dto.goodsDTO"/>
-			<item value="}]]"/>
-			<item value="[[${"/>
 			<item value="dto.ipgoDTO."/>
 			<item value="ipgoDTO"/>
-			<item value="ipgoCommand"/>
-			<item value="goodsIpgoCommand"/>
-			<item value="html"/>
-			<item value="goods"/>
-			<item value="goodsCommand"/>
-			<item value="th:value"/>
-			<item value="[[$"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

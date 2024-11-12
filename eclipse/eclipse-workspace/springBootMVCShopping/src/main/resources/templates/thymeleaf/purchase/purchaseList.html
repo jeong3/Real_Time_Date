@@ -3,18 +3,62 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+<script type="text/javascript">
+function detail(purchaseNum) {
+	window.open("/delivery/deliveryRegist?purchaseNum="+purchaseNum,"","width=800, height=800, top=100, left=100");
+}
+
+</script>
 </head>
 <body>
 	<table width="800" align="center" border="1">
 		<tr>
-			<th>주문일(결제번호)</th>
+			<th>주문일 (결제번호)</th>
+			<th>메인이미지</th>
 			<th>상품명/주문번호</th>
 			<th>주문상태</th>
 		</tr>
-		<tr th:each="dto : ${list}">
-			<td>[[${#dates.format(dto.purchaseDate,'yyyy-MM-dd')}]]</td>
-			<td>[[${dto.purchaseName}]]/[[${dto.purchaseNum}]]</td>
-			<td>[[${dto.purchaseStatus}]]</td>
+		<tr th:each="orderListDTO : ${list}">
+			<td>[[${#dates.format(orderListDTO.purchaseDTO.purchaseDate, 'yyyy-MM-dd')}]] 
+			<th:block th:if="${orderListDTO.paymentDTO.appldate != null}">
+				<th:block th:if="${orderListDTO.paymentDTO.confirmnumber != null}">
+				([[${orderListDTO.paymentDTO.confirmnumber}]])
+				</th:block>
+				<th:block th:if="${orderListDTO.paymentDTO.confirmnumber == null}">
+				(현금결제)
+				</th:block>
+			</th:block>
+			<th:block th:if="${orderListDTO.paymentDTO.appldate == null}">
+			(결제번호)
+			</th:block>
+			</td>
+			<th:block th:each="purchaseListGoodsDTO : ${orderListDTO.purchaseListGoodsDTO}">
+			<th><img th:src="|/static/upload/${purchaseListGoodsDTO.goodsDTO.goodsMainStoreImage}|" width="30"></th>
+			<td>[[${purchaseListGoodsDTO.goodsDTO.goodsName}]] / [[${orderListDTO.purchaseDTO.purchaseNum}]]</td>
+			</th:block>
+			<td>
+			
+			<a th:href="|javascript:detail('${orderListDTO.purchaseDTO.purchaseNum}');|">주문상세보기</a> | 
+			<th:block th:if="${orderListDTO.paymentDTO.appldate == null}">
+			결제대기중
+			</th:block>
+			<th:block th:if="${orderListDTO.paymentDTO.appldate != null}">
+				<th:block th:if="${orderListDTO.deliveryDTO.deliveryNum == null}">
+				<span> 결제완료 </span>
+				</th:block>
+				<th:block th:if="${orderListDTO.deliveryDTO.deliveryNum != null}">
+					<th:block th:if="${orderListDTO.deliveryDTO.deliveryStatus != '배송완료'}">
+						<a th:href="|/delivery/deliveryStatus?purchaseNum=${orderListDTO.purchaseDTO.purchaseNum}|">배송중</a>
+					</th:block>
+					<th:block th:if="${orderListDTO.deliveryDTO.deliveryStatus == '배송완료'}">
+						배송완료
+					</th:block>
+				</th:block>
+			</td>
+			
+			
 		</tr>
 	</table>
 </body>

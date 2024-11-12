@@ -1,11 +1,14 @@
 package springBootMVCShopping.repository;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import springBootMVCShopping.domain.OrderListDTO;
+import springBootMVCShopping.domain.PaymentDTO;
 import springBootMVCShopping.domain.PurchaseDTO;
 
 @Repository
@@ -28,5 +31,32 @@ public class PurchaseRepository {
 	public int purchaseListInsert(Map<String, Object> map) {
 		statement = namespace+".purchaseListInsert";
 		return sqlSession.insert(statement, map);
+	}
+
+	public List<OrderListDTO> orderList(Map<String, String> map) {
+		statement = namespace+".orderList";
+		return sqlSession.selectList(statement, map);
+	}
+
+	public PurchaseDTO purchaseSelectOne(String purchaseNum) {
+		statement = namespace+".purchaseSelectOne";
+		return sqlSession.selectOne(statement, purchaseNum);
+	}
+
+	public int paymentInsert(PaymentDTO dto) {
+		statement = namespace+".paymentInsert";
+		return sqlSession.insert(statement, dto);
+	}
+
+	public int paymentDel(String purchaseNum) {
+		statement = namespace+".paymentDel";
+		return sqlSession.delete(statement, purchaseNum);
+		
+	}
+
+	public int paymentStatusUpdate(String purchaseNum) {
+		statement = namespace+".paymentStatusUpdate";
+		return sqlSession.update(statement, purchaseNum);
+		
 	}
 }

@@ -16,19 +16,14 @@ import springBootMVCShopping.service.item.WishListService;
 @Controller
 @RequestMapping("item")
 public class ItemController {
-	@Autowired
-	GoodsDetailViewService goodsDetailViewService;
+	
 	@Autowired
 	CartListService cartListService;
 	@Autowired
 	WishListService wishListService;
 	@Autowired
 	GoodsCartDelsService goodsCartDelsService;
-	@GetMapping("detailView/{goodsNum}")
-	public String detailView(@PathVariable("goodsNum") String goodsNum, Model model) {
-		goodsDetailViewService.execute(goodsNum,model);
-		return "thymeleaf/item/detailView";
-	}
+	
 	@GetMapping("cartList")
 	public String cartList(HttpSession session, Model model) {
 		cartListService.execute(session, model);

@@ -66,11 +66,14 @@
 	and member_num = #{memberNum}
 </update>
 <update id="cartMerge">
-INSERT INTO cart (MEMBER_NUM, GOODS_NUM, CART_DATE, CART_QTY)
-VALUES (#{memberNum}, #{goodsNum}, NOW(), #{cartQty})
-where goods_num = #{goodsNum}
-ON DUPLICATE KEY UPDATE
-    CART_QTY = CART_QTY + #{cartQty};
+merge into cart c	
+using (select goods_num from goods where goods_num = #{goodsNum}) g	
+on (c.goods_num = g.goods_num and MEMBER_NUM = #{memberNum})	
+WHEN MATCHED THEN	
+	update set CART_QTY = CART_QTY + #{cartQty}	
+WHEN NOT MATCHED THEN	
+	insert ( MEMBER_NUM,GOODS_NUM,CART_DATE, CART_QTY)
+	values (#{memberNum}, #{goodsNum}, sysdate, #{cartQty})
 </update>
 <delete id="goodsNumsDelete" parameterType="hashmap">
 delete from cart

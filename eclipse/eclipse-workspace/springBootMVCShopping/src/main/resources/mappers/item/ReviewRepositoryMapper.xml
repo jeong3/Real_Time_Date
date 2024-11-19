@@ -4,23 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviewRepositorySql">
 
-<select id="reviewSelectOne" parameterType="reviewDTO" resultType="string">
-select  review_contents
+<select id="reviewSelectOne" parameterType="reviewDTO" resultType="reviewDTO">
+select  goods_num,purchase_num,review_date, review_contents, member_id
  from reviews
  where goods_num = #{goodsNum} and purchase_num = #{purchaseNum}
 </select>
 
-<update id="reviewUpdate" parameterType="reviewDTO">
-INSERT INTO reviews (goods_num, purchase_num, review_date, review_contents, member_id)
-VALUES (#{goodsNum}, #{purchaseNum}, NOW(), #{reviewContents}, #{memberId})
-where goods_num=#{goodsNum} and purchase_num = #{purchaseNum}
-ON DUPLICATE KEY UPDATE
-  review_date = NOW(),
-  member_id = #{memberId},
-  review_contents = #{reviewContents};
 
+
+<insert id="reviewinsert" parameterType="reviewDTO">
+INSERT INTO reviews (goods_num, purchase_num, review_date, review_contents, member_id)
+VALUES (#{goodsNum}, #{purchaseNum}, sysdate, #{reviewContents}, #{memberId})
+</insert>
+
+<update id="reviewUpdate" parameterType="reviewDTO">
+ update reviews set 
+ review_contents = #{reviewContents}
+ ,review_date = sysdate
+ where goods_num = #{goodsNum} and purchase_num = #{purchaseNum}
 </update>
 
-
-
+<select id="goodsReviewList" parameterType="string" resultType="ReviewDTO">
+ select goods_num, purchase_num, review_date, review_contents, member_id
+ from reviews
+ where goods_num = #{goodsNum}
+</select>
 </mapper>

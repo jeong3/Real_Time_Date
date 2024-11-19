@@ -57,7 +57,10 @@ when not matched then
     values(#{memberNum}, #{goodsNum}, sysdate)
 </update>
 
-
+<select id="wishCountSelectOne" parameterType="hashmap" resultType="integer">
+	select count(*) from wish
+	where goods_num = #{goodsNum} and member_num = #{memberNum}
+</select>
 
 
 </mapper>

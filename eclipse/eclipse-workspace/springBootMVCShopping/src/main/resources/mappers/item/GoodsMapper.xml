@@ -65,7 +65,7 @@
 				goods_price like '%'||#{searchWord}||'%'
 			</if>
 		</where>
-		) as sub
+		) 
 		where rn between #{startRow} and #{endRow}
 	</select>
 
@@ -95,7 +95,7 @@
 
 	</update>
 
-	<select id="goodsCount">
+	<select id="goodsCount" parameterType="string" resultType="integer">
 		select count(*) from (select
 		<include refid="goodsColumn" />
 		from goods
@@ -106,7 +106,7 @@
 				goods_price like '%'||#{searchWord}||'%'
 			</if>
 		</where>
-		) as sub
+		)
 	</select>
 
 
@@ -129,7 +129,7 @@
 		,GOODS_NUM,GOODS_NAME,GOODS_PRICE,GOODS_CONTENTS,VISIT_COUNT,GOODS_MAIN_IMAGE,GOODS_MAIN_STORE_IMAGE
 		,GOODS_DETAIL_IMAGE,GOODS_DETAIL_STORE_IMAGE,EMP_NUM,GOODS_REGIST,UPDATE_EMP_NUM,GOODS_UPDATE_DATE
 		from goods
-	) as sub1
+	) 
 where rn between #{startRow} and #{endRow}
 	</select>
 

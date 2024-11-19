@@ -6,7 +6,7 @@
 
 <insert id="deliveryInsert" parameterType="deliveryDTO">
       insert into delivery (PURCHASE_NUM, DELIVERY_NUM, DELIVERY_DATE, delivery_status)
-      values (#{purchaseNum}, #{deliveryNum} , now()<!-- sysdate -->, '배송중')
+      values (#{purchaseNum}, #{deliveryNum} , sysdate<!-- sysdate -->, '배송중')
 </insert>
 
 <update id="deliveryStatusUpdate" parameterType="string">

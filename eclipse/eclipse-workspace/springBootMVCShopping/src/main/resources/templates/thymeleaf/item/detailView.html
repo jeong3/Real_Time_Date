@@ -6,36 +6,45 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 <script type="text/javascript">
-	
 	$(function() {
-		$("#cartBtn").click(function(){
+		goodsDescript();
+		$("inquire").click(function(){
+			inquire();
+		});
+		$("#descript").click(function() {
+			goodsDescript();
+		});
+		
+		$("#cartBtn").click(function() {
 			var cartQty = $("#cartQty").val();
+				
 			$.ajax({
-				type:"post",
-				url:"/item/itemCart",
-				data : {"goodsNum":"[[${dto.goodsDTO.goodsNum}]]", "cartQty":cartQty},
-				dataType: "json",
-				success : function(){
+				type : "post",
+				url : "/item/itemCart",
+				data : {
+					"goodsNum" : "[[${dto.goodsDTO.goodsNum}]]",
+					"cartQty" : cartQty,
+					
+				},
+				dataType : "json",
+				success : function() {
 					con = confirm("장바구니로 이동하시겠습니까?");
-					if(con){
-						location.href="/item/cartList";
-					}else{
+					if (con) {
+						location.href = "/item/cartList";
+					} else {
 						document.location.reload();
 					}
 				},
-				error : function(){
+				error : function() {
 					alert("로그인을 다시 해주세요");
 					//location.href="/";
 					false;
 				}
 			});
 		});
-		
-		
-		
-		
-		
-		
+		$("#buyItem").click(function(){
+			location.href = "/item/buyItem?goodsNum=[[${dto.goodsDTO.goodsNum}]]&qty="+$("#cartQty").val();
+		});
 		
 		
 		$("#wish").click(function() {
@@ -63,35 +72,115 @@
 					return false;
 				}
 			});*/
-			var xhr = new XMLHttpRequest();
-			xhr.open("post", "/item/itemWish", true);
-			xhr.setRequestHeader("Content-Type", "application/json");
-			xhr.onload = function(){
-					if(xhr.status == 200) { //정상적으로 처리 되었을 때 가져오는 값 200
+			if([[${session.auth == null}]]){
+				alert("로그아웃되었습니다. 다시 로그인 해주세요");
+				popupWindow = window.open("/login/item.login", "login","width=315, height=200, top=100, left=100");
+				popupWindow.onbeforeunload = function(){
+					window.location.reload(); //부모 창 새로고침
+				};
+			}else{
+				var xhr = new XMLHttpRequest();
+				xhr.open("post", "/item/itemWish", true);
+				xhr.setRequestHeader("Content-Type", "application/json");
+				xhr.onload = function() {
+					if (xhr.status == 200) { //정상적으로 처리 되었을 때 가져오는 값 200
 						var result = xhr.responseText;
 						if ($("#wish").attr("src") == "/static/images/hart1.jpg") {
 							$("#wish").attr("src", "/static/images/hart.jpg");
 						} else {
 							$("#wish").attr("src", "/static/images/hart1.jpg");
 						}
-					} else{
+					} else {
 						alert("로그인을 다시 해주세요.");
 						//location.href="/";
 						return false;
 					}
 				}
-				var formData = JSON.stringify(
-						{"goodsNum":"[[${dto.goodsDTO.goodsNum}]]"}
-						);
+				var formData = JSON.stringify({
+					"goodsNum" : "[[${dto.goodsDTO.goodsNum}]]"
+				});
 				xhr.send(formData);
+			}
+			
+		});
+		
+		$("#review").click(function(){
+			
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "/review/reviewList", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			var formData = JSON.stringify({"goodsNum" : "[[${dto.goodsDTO.goodsNum}]]"});
+			xhr.onload = function(){
+				if(xhr.status == 200){
+					var result = JSON.parse(xhr.responseText);
+					item='<table border="1" width="600">';
+					const reviewDetails = result.reviews.map(function(review){
+						return `<tr><th>${review.memberId}</th><th>${review.purchaseNum}</th></tr>
+							   <tr><th colspan="2">${review.reviewContents}</th></tr>`;
+					});
+				
+					item+=reviewDetails;
+					item+="</table>";
+					
+					$("#content").html(item);
+				} else {
+					alert("서버오류");
+				}
+			}
+			xhr.send(formData);
 		});
 	});
+	function goodsDescript(){
+		var formData = JSON.stringify({"goodsNum" : "[[${dto.goodsDTO.goodsNum}]]"});
+		$.ajax({
+			type : "post",
+			url : "/corner/goodsDescript",
+			data : formData,
+			contentType : "application/json",
+			dataType : "json",
+			success : function(data){
+				//var data = JSON.parse(result);
+				console.log(data);
+				var item = "";
+				item += '<table width="600" align="center">';
+				item += '<tr><th>'+data.goodsDTO.goodsContents+'</th></tr>';
+				if(data.goodsDTO.goodsDetailImage !=null){
+					var imageParts = data.goodsDTO.goodsDetailImage.split(/[\/,`]/);
+					imageParts.forEach(function(image,index,array){
+						item += '<tr><th><img src="/static/upload/'+image+'"></th></tr>'
+					});
+					
+					$("#content").html(item);
+				}
+				
+			},
+			error : function(xhr, status, error){
+				alert("서버오류");
+			}
+		});
+	}
+	function inquire(){
+		
+		$.ajax({
+			type : "post",
+			url: "/corner/inquireList",
+			dataType : "html",
+			data : {"goodsNum":"[[${dto.goodsDTO.goodsNum}]]"},
+			success : function(item){
+				$("#content").html(item);
+			},
+			error : function(){
+				alert("로그아웃되었습니다.");
+			}
+		});
+	}
 </script>
 </head>
 <body>
 	<table width="800" align="center">
 		<caption>[[${dto.goodsDTO.goodsName}]] 상품정보입니다.</caption>
 		<tr>
+			
 			<td rowspan="5"><img
 				th:src="|/static/upload/${dto.goodsDTO.goodsMainStoreImage}|"
 				height="200" /></td>
@@ -106,18 +195,16 @@
 			<td>조회수 : [[${dto.goodsDTO.visitCount}]]</td>
 		</tr>
 		<tr>
-			<td>수량 : <input type="number" min="1" step="1" value="1"
-				id="cartQty" /></td>
+			<td>수량 : <input type="number" min="1" step="1" value="1" th:max="${dto.stock}" id="cartQty" /></td>
 		</tr>
 		<tr>
-			<td><th:block th:if="${dto.stock != 0 and dto.stock != null}">
+			<td><th:block th:if="${dto.stock > 0 and dto.stock != null}">
 					<button type="button" id="cartBtn">장바구니</button> |
-            <button type="button" id="buyItem">바로구매</button> | 
-         </th:block> <th:block th:if="${dto.stock == 0 or dto.stock == null}">
+         		    <button type="button" id="buyItem">바로구매</button> | 
+         </th:block> <th:block th:if="${dto.stock < 0 or dto.stock == null}">
          품절입니다. 곧 입고될 예정입니다
-         </th:block>  
-         
-         <img src="/static/images/hart1.jpg" width="20" id="wish" /> 찜</td>
+         </th:block> <img th:if="${wish <= 0 or wish == null}" src="/static/images/hart1.jpg" width="20" id="wish" />
+         <img th:if="${wish > 0}" src="/static/images/hart.jpg" width="20" id="wish" /> 찜</td>
 
 			<!-- <img src="/static/images/hart.jpg" width="20" id="wish" /> 찜</td> -->
 

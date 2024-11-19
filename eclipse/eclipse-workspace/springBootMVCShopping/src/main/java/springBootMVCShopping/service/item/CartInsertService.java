@@ -1,9 +1,10 @@
 package springBootMVCShopping.service.item;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.command.CartCommand;
 import springBootMVCShopping.domain.AuthInfoDTO;
 import springBootMVCShopping.domain.CartDTO;
@@ -19,21 +20,17 @@ public class CartInsertService {
 	public String execute(CartCommand cartCommand, HttpSession session) {
 		AuthInfoDTO auth = (AuthInfoDTO)session.getAttribute("auth");
 		String memberNum = null;
-		try {
-			memberNum = memberMapper.memberNumSelect(auth.getUserId());
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "000";  // session이 없다
-		}
-		if(memberNum == null) {
-			return "900";
-		}else {
+		memberNum = memberMapper.memberNumSelect(auth.getUserId());
+		
+		if(memberNum != null) {
 			CartDTO dto = new CartDTO();
 			dto.setCartQty(cartCommand.getQty());
 			dto.setGoodsNum(cartCommand.getGoodsNum());
 			dto.setMemberNum(memberNum);
 			cartMapper.cartMerge(dto);
 			return "200";
+		}else {
+			return "900";
 		}
 		
 	}

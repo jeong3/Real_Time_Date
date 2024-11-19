@@ -3,9 +3,10 @@ package springBootMVCShopping.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Service;
 
-import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.domain.FileDTO;
 
 @Service

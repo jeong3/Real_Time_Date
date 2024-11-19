@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+ <mapper namespace="inquireMapperSql">
+ 
+ <sql id="inquireNum">
+ select nvl(max(inquire_num),0)+1 from inquire
+ </sql>
+	 <insert id="inquireInsert" parameterType="inquireDTO">
+		 insert into inquire(INQUIRE_NUM, MEMBER_NUM, GOODS_NUM, INQUIRE_SUBJECT, INQUIRE_CONTENTS, INQUIRE_KIND
+							, INQUIRE_DATE)
+		 values(( select nvl(max(inquire_num),0)+1 from inquire ), #{memberNum}, #{goodsNum}, #{inquireSubject}, #{inquireContents}
+		 , #{inquireKind}, sysdate )
+
+	 </insert>
+	 
+	 <select id="inquireList" parameterType="hashMap" resultType="inquireDTO">
+	  select inquire_num, i.member_num, g.goods_num, inquire_subject, inquire_kind,
+      inquire_Contents, inquire_Date, inquire_answer, inquire_answer_date,
+      i.emp_num, m.member_id, goods_name
+      from inquire i left outer join members m
+      on i.member_num = m.member_num
+      join goods g on g.goods_num = i.goods_num
+      
+	 <trim prefix="where" prefixOverrides="AND / OR" >
+	 	<if test="goodsNum != null">
+	 	 i.goods_num = #{goodsNum}
+	 	</if>
+	 	<if test="inquireNum != null">
+	 	 inquire_Num = #{inquireNum}
+	 	</if>
+	 </trim>
+	 
+	 </select>
+	 
+	 <delete id="inquireDelete" parameterType="integer">
+	 delete from inquire
+	 where inquire_num = #{inquireNum}
+	 </delete>
+	 
+	 <update id="inquireUpdate" parameterType="inquireDTO">
+	 update inquire set
+	 inquire_Subject = #{inquireSubject},
+	 inquire_contents = #{inquireContents},
+	 inquire_kind = #{inquireKind}
+	 where inquire_num = #{inquireNum}
+	 </update>
+	 
+	 <update id="inquireAnswerUpdate" parameterType="inquireDTO">
+	 update inquire set
+	 emp_num = #{empNum},
+	 inquire_answer = #{inquireAnswer},
+	 inquire_answer_date = sysdate
+	 where inquire_num = #{inquireNum}
+	 </update>
+ 
+ </mapper>

@@ -1,5 +1,9 @@
 package springBootMVCShopping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,9 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.command.LoginCommand;
 import springBootMVCShopping.domain.AuthInfoDTO;
 import springBootMVCShopping.mapper.LoginMapper;
@@ -19,6 +20,8 @@ import springBootMVCShopping.service.EmailSendService;
 import springBootMVCShopping.service.MainGoodsListService;
 import springBootMVCShopping.service.SMSMessageService;
 import springBootMVCShopping.service.login.AutoLoginService;
+
+
 
 @Controller
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})

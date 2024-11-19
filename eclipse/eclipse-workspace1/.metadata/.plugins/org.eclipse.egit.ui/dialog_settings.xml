@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="org.eclipse.egit.ui.internal.clone.GitSelectWizardPageWizardSel" value="0"/>
+	<item key="GitSelectRepositoryPage.lastRepository" value="C:\Users\Administrator\git\real_time_data_process_20240708_1\.git"/>
+	<list key="RepositorySelectionPage.UsedUris">
+		<item value="https://github.com/jeong3/Test1_Repository.git"/>
+		<item value="file://C:\Users\Administrator\git\Test1_Repository"/>
+		<item value="https://github.com/SoongMoo/real_time_data_process_20240708.git"/>
+		<item value="file://C:\Users\Administrator\Desktop\Real_Time_Date\eclipse\eclipse-workspace1\jspMVCMisoShopping"/>
+		<item value="C:\Users\Administrator\git\real_time_data_process_20240708_1"/>
+		<item value="file://C:\Users\Administrator\git"/>
+		<item value="file://C:\Users\Administrator\git\real_time_data_process_20240708_1\Test1_Repository"/>
+	</list>
+	<list key="EGit.KnownHosts">
+		<item value="bitbucket.org"/>
+		<item value="git.eclipse.org"/>
+		<item value="github.com"/>
+	</list>
+	<section name="GitImportWizard">
+		<item key="GitProjectsImportPage.STORE_NESTED_PROJECTS" value="true"/>
+		<section name="GitImportWizard.dialogBounds">
+			<item key="DIALOG_X_ORIGIN" value="572"/>
+			<item key="DIALOG_Y_ORIGIN" value="147"/>
+			<item key="DIALOG_WIDTH" value="880"/>
+			<item key="DIALOG_HEIGHT" value="608"/>
+			<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
+		</section>
+	</section>
+	<section name="org.eclipse.egit.ui.internal.staging.StagingView">
+		<item key="MAIN_SASH_FORM_ORIENTATION_VERTICAL" value="false"/>
+		<item key="HORIZONTAL_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="STAGING_SASH_FORM_WEIGHT" value="500,500"/>
+		<item key="sortItemState" value="false"/>
+	</section>
+	<section name="GitCommitMessageComponent">
+		<list key="C:\Users\Administrator\git\real_time_data_process_20240708_1\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\Users\Administrator\git\Test1_Repository\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\Users\Administrator\git\real_time_data_process_20240708_1\real_time_data_process_20240708\.git">
+			<item value="empty"/>
+		</list>
+		<list key="C:\Users\Administrator\git\Test1_Repository\Test1_Repository\.git">
+			<item value="empty"/>
+		</list>
+	</section>
+</section>

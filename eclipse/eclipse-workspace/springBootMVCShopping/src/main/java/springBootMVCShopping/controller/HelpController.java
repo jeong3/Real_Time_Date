@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jakarta.servlet.http.HttpSession;
 import springBootMVCShopping.command.HelpCommand;
 import springBootMVCShopping.service.help.FindIdService;
 import springBootMVCShopping.service.help.FindPwService;

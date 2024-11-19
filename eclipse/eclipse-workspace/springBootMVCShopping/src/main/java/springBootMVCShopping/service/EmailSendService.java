@@ -1,17 +1,18 @@
 package springBootMVCShopping.service;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailSendService {
 	@Autowired
 	JavaMailSender mailSender;
+	
 	public void mailSend(String fromEmail, String toEmail, String subject, String contents) {
 		MimeMessage msg = mailSender.createMimeMessage();
 		try {

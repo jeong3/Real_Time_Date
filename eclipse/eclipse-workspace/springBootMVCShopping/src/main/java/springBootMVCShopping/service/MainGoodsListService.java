@@ -9,10 +9,13 @@ import org.springframework.ui.Model;
 import springBootMVCShopping.domain.GoodsDTO;
 import springBootMVCShopping.mapper.GoodsMapper;
 
+
+
 @Service
 public class MainGoodsListService {
 	@Autowired
 	GoodsMapper goodsMapper;
+	
 	public void execute(Integer page, Model model) {
 		int limit = 6; // 1 ~ 6
 		int startRow = ((page - 1) * limit) + 1; //1
@@ -22,8 +25,6 @@ public class MainGoodsListService {
 		int maxPage = (int)((double) count / limit + 0.95);
 		model.addAttribute("maxPage", maxPage);
 		model.addAttribute("list", list);
-		
-		
 		
 	}
 

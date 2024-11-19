@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 
 import springBootMVCShopping.domain.PurchaseDTO;
 import springBootMVCShopping.mapper.PurchaseMapper;
-import springBootMVCShopping.repository.PurchaseRepository;
 
 @Service
 public class PurchaseListService {

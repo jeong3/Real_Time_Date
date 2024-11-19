@@ -5,8 +5,8 @@
 <mapper namespace="purchaseRepositorySql">
 	<select id="selectPurchaseNum" resultType="string">
 		select concat(
-		to_char(now(), 'yyyyMMdd') , coalesce(max(to_number(substr(purchase_num,9))),0 ) +1) from purchase
-		where substr(purchase_num, 1, 8) = to_char(now(),
+		to_char(sysdate, 'yyyyMMdd') , coalesce(max(to_number(substr(purchase_num,9))),0 ) +1) from purchase
+		where substr(purchase_num, 1, 8) = to_char(sysdate,
 		'yyyyMMdd')
 	</select>
 
@@ -21,7 +21,7 @@
 		insert into purchase(
 		<include refid="purchaseColumn" />
 		)
-		values( #{purchaseNum}, now(), #{purchasePrice}
+		values( #{purchaseNum}, sysdate, #{purchasePrice}
 		, #{deliveryAddr},
 		#{deliveryAddrDetail}, #{deliveryPost}
 		, #{deliveryPhone}, #{message},
@@ -86,7 +86,6 @@
 			<result column="GOODS_MAIN_STORE_IMAGE" jdbcType="VARCHAR" property="goodsMainStoreImage"/>
 		</association>
 		<association property="reviewDTO" javaType="reviewDTO">
-			<id column="review_Num" jdbcType="BIGINT" property="reviewNum"/>
 			<result column="review_Date" jdbcType="DATE" property="reviewDate"/>
 			<result column="review_Contents" jdbcType="VARCHAR" property="reviewContents"/>
 			<result column="member_Id" jdbcType="VARCHAR" property="memberId"/>
@@ -101,7 +100,7 @@ select  g.goods_num , goods_name, GOODS_MAIN_STORE_IMAGE, goods_contents
 	   ,DELIVERY_NAME, PURCHASE_NAME
        ,CONFIRMNUMBER, CARDNUM, APPLDATE, APPLTIME, TOTALPRICE
        , DELIVERY_NUM, DELIVERY_DATE, DELIVERY_STATUS
-       , REVIEW_NUM, REVIEW_DATE, REVIEW_CONTENTS, MEMBER_ID
+       , REVIEW_DATE, REVIEW_CONTENTS, MEMBER_ID
 from  goods g join purchase_list pl
 on g.goods_num = pl.goods_num join purchase p
 on pl.purchase_num = p.purchase_num left outer join payment pm

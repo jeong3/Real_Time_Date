@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/login/item.login" method="post" >
+<table border="1" align="center" th:object="${loginCommand}">
+	<tr><th>ID</th><th> <input type="text" name="userId" placeholder="아이디"> <br />
+	 </th> <th rowspan="2"> <input type="image" src="/static/images/버튼.png" width="40"> </th> </tr>
+	<tr><th>PW</th><th> <input type="password" name="userPw" placeholder="비밀번호"> <br>
+</table>
+</form>
+</body>
+</html>

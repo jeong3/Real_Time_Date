@@ -3,7 +3,6 @@ package springBootMVCShopping.mapper;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import springBootMVCShopping.domain.GoodsStockDTO;
 
@@ -15,6 +14,8 @@ public interface GoodsStockMapper {
 	Integer goodsVisitCountUpdate(String goodsNum);
 
 	Integer wishMerge( Map<String, String> map);
+
+	Integer wishCountSelectOne(Map<String, String> map);
 
 	
 

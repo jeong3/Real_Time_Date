@@ -2,14 +2,18 @@ package springBootMVCShopping.service.item;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import jakarta.servlet.http.HttpSession;
+import springBootMVCShopping.command.CartCommand;
 import springBootMVCShopping.domain.AuthInfoDTO;
 import springBootMVCShopping.domain.GoodsCartDTO;
+import springBootMVCShopping.domain.GoodsStockDTO;
 import springBootMVCShopping.mapper.CartMapper;
+import springBootMVCShopping.mapper.GoodsStockMapper;
 import springBootMVCShopping.mapper.MemberMapper;
 
 @Service
@@ -18,7 +22,12 @@ public class CartListService {
 	CartMapper cartMapper;
 	@Autowired
 	MemberMapper memberMapper;
-	public void execute(HttpSession session, Model model) {
+	@Autowired
+	GoodsStockMapper goodsStockMapper;
+	
+	public void execute(HttpSession session, Model model, CartCommand cartCommand) {
+		
+		
 		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
 		String memberId = auth.getUserId();
 		String memberNum = memberMapper.memberNumSelect(memberId);
@@ -30,9 +39,17 @@ public class CartListService {
 		Integer totalPrice = 0;
 		Integer totalQty = 0;
 		for(GoodsCartDTO dto : list) {
+			String goodsNum = dto.getGoodsDTO().getGoodsNum();
 			totalPrice += dto.getGoodsDTO().getGoodsPrice() * dto.getCartDTO().getCartQty();
 			totalQty += dto.getCartDTO().getCartQty();
+			GoodsStockDTO dto1 = goodsStockMapper.goodsStockSelectOne(goodsNum);
+			model.addAttribute("stock", dto1.getStock());
+			System.out.println(dto1.getStock()+"ASdasdasd");
 		}
+		System.out.println(cartCommand.getGoodsNum());
+		
+		
+		
 		model.addAttribute("totPri", totalPrice);
 		model.addAttribute("totQty", totalQty);
 		

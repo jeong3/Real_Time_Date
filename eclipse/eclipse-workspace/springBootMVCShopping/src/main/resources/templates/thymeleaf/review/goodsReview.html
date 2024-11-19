@@ -9,9 +9,9 @@
 <input type="hidden" name="goodsNum" th:value="${dto.goodsNum}">
 <input type="hidden" name="purchaseNum" th:value="${dto.purchaseNum}">
 <table align="center" width="600">
-<tr>
+<tr >
 	<td>리뷰작성</td>
-	<td> <textarea rows="5" cols="30" name="reviewContents">[[${reviewContents}]]</textarea></td>
+	<td> <textarea rows="5" cols="30" name="reviewContents">[[${dto.reviewContents}]]</textarea></td>
 </tr>
 <tr>
 	<th colspan="2"> <input type="submit" value="리뷰등록"> </th>

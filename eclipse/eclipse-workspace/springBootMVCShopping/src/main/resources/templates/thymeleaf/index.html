@@ -28,7 +28,9 @@ function loadMoreItems(){
 			$.each(model.list, function(idx, dto){
 				item += '<td>';
 				item += '<a href="/corner/detailView/'+dto.goodsNum+'">'
-				item += '<img src="/static/upload/'+dto.goodsMainStoreImage+'" width="300" height="300" /><br />';     
+				if(dto.goodsMainStoreImage != null){
+					item += '<img src="/static/upload/'+dto.goodsMainStoreImage+'" width="300" height="300" /><br />'; 
+				}
 				item += dto.goodsName + '<br />';
 				item += formatter.format(dto.goodsPrice) +'원 <br />';
 				item += '</a>'
@@ -61,6 +63,7 @@ Hello miso shopping <br>
 	<li><a href="myPage/employeeMyPage">내정보 보기</a></li>
 	<li><a href="goods/goodsList">상품 목록</a></li>
 	<li><a href="/purchase/purchaseList" >주문목록</a></li>
+	<li><a href="/inquire/goodsQuestion" >문의목록</a></li>
 	<li><a href="/mailling">메일 보내기</a></li>
 	</th:block>
 	<th:block th:if="${session.auth.grade == 'mem'}">

@@ -6,25 +6,33 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="jar"/>
+		<item key="selection" value="회원"/>
 		<list key="findhistory">
-			<item value="jar"/>
-			<item value="row_"/>
-			<item value="list"/>
-			<item value="count"/>
-			<item value="cartQty"/>
-			<item value="cartadd"/>
-			<item value="cartBtn"/>
-			<item value="cartAdd"/>
-			<item value="stock"/>
-			<item value="window"/>
-			<item value="reviewWrite"/>
-			<item value="reviewSelectOne"/>
-			<item value="dto"/>
-			<item value="}"/>
-			<item value="${"/>
+			<item value="회원"/>
+			<item value="alert(&quot;a&quot;);"/>
+			<item value="ㅁㅁ"/>
+			<item value="ㅁㅁㅁ"/>
+			<item value="가요"/>
+			<item value="more"/>
+			<item value="content"/>
+			<item value="td"/>
+			<item value="앨범"/>
+			<item value="85"/>
+			<item value="home"/>
+			<item value="album"/>
+			<item value="side"/>
+			<item value="div"/>
+			<item value="8 items"/>
 		</list>
 		<list key="replacehistory">
+			<item value="alert(&quot;서버 오류&quot;);"/>
+			<item value="th"/>
+			<item value="60"/>
+			<item value="cover"/>
+			<item value="/static/images/"/>
+			<item value="/static/images"/>
+			<item value="static"/>
+			<item value="springBootMVCAlbum"/>
 			<item value="list[0]"/>
 			<item value="}]]"/>
 			<item value="[[${"/>
@@ -32,14 +40,6 @@
 			<item value="now()"/>
 			<item value="coalesce"/>
 			<item value="AuthInfoDTO"/>
-			<item value="helpDTO"/>
-			<item value="th:value"/>
-			<item value="model"/>
-			<item value="result"/>
-			<item value="th"/>
-			<item value="dto"/>
-			<item value="dto.goodsDTO."/>
-			<item value="dto.goodsDTO"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

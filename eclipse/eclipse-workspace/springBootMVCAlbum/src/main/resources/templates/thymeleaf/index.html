@@ -51,6 +51,7 @@ $(function(){
     });
 	memberList();
 	empList();
+	myInfo();
 });
 function kpopList(){
 	$("#kpopList").click(function(){
@@ -160,7 +161,22 @@ function empList(){
 		});
 	});
 }
-	
+function myInfo(memberNum){
+	$("#myInfo").click(function(){
+		$.ajax({
+			type: "get",
+			url: "/member/memberDetail?memberNum="+memberNum,
+			dataType:"html",
+			success:function(result){
+				
+				$("#content").html(result);
+			},
+			error:function(){
+				alert("서버 오류");
+			}
+		});	
+	});
+}
 	
 	
 

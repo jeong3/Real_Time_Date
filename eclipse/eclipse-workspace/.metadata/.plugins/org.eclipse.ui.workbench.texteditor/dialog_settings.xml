@@ -6,8 +6,13 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="회원"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
+			<item value="{"/>
+			<item value=","/>
+			<item value="myba"/>
+			<item value="mapp"/>
+			<item value="mep"/>
 			<item value="회원"/>
 			<item value="alert(&quot;a&quot;);"/>
 			<item value="ㅁㅁ"/>
@@ -18,11 +23,6 @@
 			<item value="td"/>
 			<item value="앨범"/>
 			<item value="85"/>
-			<item value="home"/>
-			<item value="album"/>
-			<item value="side"/>
-			<item value="div"/>
-			<item value="8 items"/>
 		</list>
 		<list key="replacehistory">
 			<item value="alert(&quot;서버 오류&quot;);"/>

@@ -30,7 +30,6 @@ public class MemberWriteService {
 		if(memberCommand.getMemberPhone2() != null) { //폰2는 선택이기 때문에 null값일때 trim();을 사용하지 못함
 			dto.setMemberPhone2(memberCommand.getMemberPhone2().trim());
 		}
-		
 		String encodePw = passwordEncoder.encode(memberCommand.getMemberPw());
 		dto.setMemberPw(encodePw);
 		

@@ -13,4 +13,12 @@ public interface MemberMapper {
 
 	List<MemberDTO> memberSelectAll();
 
+	MemberDTO memberSelectOne(String memberNum);
+
+	Integer memberUpdate(MemberDTO dto);
+
+	Integer memberPwUpdate(String updatePw, String memberNum);
+
+	Integer memberDelete(String memberNum);
+
 }

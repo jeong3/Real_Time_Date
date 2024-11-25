@@ -143,6 +143,77 @@ function memberList(){
 		});
 	});
 }
+function memberList1(){
+	$.ajax({
+		type: "get",
+		url: "/member/memberList",
+		dataType:"html",
+		success:function(result){
+			
+			$("#content").html(result);
+		},
+		error:function(){
+			alert("서버 오류");
+		}
+			
+		
+	});
+}
+function myInfo(element) {
+    const memberNum = element.getAttribute("data-member-num");
+    if (memberNum == null) {
+        return ; // memberNum이 없으면 함수 종료
+    }
+
+    // 여기서부터는 memberNum이 있을 때만 실행
+    $.ajax({
+        type: "get",
+        url: "/member/memberDetail",
+        data: {"memberNum": memberNum},
+        dataType: "html",
+        success: function (result) {
+            $("#content").html(result); // 결과를 HTML에 삽입
+        },
+        error: function () {
+            alert("서버 오류 디테일"); // 오류 시 알림
+        }
+    });
+}
+
+// 페이지 로드 후 URL 파라미터에서 memberNum 값을 확인하고 myInfo 호출
+document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const memberNum = urlParams.get("memberNum"); // URL에서 memberNum 추출
+
+    if (memberNum) {
+        const dummyElement = document.createElement("div"); // 가짜 DOM 요소 생성
+        dummyElement.setAttribute("data-member-num", memberNum); // element에 memberNum 값 추가
+        myInfo(dummyElement); // myInfo 함수 호출
+    }
+});
+
+
+
+function deleteMember(memberNum) {
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            type: "POST",
+            url: "/member/memberDelete", // 삭제 엔드포인트
+            data: { memberNum: memberNum }, // 삭제할 멤버 ID 전달
+            success: function(response) {
+                if (response == "success") {
+                	memberList1(); // 삭제 후 리스트 갱신
+                } else {
+                    alert("삭제를 취소했습니다.");
+                }
+            },
+            error: function() {
+                alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
+            }
+        });
+    }
+}
+
 function empList(){
 	$("#empList").click(function(){
 		$.ajax({
@@ -161,23 +232,7 @@ function empList(){
 		});
 	});
 }
-function myInfo(memberNum){
-	$("#myInfo").click(function(){
-		$.ajax({
-			type: "get",
-			url: "/member/memberDetail?memberNum="+memberNum,
-			dataType:"html",
-			success:function(result){
-				
-				$("#content").html(result);
-			},
-			error:function(){
-				alert("서버 오류");
-			}
-		});	
-	});
-}
-	
+
 	
 
 

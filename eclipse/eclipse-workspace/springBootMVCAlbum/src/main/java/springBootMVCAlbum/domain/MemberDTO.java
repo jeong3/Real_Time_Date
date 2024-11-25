@@ -14,6 +14,7 @@ public class MemberDTO {
 	String memberName;
 	String memberId;
 	String memberPw;
+	String memberPwcon;
 	String memberAddr;
 	String memberAddrDetail;
 	String memberPost;

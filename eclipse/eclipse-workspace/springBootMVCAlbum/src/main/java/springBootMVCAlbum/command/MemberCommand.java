@@ -23,7 +23,7 @@ public class MemberCommand {
 	@Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
 			message = "영문자와 숫자 그리고 특수문자가 포함된 8글자 이상")
 	String memberPw;
-	@NotBlank(message = "비밀번호확인을 입력해주세요")
+	
 	String memberPwcon;
 	@NotEmpty(message = "주소을 입력해주세요")
 	String memberAddr;

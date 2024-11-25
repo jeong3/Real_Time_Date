@@ -18,4 +18,38 @@
 	<select id="memberSelectAll" resultType="memberDTO">
 		select <include refid="BaseColumns" /> from members
 	</select>
+	
+	<select id="memberSelectOne" resultType="memberDTO">
+		select <include refid="BaseColumns" /> from members
+		where member_num = #{memberNum}
+	</select>
+	
+	<update id="memberUpdate" parameterType="memberDTO">
+	update members set
+	MEMBER_NAME=#{memberName}
+	, MEMBER_ID=#{memberId}
+	, MEMBER_PW=#{memberPw}
+	, MEMBER_ADDR=#{memberAddr}
+	, MEMBER_ADDR_DETAIL=#{memberAddrDetail}
+	, MEMBER_POST=#{memberPost}
+	, MEMBER_REGIST=sysdate
+	, GENDER=#{gender}
+	, MEMBER_PHONE1=#{memberPhone1}
+	, MEMBER_PHONE2=#{memberPhone2}
+	, MEMBER_EMAIL=#{memberEmail}
+	, MEMBER_BIRTH=#{memberBirth}
+	where member_num=#{memberNum}
+	
+	</update>
+	
+	<update id="memberPwUpdate" parameterType="string">
+	update members set
+	MEMBER_PW=#{updatePw}
+	where member_num=#{memberNum}
+	</update>
+	
+	<delete id="memberDelete" parameterType="string">
+	delete from members
+	where member_num = #{memberNum}
+	</delete>
 </mapper>

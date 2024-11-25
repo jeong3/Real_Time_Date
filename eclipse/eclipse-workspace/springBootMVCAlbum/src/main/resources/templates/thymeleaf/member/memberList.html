@@ -10,30 +10,30 @@
  <h2>MemberList</h2>
   <a href="/member/memberRegist">회원가입</a>
   <hr/>
-  <th:block >
-  <a id="myInfo" type="button" th:data-member-num="${list[0].memberNum}" onclick="myInfo(this)">
-  <table class="w3-ul w3-card-4" style="width:50%;">
-    <tr class="w3-bar" th:each="dto : ${list}">
-      <td>
-        <img src="/static/images/cover.jpg" class="w3-bar-item w3-circle w3-hide-small" style="width:60px">
-      </td>
-      <td>
-        <div class="w3-bar-item">
-          <span class="w3-large" >[[${dto.memberNum	}]]</span>
-        </div>
-      </td>
-       <td>
-        <div class="w3-bar-item">
-          <span class="w3-large" >[[${dto.memberName}]]</span>
-        </div>
-      </td>
-      
-      <td>
-        <span onclick="this.parentElement.parentElement.style.display='none'" class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span>
-      </td>
-    </tr>
-  </table>
-  </a>
+  
+  <table class="w3-ul w3-card-4">
+  <tr class="w3-bar" th:each="dto : ${list}" th:data-member-num="${dto.memberNum}" onclick="myInfo(this)">
+    <td>
+      <img src="/static/images/cover.jpg" class="w3-bar-item w3-circle w3-hide-small" style="width:60px">
+    </td>
+    <td>
+      <div class="w3-bar-item">
+        <span class="w3-large">[[${dto.memberNum}]]</span>
+      </div>
+    </td>
+    <td>
+      <div class="w3-bar-item">
+        <span class="w3-large">[[${dto.memberName}]]</span>
+      </div>
+    </td>
+    <td>
+    <a type="button" th:attr="onclick=|deleteMember('${dto.memberNum}')|" style="text-decoration: underline">
+    <span class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span> </a>
+    </td>
+  </tr>
+</table>
+
+
   </div>
 
 </body>

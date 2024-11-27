@@ -6,25 +6,27 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="memberList"/>
 		<list key="findhistory">
+			<item value="memberList"/>
+			<item value="list"/>
+			<item value="updatePassword"/>
+			<item value="memberPwUpdate"/>
+			<item value="memberpw"/>
+			<item value="pwcon"/>
+			<item value="]]"/>
+			<item value="[["/>
+			<item value="th"/>
+			<item value="회원"/>
 			<item value="{"/>
 			<item value=","/>
 			<item value="myba"/>
 			<item value="mapp"/>
 			<item value="mep"/>
-			<item value="회원"/>
-			<item value="alert(&quot;a&quot;);"/>
-			<item value="ㅁㅁ"/>
-			<item value="ㅁㅁㅁ"/>
-			<item value="가요"/>
-			<item value="more"/>
-			<item value="content"/>
-			<item value="td"/>
-			<item value="앨범"/>
-			<item value="85"/>
 		</list>
 		<list key="replacehistory">
+			<item value="&lt;input type=&quot;text&quot; th:value=&quot;&quot;&gt;"/>
+			<item value="td"/>
 			<item value="alert(&quot;서버 오류&quot;);"/>
 			<item value="th"/>
 			<item value="60"/>
@@ -38,8 +40,6 @@
 			<item value="[[${"/>
 			<item value="sysdate"/>
 			<item value="now()"/>
-			<item value="coalesce"/>
-			<item value="AuthInfoDTO"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

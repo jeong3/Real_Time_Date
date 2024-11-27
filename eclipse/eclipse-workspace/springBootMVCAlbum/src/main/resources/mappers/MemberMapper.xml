@@ -16,7 +16,7 @@
 	</insert>
 	
 	<select id="memberSelectAll" resultType="memberDTO">
-		select <include refid="BaseColumns" /> from members
+		select <include refid="BaseColumns" /> from members order by member_num asc
 	</select>
 	
 	<select id="memberSelectOne" resultType="memberDTO">

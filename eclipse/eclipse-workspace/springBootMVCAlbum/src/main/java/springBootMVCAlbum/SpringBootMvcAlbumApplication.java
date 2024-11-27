@@ -1,11 +1,13 @@
 package springBootMVCAlbum;
 
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import springBootMVCAlbum.command.LoginCommand;
 
 @Controller
 @SpringBootApplication
@@ -15,7 +17,8 @@ public class SpringBootMvcAlbumApplication {
 		SpringApplication.run(SpringBootMvcAlbumApplication.class, args);
 	}
 	@GetMapping("/")
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute("loginCommand", new LoginCommand());
 		return "thymeleaf/index";
 	}
 	

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Sidebar/menu -->
+<!-- Top header -->
+<header class="w3-container w3-xlarge">
+	<p class="w3-left">[[${list[0].category}]]</p>
+	<p class="w3-right">
+		<i class="fa fa-shopping-cart w3-margin-right"></i> <i
+			class="fa fa-search"></i>
+	</p>
+</header>
+
+
+
+<body class="w3-content" style="max-width: 1200px">
+	<div class="w3-container w3-text-grey" id="cover">
+		<p>[[${list.size}]] items</p>
+	</div>
+
+	<!-- Product grid -->
+
+	<th:block th:each="dto : ${list}">
+		<div class="w3-col l3 s6" th:data-goods-num="${dto.goodsNum}" onclick="goodsDetail(this)">
+			<div class="w3-container">
+				<div class="w3-display-container">
+					<img style="width: 100%"
+						th:src="|/static/images/${dto.goodsMainStoreImage}|"> <span
+						class="w3-tag w3-display-topleft">New</span>
+					<div class="w3-display-middle w3-display-hover">
+						<button class="w3-button w3-black">
+							Buy now<i class="fa fa-shopping-cart"></i>
+						</button>
+					</div>
+				</div>
+				<p>
+					[[${dto.goodsName}]]
+					<img style="width: 20px; height: 20px; float: right;"
+						src="/static/images/hart1.jpg">
+					<br> <b>[[${dto.goodsPrice}]]</b>
+					<!-- 오른쪽 끝에 작은 이미지 추가 -->
+					
+				</p>
+			</div>
+		</div>
+	</th:block>
+
+
+	<span th:if="${session.auth != null}"> <span
+		th:if="${session.auth.grade == 'emp'}">
+			<button type="button" th:data-category="${list[0].category}"
+				onclick="goodsRegist(this)" class="w3-button w3-block w3-black">상품등록</button>
+	</span>
+	</span>
+</body>
+</html>

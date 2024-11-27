@@ -16,6 +16,7 @@ public class MemberDetailService {
 	PasswordEncoder passwordEncoder;
 	public void execute(String memberNum, Model model) {
 		MemberDTO dto = memberMapper.memberSelectOne(memberNum);
+		
 		model.addAttribute("memberCommand", dto);
 	}
 

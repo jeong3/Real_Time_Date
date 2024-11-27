@@ -35,112 +35,79 @@ function w3_close() {
 }
 
 $(function(){
-	kpopList();
-	popAndRockList();
-	classicList();
-	lpList();
-	$('#demoAcc a').on('click', function() {
-        // Remove 'w3-light-grey' class and the arrow from all anchors
-        $('#demoAcc a').removeClass('w3-light-grey').find('i').remove();
-
-        // Add 'w3-light-grey' class to the clicked anchor
-        $(this).addClass('w3-light-grey');
-
-        // Append the arrow to the clicked anchor
-        $(this).prepend('<i class="fa fa-caret-right w3-margin-right"></i>');
-    });
+	memEmpInfo();	
 	memberList();
 	empList();
 	myInfo();
+	
 });
-function kpopList(){
-	$("#kpopList").click(function(){
-		$.ajax({
-			type: "get",
-			url: "/album/KpopList",
-			dataType:"html",
-			success:function(result){
-				
-				$("#content").html(result);
-			},
-			error:function(){
-				alert("서버 오류");
-			}
-				
-			
-		});
+function goodsDetail(element){
+	var goodsNum = $(element).data('goodsNum');
+
+	$.ajax({
+		type:"get",
+		url:"/goods/goodsDetail",
+		data:{"goodsNum":goodsNum},
+		dataType:"html",
+		success:function(result){
+			$("#content").html(result);
+		},
+		error:function(){
+			alert("서버오류");
+		}
 	});
 }
-function popAndRockList(){
-	$("#popAndRockList").click(function(){
-		$.ajax({
-			type: "get",
-			url: "/album/popAndRockList",
-			dataType:"html",
-			success:function(result){
-				
-				$("#content").html(result);
-			},
-			error:function(){
-				alert("서버 오류");
-			}
-				
-			
-		});
+function goodsRegist(element){
+	var category = null;
+	if($(element).data('category') == "KPOP")  category = "KR_";
+	else if($(element).data('category') == "POP/ROCK")  category = "P&R";
+	else if($(element).data('category') == "CLASSIC")  category = "CL_";
+	else category = "LP_";
+	$.ajax({
+		type: "get",
+		url: "/goods/goodsRegist",
+		data : {"category": category},
+		dataType:"html",
+		success:function(result){
+			$("#content").html(result);
+		},
+		error:function(){
+			alert("서버 오류");
+		}
 	});
 }
-function classicList(){
-	$("#classicList").click(function(){
-		$.ajax({
-			type: "get",
-			url: "/album/classicList",
-			dataType:"html",
-			success:function(result){
-				
-				$("#content").html(result);
-			},
-			error:function(){
-				alert("서버 오류");
-			}
-				
+function goodsList(element){
+	// 모든 a 태그에서 'w3-light-grey' 클래스와 아이콘을 제거
+    $('#demoAcc a').removeClass('w3-light-grey').find('i').remove();
+
+    // 클릭한 a 태그에 'w3-light-grey' 클래스를 추가하고 아이콘을 앞에 추가
+    $(element).addClass('w3-light-grey');
+    $(element).prepend('<i class="fa fa-caret-right w3-margin-right"></i>');
+
+    // 클릭한 항목의 카테고리를 콘솔에 출력 (optional)
+    var category = $(element).data('category');
+    console.log(category);  // 예시로 콘솔에 출력
+	$.ajax({
+		type: "get",
+		url: "/goods/goodsList",
+		data:{"category":category},
+		dataType:"html",
+		success:function(result){
 			
-		});
+			$("#content").html(result);
+		},
+		error:function(){
+			alert("서버 오류");
+		}
+			
+		
 	});
 }
-function lpList(){
-	$("#lpList").click(function(){
-		$.ajax({
-			type: "get",
-			url: "/album/lpList",
-			dataType:"html",
-			success:function(result){
-				
-				$("#content").html(result);
-			},
-			error:function(){
-				alert("서버 오류");
-			}
-				
-			
-		});
-	});
-}
+
+
 function memberList(){
 	$("#memberList").click(function(){
-		$.ajax({
-			type: "get",
-			url: "/member/memberList",
-			dataType:"html",
-			success:function(result){
-				
-				$("#content").html(result);
-			},
-			error:function(){
-				alert("서버 오류");
-			}
-				
-			
-		});
+		memberList1();
 	});
 }
 function memberList1(){
@@ -179,17 +146,62 @@ function myInfo(element) {
         }
     });
 }
+function empMyInfo(element){
+	const empNum = element.getAttribute("data-emp-num");
+    if (empNum == null) {
+        return ; // empNum이 없으면 함수 종료
+    }
 
-// 페이지 로드 후 URL 파라미터에서 memberNum 값을 확인하고 myInfo 호출
+    // 여기서부터는 empNum이 있을 때만 실행
+    $.ajax({
+        type: "get",
+        url: "/emp/empDetail",
+        data: {"empNum": empNum},
+        dataType: "html",
+        success: function (result) {
+            $("#content").html(result); // 결과를 HTML에 삽입
+        },
+        error: function () {
+            alert("서버 오류 디테일"); // 오류 시 알림
+        }
+    });
+}
+function memEmpInfo() { 
+    $(document).on("click", "#myInfo", function() {
+        $.ajax({
+            type: "get",
+            url: "/user/userDetail",
+            dataType: "html",
+            success: function (result) {
+                $("#content").html(result); // 결과를 HTML에 삽입
+            },
+            error: function () {
+                alert("로그인을 다시 해주세요"); // 오류 시 알림
+            }
+        });
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const memberNum = urlParams.get("memberNum"); // URL에서 memberNum 추출
+
+    // URL에서 memberNum 또는 empNum 추출
+    const memberNum = urlParams.get("memberNum");
+    const empNum = urlParams.get("empNum");
+    const category = urlParams.get("category");
 
     if (memberNum) {
         const dummyElement = document.createElement("div"); // 가짜 DOM 요소 생성
         dummyElement.setAttribute("data-member-num", memberNum); // element에 memberNum 값 추가
         myInfo(dummyElement); // myInfo 함수 호출
     }
+
+    if (empNum) {
+        const dummyElement = document.createElement("div"); // 가짜 DOM 요소 생성
+        dummyElement.setAttribute("data-emp-num", empNum); // element에 empNum 값 추가
+        empMyInfo(dummyElement); // empMyInfo 함수 호출
+    }
+    
 });
 
 
@@ -213,39 +225,78 @@ function deleteMember(memberNum) {
         });
     }
 }
+function deleteEmp(empNum) {
+    if (confirm("정말 삭제하시겠습니까?")) {
+        $.ajax({
+            type: "POST",
+            url: "/emp/empDelete", // 삭제 엔드포인트
+            data: { empNum: empNum }, // 삭제할 직원 ID 전달
+            success: function(response) {
+                if (response == "success") {
+                    empList1(); // 삭제 후 리스트 갱신
+                } else {
+                    alert("삭제를 취소했습니다.");
+                }
+            },
+            error: function() {
+                alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
+            }
+        });
+    }
+}
 
 function empList(){
 	$("#empList").click(function(){
-		$.ajax({
-			type: "get",
-			url: "/emp/empList",
-			dataType:"html",
-			success:function(result){
-				
-				$("#content").html(result);
-			},
-			error:function(){
-				alert("서버 오류");
-			}
-				
-			
-		});
+		empList1();
 	});
+}
+function empList1(){
+	$.ajax({
+		type: "get",
+		url: "/emp/empList",
+		dataType:"html",
+		success:function(result){
+			$("#content").html(result);
+		},
+		error:function(){
+			alert("서버 오류");
+		}
+			
+		
+	});
+}
+
+function memberRegist(){
+	location.href="/member/memberRegist";
 }
 
 	
 
 
 </script>
+ 
 
 <style>
 .w3-sidebar a { 
     font-family: "Roboto", sans-serif;
     text-decoration: none; /* 밑줄 제거 */
 }
+a { 
+    font-family: "Roboto", sans-serif;
+    text-decoration: none; /* 밑줄 제거 */
+font-size: 15px;
+}
 body, h1, h2, h3, h4, h5, h6, .w3-wide { 
     font-family: "Montserrat", sans-serif;
 }
+hr{
+color: red;
+}
+#login{
+font-family: "Roboto", sans-serif;
+font-size: 15px;
+}
+
 </style>
 
 </head>
@@ -263,25 +314,40 @@ body, h1, h2, h3, h4, h5, h6, .w3-wide {
       앨범 <i class="fa fa-caret-down"></i>
     </a>
      <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-        <a id="kpopList" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>가요</a>
-      <a id="popAndRockList" class="w3-bar-item w3-button">팝/락</a>
-      <a id="classicList" class="w3-bar-item w3-button">클래식</a>
-      <a id="lpList" class="w3-bar-item w3-button">LP</a>
-    </div>
+	    <a type="button" data-category="KPOP" onclick="goodsList(this)" class="w3-bar-item w3-button"><i class="fa fa-caret-right w3-margin-right"></i>가요</a>
+	    <a type="button" data-category="POP/ROCK" onclick="goodsList(this)" class="w3-bar-item w3-button">팝/락</a>
+	    <a type="button" data-category="CLASSIC" onclick="goodsList(this)" class="w3-bar-item w3-button">클래식</a>
+	    <a type="button" data-category="LP" onclick="goodsList(this)" class="w3-bar-item w3-button">LP</a>
+	</div>
     <a href="#" class="w3-bar-item w3-button">장바구니</a>
   <br />
   
-  <a href="#footer" class="w3-bar-item w3-button w3-padding">Login</a> 
+  
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a> 
   <a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>
   
   <br />
+<span th:if="${session.auth != null}">
+  <span th:if="${session.auth.grade == 'mem'}">
+ 	 <a th:data-member-num="${session.auth.userNum}" onclick="myInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
+  </span>
+  <span th:if="${session.auth.grade == 'emp'}">
+	  <a th:data-emp-num="${session.auth.userNum}" onclick="empMyInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
+  	  <a id="memberList" class="w3-bar-item w3-button w3-padding">회원관리</a>
+  	  <a id="empList" class="w3-bar-item w3-button w3-padding">직원관리</a>
+  </span>
+</span>
   
-  <a id="memberList" class="w3-bar-item w3-button w3-padding">회원관리</a>
-  <a id="empList" class="w3-bar-item w3-button w3-padding">직원관리</a>
   </div>
 </nav>
-
+<header class="w3-container w3-xlarge">
+<div th:if="${session.auth == null}">
+    <p class="w3-right">
+    <a href="#footer" class="w3-bar-item w3-button w3-padding">Login</a>
+    </p>
+    </div>
+    
+  </header>
 <!-- Top menu on small screens -->
 <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
   <div class="w3-bar-item w3-padding-24 w3-wide">MINI</div>
@@ -300,6 +366,17 @@ body, h1, h2, h3, h4, h5, h6, .w3-wide {
  
 
 <div id="content">
+<header class="w3-container w3-xlarge">
+<div th:if="${session.auth != null}">
+    
+    <p class="w3-right">
+    <a href="/login/logout" class="w3-bar-item w3-button w3-padding">LogOut</a>
+    </p> <br>
+    <p class="w3-center">[[${session.auth.userName}]]님 환영합니다.
+    </p>
+    </div>
+</header>
+
   <!-- Image header -->
   <div class="w3-display-container w3-container">
     <img src="/static/images/cover.jpg" alt="cover" style="width:100%">
@@ -375,66 +452,37 @@ body, h1, h2, h3, h4, h5, h6, .w3-wide {
   </div>
 
   <!-- Subscribe section -->
-  <div class="w3-container w3-black w3-padding-32">
-    <h1>Subscribe</h1>
-    <p>To get special offers and VIP treatment:</p>
+  <div class="w3-container w3-black w3-padding-32" align="center">
+    <h1>Search</h1>
     <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
-    <button type="button" class="w3-button w3-red w3-margin-bottom">Subscribe</button>
+    <button type="button" class="w3-button w3-red w3-margin-bottom">Search</button>
   </div>
   
   <!-- Footer -->
-  <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer" align="center">
-    <div class="w3-row-padding">
-      
-
-      <div class="w3-col s4">
-        <h4>About</h4>
-        <p><a href="#">About us</a></p>
-        <p><a href="#">We're hiring</a></p>
-        <p><a href="#">Support</a></p>
-        <p><a href="#">Find store</a></p>
-        <p><a href="#">Shipment</a></p>
-        <p><a href="#">Payment</a></p>
-        <p><a href="#">Gift card</a></p>
-        <p><a href="#">Return</a></p>
-        <p><a href="#">Help</a></p>
-      </div>
-      
-      <div class="w3-col s4">
-        <h4>Contact</h4>
-        <p>Questions? Go ahead.</p>
-        <form action="/action_page.php" target="_blank">
-          <p><input class="w3-input w3-border" type="text" placeholder="Name" name="Name" required></p>
-          <p><input class="w3-input w3-border" type="text" placeholder="Email" name="Email" required></p>
-          <p><input class="w3-input w3-border" type="text" placeholder="Subject" name="Subject" required></p>
-          <p><input class="w3-input w3-border" type="text" placeholder="Message" name="Message" required></p>
-          <button type="submit" class="w3-button w3-block w3-black">Send</button>
-        </form>
-      </div>
-
-      <div class="w3-col s4 w3-justify">
-        <h4>Store</h4>
-        <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
-        <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
-        <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
-        <h4>We accept</h4>
-        <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
-        <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
-        <br>
-        <i class="fa fa-facebook-official w3-hover-opacity w3-large"></i>
-        <i class="fa fa-instagram w3-hover-opacity w3-large"></i>
-        <i class="fa fa-snapchat w3-hover-opacity w3-large"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity w3-large"></i>
-        <i class="fa fa-twitter w3-hover-opacity w3-large"></i>
-        <i class="fa fa-linkedin w3-hover-opacity w3-large"></i>
-      </div>
-    </div>
+  <div th:if="${session.auth == null}">
+  <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer" >
+  
+        <h4>Login</h4>
+        <form action="/login/login" method="post" id="frm" th:object="${loginCommand}">
+        <div align="right" id="login">
+            <input type="checkbox" th:field="*{idStore}"> 아이디저장
+            <input type="checkbox" th:field="*{autoLogin}"> 자동로그인
+        </div>
+        
+        <p><input class="w3-input w3-border" id="userId" type="text" placeholder="ID" th:field="*{userId}" required="required"></p>
+        <p><input class="w3-input w3-border" id="userPw" type="password" placeholder="Password" th:field="*{userPw}" required="required" ></p>
+        
+        <button type="submit" class="w3-button w3-block w3-black">Login</button>
+    </form>
+    	<button type="button" onclick="memberRegist()" class="w3-button w3-block w3-black">회원가입</button>
+        
   </footer>
+  </div>
 
-  <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+</div>
 
   <!-- End page content -->
-</div>
+
 
 <!-- Newsletter Modal -->
 <div id="newsletter" class="w3-modal">

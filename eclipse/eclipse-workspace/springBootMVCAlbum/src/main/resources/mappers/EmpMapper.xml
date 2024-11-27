@@ -1,0 +1,51 @@
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootMVCAlbum.mapper.EmpMapper">
+	 <sql id="BaseColumns">
+		EMP_NUM,EMP_ID,EMP_PW,EMP_NAME,EMP_ADDR,EMP_ADDR_DETAIL
+		,EMP_POST,EMP_PHONE,EMP_JUMIN,EMP_EMAIL,EMP_HIRE_DATE,EMP_IMAGE
+	</sql>
+	<insert id="empInsert" parameterType="empDTO">
+		insert into employees( <include refid="BaseColumns" /> )
+		values (#{empNum},#{empId},#{empPw},#{empName},#{empAddr},#{empAddrDetail}
+		,#{empPost},#{empPhone},#{empJumin},#{empEmail},sysdate, null)
+	</insert>
+	
+	<select id="empSelectAll" resultType="empDTO">
+		select <include refid="BaseColumns" /> from employees order by emp_num asc
+	</select>
+	
+	<select id="empSelectOne" resultType="empDTO">
+		select <include refid="BaseColumns" /> from employees
+		where emp_num = #{empNum}
+	</select>
+	
+	<update id="empUpdate" parameterType="empDTO">
+	update employees set
+	EMP_ID=#{empId}
+	,EMP_NAME=#{empName}
+	,EMP_ADDR=#{empAddr}
+	,EMP_ADDR_DETAIL=#{empAddrDetail}
+	,EMP_POST=#{empPost}
+	,EMP_PHONE=#{empPhone}
+	,EMP_JUMIN=#{empJumin}
+	,EMP_EMAIL=#{empEmail}
+	,EMP_HIRE_DATE= sysdate
+	
+	where emp_num=#{empNum}
+	
+	</update>
+	
+	<update id="empPwUpdate" parameterType="string">
+	update employees set
+	emp_PW=#{updatePw}
+	where emp_num=#{empNum}
+	</update>
+	
+	<delete id="empDelete" parameterType="string">
+	delete from employees
+	where emp_num = #{empNum}
+	</delete>
+
+</mapper>

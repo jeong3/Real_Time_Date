@@ -10,272 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
-<script>
-// Accordion 
-function myAccFunc() {
-  var x = document.getElementById("demoAcc");
-  if (x.className.indexOf("w3-show") == -1) {
-    x.className += " w3-show";
-  } else {
-    x.className = x.className.replace(" w3-show", "");
-  }
-}
-
-
-
-// Open and close sidebar
-function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-  document.getElementById("myOverlay").style.display = "block";
-}
- 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-  document.getElementById("myOverlay").style.display = "none";
-}
-
-$(function(){
-	memEmpInfo();	
-	memberList();
-	empList();
-	myInfo();
-	
-});
-function goodsDetail(element){
-	var goodsNum = $(element).data('goodsNum');
-
-	$.ajax({
-		type:"get",
-		url:"/goods/goodsDetail",
-		data:{"goodsNum":goodsNum},
-		dataType:"html",
-		success:function(result){
-			$("#content").html(result);
-		},
-		error:function(){
-			alert("서버오류");
-		}
-	});
-}
-function goodsRegist(element){
-	var category = null;
-	if($(element).data('category') == "KPOP")  category = "KR_";
-	else if($(element).data('category') == "POP/ROCK")  category = "P&R";
-	else if($(element).data('category') == "CLASSIC")  category = "CL_";
-	else category = "LP_";
-	$.ajax({
-		type: "get",
-		url: "/goods/goodsRegist",
-		data : {"category": category},
-		dataType:"html",
-		success:function(result){
-			$("#content").html(result);
-		},
-		error:function(){
-			alert("서버 오류");
-		}
-	});
-}
-function goodsList(element){
-	// 모든 a 태그에서 'w3-light-grey' 클래스와 아이콘을 제거
-    $('#demoAcc a').removeClass('w3-light-grey').find('i').remove();
-
-    // 클릭한 a 태그에 'w3-light-grey' 클래스를 추가하고 아이콘을 앞에 추가
-    $(element).addClass('w3-light-grey');
-    $(element).prepend('<i class="fa fa-caret-right w3-margin-right"></i>');
-
-    // 클릭한 항목의 카테고리를 콘솔에 출력 (optional)
-    var category = $(element).data('category');
-    console.log(category);  // 예시로 콘솔에 출력
-	$.ajax({
-		type: "get",
-		url: "/goods/goodsList",
-		data:{"category":category},
-		dataType:"html",
-		success:function(result){
-			
-			$("#content").html(result);
-		},
-		error:function(){
-			alert("서버 오류");
-		}
-			
-		
-	});
-}
-
-
-function memberList(){
-	$("#memberList").click(function(){
-		memberList1();
-	});
-}
-function memberList1(){
-	$.ajax({
-		type: "get",
-		url: "/member/memberList",
-		dataType:"html",
-		success:function(result){
-			
-			$("#content").html(result);
-		},
-		error:function(){
-			alert("서버 오류");
-		}
-			
-		
-	});
-}
-function myInfo(element) {
-    const memberNum = element.getAttribute("data-member-num");
-    if (memberNum == null) {
-        return ; // memberNum이 없으면 함수 종료
-    }
-
-    // 여기서부터는 memberNum이 있을 때만 실행
-    $.ajax({
-        type: "get",
-        url: "/member/memberDetail",
-        data: {"memberNum": memberNum},
-        dataType: "html",
-        success: function (result) {
-            $("#content").html(result); // 결과를 HTML에 삽입
-        },
-        error: function () {
-            alert("서버 오류 디테일"); // 오류 시 알림
-        }
-    });
-}
-function empMyInfo(element){
-	const empNum = element.getAttribute("data-emp-num");
-    if (empNum == null) {
-        return ; // empNum이 없으면 함수 종료
-    }
-
-    // 여기서부터는 empNum이 있을 때만 실행
-    $.ajax({
-        type: "get",
-        url: "/emp/empDetail",
-        data: {"empNum": empNum},
-        dataType: "html",
-        success: function (result) {
-            $("#content").html(result); // 결과를 HTML에 삽입
-        },
-        error: function () {
-            alert("서버 오류 디테일"); // 오류 시 알림
-        }
-    });
-}
-function memEmpInfo() { 
-    $(document).on("click", "#myInfo", function() {
-        $.ajax({
-            type: "get",
-            url: "/user/userDetail",
-            dataType: "html",
-            success: function (result) {
-                $("#content").html(result); // 결과를 HTML에 삽입
-            },
-            error: function () {
-                alert("로그인을 다시 해주세요"); // 오류 시 알림
-            }
-        });
-    });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    const urlParams = new URLSearchParams(window.location.search);
-
-    // URL에서 memberNum 또는 empNum 추출
-    const memberNum = urlParams.get("memberNum");
-    const empNum = urlParams.get("empNum");
-    const category = urlParams.get("category");
-
-    if (memberNum) {
-        const dummyElement = document.createElement("div"); // 가짜 DOM 요소 생성
-        dummyElement.setAttribute("data-member-num", memberNum); // element에 memberNum 값 추가
-        myInfo(dummyElement); // myInfo 함수 호출
-    }
-
-    if (empNum) {
-        const dummyElement = document.createElement("div"); // 가짜 DOM 요소 생성
-        dummyElement.setAttribute("data-emp-num", empNum); // element에 empNum 값 추가
-        empMyInfo(dummyElement); // empMyInfo 함수 호출
-    }
-    
-});
-
-
-
-function deleteMember(memberNum) {
-    if (confirm("정말 삭제하시겠습니까?")) {
-        $.ajax({
-            type: "POST",
-            url: "/member/memberDelete", // 삭제 엔드포인트
-            data: { memberNum: memberNum }, // 삭제할 멤버 ID 전달
-            success: function(response) {
-                if (response == "success") {
-                	memberList1(); // 삭제 후 리스트 갱신
-                } else {
-                    alert("삭제를 취소했습니다.");
-                }
-            },
-            error: function() {
-                alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
-            }
-        });
-    }
-}
-function deleteEmp(empNum) {
-    if (confirm("정말 삭제하시겠습니까?")) {
-        $.ajax({
-            type: "POST",
-            url: "/emp/empDelete", // 삭제 엔드포인트
-            data: { empNum: empNum }, // 삭제할 직원 ID 전달
-            success: function(response) {
-                if (response == "success") {
-                    empList1(); // 삭제 후 리스트 갱신
-                } else {
-                    alert("삭제를 취소했습니다.");
-                }
-            },
-            error: function() {
-                alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
-            }
-        });
-    }
-}
-
-function empList(){
-	$("#empList").click(function(){
-		empList1();
-	});
-}
-function empList1(){
-	$.ajax({
-		type: "get",
-		url: "/emp/empList",
-		dataType:"html",
-		success:function(result){
-			$("#content").html(result);
-		},
-		error:function(){
-			alert("서버 오류");
-		}
-			
-		
-	});
-}
-
-function memberRegist(){
-	location.href="/member/memberRegist";
-}
-
-	
-
-
-</script>
- 
-
+<script type="text/javascript" src="/static/js/index.js"></script>
 <style>
 .w3-sidebar a { 
     font-family: "Roboto", sans-serif;
@@ -319,11 +54,15 @@ font-size: 15px;
 	    <a type="button" data-category="CLASSIC" onclick="goodsList(this)" class="w3-bar-item w3-button">클래식</a>
 	    <a type="button" data-category="LP" onclick="goodsList(this)" class="w3-bar-item w3-button">LP</a>
 	</div>
-    <a href="#" class="w3-bar-item w3-button">장바구니</a>
+   
+  
+    
   <br />
-  
-  
-  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a> 
+  <span th:if="${session.auth != null}">
+	  <span th:if="${session.auth.grade == 'emp'}">
+	  	<a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">상품등록</a> 
+	  </span>
+  </span>
   <a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>
   
   <br />
@@ -367,13 +106,17 @@ font-size: 15px;
 
 <div id="content">
 <header class="w3-container w3-xlarge">
-<div th:if="${session.auth != null}">
-    
-    <p class="w3-right">
-    <a href="/login/logout" class="w3-bar-item w3-button w3-padding">LogOut</a>
-    </p> <br>
-    <p class="w3-center">[[${session.auth.userName}]]님 환영합니다.
-    </p>
+	<p class="w3-right">
+		<a style="cursor: pointer;" onclick="cartList()" class="fa fa-shopping-cart w3-margin-right"></a>
+		<a href="#" class="fa fa-search"></a>
+	</p>
+</header>
+
+<header class="w3-container w3-xlarge">
+	<div th:if="${session.auth != null}">
+	    <p class="w3-right">
+	    <a href="/login/logout" class="w3-bar-item w3-button w3-padding">LogOut</a></p> <br>
+	    <p class="w3-center">[[${session.auth.userName}]]님 환영합니다.</p>
     </div>
 </header>
 
@@ -454,24 +197,24 @@ font-size: 15px;
   <!-- Subscribe section -->
   <div class="w3-container w3-black w3-padding-32" align="center">
     <h1>Search</h1>
-    <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail" style="width:100%"></p>
-    <button type="button" class="w3-button w3-red w3-margin-bottom">Search</button>
+    <p><input class="w3-input w3-border" type="search" name="searchWord" placeholder="CATEGORY OR ARTIST OR ALBUM" style="width:100%"></p>
+    <input type="submit" class="w3-button w3-red w3-margin-bottom" value="Search">
   </div>
   
   <!-- Footer -->
   <div th:if="${session.auth == null}">
   <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer" >
-  
         <h4>Login</h4>
-        <form action="/login/login" method="post" id="frm" th:object="${loginCommand}">
+     <form action="/login/login" method="post" id="frm" th:object="${loginCommand}">
         <div align="right" id="login">
-            <input type="checkbox" th:field="*{idStore}"> 아이디저장
-            <input type="checkbox" th:field="*{autoLogin}"> 자동로그인
+           자동로그인 <input type="checkbox" name="autoLogin" th:checked="${loginCommand.autoLogin}">
+	 	   아이디저장 <input type="checkbox" name="idStore" th:checked="${loginCommand.userId}" >
         </div>
         
         <p><input class="w3-input w3-border" id="userId" type="text" placeholder="ID" th:field="*{userId}" required="required"></p>
+        <span style="color: red;" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" />
         <p><input class="w3-input w3-border" id="userPw" type="password" placeholder="Password" th:field="*{userPw}" required="required" ></p>
-        
+        <span style="color: red;" th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" />
         <button type="submit" class="w3-button w3-block w3-black">Login</button>
     </form>
     	<button type="button" onclick="memberRegist()" class="w3-button w3-block w3-black">회원가입</button>
@@ -489,10 +232,10 @@ font-size: 15px;
   <div class="w3-modal-content w3-animate-zoom" style="padding:32px">
     <div class="w3-container w3-white w3-center">
       <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
-      <h2 class="w3-wide">NEWSLETTER</h2>
-      <p>Join our mailing list to receive updates on new arrivals and special offers.</p>
-      <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
-      <button type="button" class="w3-button w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+      <button type="button" onclick="goodsRegist('KPOP')" class="w3-button w3-block w3-black">KPOP</button>
+      <button type="button" onclick="goodsRegist('POP/ROCK')" class="w3-button w3-block w3-black">POP/ROCK</button>
+      <button type="button" onclick="goodsRegist('CLASSIC')" class="w3-button w3-block w3-black">CLASSIC</button>
+      <button type="button" onclick="goodsRegist('LP')" class="w3-button w3-block w3-black">LP</button>
     </div>
   </div>
 </div>

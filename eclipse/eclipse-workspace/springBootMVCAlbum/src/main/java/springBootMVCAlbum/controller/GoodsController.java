@@ -6,13 +6,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import springBootMVCAlbum.command.GoodsCommand;
 import springBootMVCAlbum.service.AutoNumService;
+import springBootMVCAlbum.service.goods.GoodsDeleteService;
 import springBootMVCAlbum.service.goods.GoodsDetailService;
 import springBootMVCAlbum.service.goods.GoodsListService;
 import springBootMVCAlbum.service.goods.GoodsRegistService;
+import springBootMVCAlbum.service.goods.GoodsUpdateService;
 
 @Controller
 @RequestMapping("goods")
@@ -25,13 +28,19 @@ public class GoodsController {
 	GoodsListService goodsListService;
 	@Autowired
 	GoodsDetailService goodsDetailService;
+	@Autowired 
+	GoodsUpdateService goodsUpdateService;
+	@Autowired
+	GoodsDeleteService goodsDeleteService;
 	
 	@GetMapping("goodsList")
-	public String goodsList(String category, Model model) {
-		goodsListService.execute(category, model);
+	public String goodsList(@RequestParam(value = "searchWord", required = false) String searchWord,
+			String category, Model model) {
+		goodsListService.execute(searchWord, category, model);
 		System.out.println(category+"asdasdasd");
 		return "thymeleaf/goods/goodsList";
 	}
+	
 	
 	@GetMapping("goodsRegist")
 	public String goodsRegist(String category, Model model) {
@@ -52,4 +61,19 @@ public class GoodsController {
 		goodsDetailService.execute(goodsNum, model);
 		return "thymeleaf/goods/goodsDetail";
 	}
-}
+	@GetMapping("goodsUpdate")
+	public String goodsUpdate(String goodsNum, Model model) {
+		goodsDetailService.execute(goodsNum, model);
+		return "thymeleaf/goods/goodsUpdate";
+	}
+	@PostMapping("goodsUpdate")
+	public String goodsUpdate(GoodsCommand goodsCommand, HttpSession session) {
+		goodsUpdateService.execute(goodsCommand, session);
+		return "redirect:/";
+	}
+	@GetMapping("goodsDelete")
+	public String goodsDelete(String goodsNum) {
+		goodsDeleteService.execute(goodsNum);
+		return "redirect:/";
+	}
+}	

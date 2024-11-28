@@ -13,9 +13,12 @@ import springBootMVCAlbum.mapper.GoodsMapper;
 public class GoodsListService {
 	@Autowired
 	GoodsMapper goodsMapper;
-	public void execute(String category, Model model) {
-		List<GoodsDTO> list = goodsMapper.goodsSelectAll(category);
+	public void execute(String searchWord, String category, Model model) {
+		List<GoodsDTO> list = goodsMapper.goodsSelectAll(searchWord, category);
+		if(searchWord == null) searchWord = "";
+		model.addAttribute("searchWord", searchWord);
 		model.addAttribute("list", list);
+		
 	}
 
 }

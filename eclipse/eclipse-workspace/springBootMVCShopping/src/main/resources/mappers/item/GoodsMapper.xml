@@ -129,8 +129,8 @@
 		,GOODS_NUM,GOODS_NAME,GOODS_PRICE,GOODS_CONTENTS,VISIT_COUNT,GOODS_MAIN_IMAGE,GOODS_MAIN_STORE_IMAGE
 		,GOODS_DETAIL_IMAGE,GOODS_DETAIL_STORE_IMAGE,EMP_NUM,GOODS_REGIST,UPDATE_EMP_NUM,GOODS_UPDATE_DATE
 		from goods
-	) 
-where rn between #{startRow} and #{endRow}
+			) 
+		where rn between #{startRow} and #{endRow}
 	</select>
 
 	<select id="wishSelectAll" parameterType="string"

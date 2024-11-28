@@ -6,23 +6,23 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="memberList"/>
+		<item key="selection" value="설명"/>
 		<list key="findhistory">
-			<item value="memberList"/>
-			<item value="list"/>
-			<item value="updatePassword"/>
-			<item value="memberPwUpdate"/>
-			<item value="memberpw"/>
-			<item value="pwcon"/>
-			<item value="]]"/>
-			<item value="[["/>
-			<item value="th"/>
-			<item value="회원"/>
-			<item value="{"/>
-			<item value=","/>
-			<item value="myba"/>
-			<item value="mapp"/>
-			<item value="mep"/>
+			<item value="설명"/>
+			<item value="src"/>
+			<item value="Bonsai"/>
+			<item value="goodslis"/>
+			<item value="goodsRe"/>
+			<item value="oncli"/>
+			<item value="mega"/>
+			<item value="demoAcc"/>
+			<item value="kpOP"/>
+			<item value="kp_"/>
+			<item value="kpopList"/>
+			<item value="상품등"/>
+			<item value="cate"/>
+			<item value="add"/>
+			<item value="환영"/>
 		</list>
 		<list key="replacehistory">
 			<item value="&lt;input type=&quot;text&quot; th:value=&quot;&quot;&gt;"/>

@@ -17,13 +17,61 @@
 	</insert>
 	
 	<select id="goodsSelectAll" parameterType="string" resultType="goodsDTO">
-		select <include refid="BaseColumn" /> from goods
-		where CATEGORY = #{category}
+		select <include refid="BaseColumn" />
+		from goods
+		<where>
+			<if test="category != null">
+				CATEGORY = #{category}
+			</if>
+		
+			<if test="searchWord !=null">
+				and(
+				goods_num like '%'||#{searchWord}||'%' or
+				goods_name like '%'||#{searchWord}||'%' or
+				ARTIST_NAME like '%'||#{searchWord}||'%' or
+				CATEGORY like '%'||#{searchWord}||'%'
+				 )
+			</if>
+		
+		
+		
+			
+		</where>
+		
 	</select>
 	
 	<select id="goodsSelectOne" parameterType="string" resultType="goodsDTO">
 		select <include refid="BaseColumn" /> from goods
 		where goods_num = #{goodsNum}
 	</select>
+	
+	<update id="goodsUpdate" parameterType="goodsDTO" >
+		update goods set
+			 ARTIST_NAME = #{artistName}
+			, GOODS_NAME = #{goodsName}
+			, GOODS_PRICE = #{goodsPrice}
+			, GOODS_CONTENTS = #{goodsContents}
+			<if test="goodsMainImage != null">
+				,GOODS_MAIN_IMAGE = #{goodsMainImage}
+				,GOODS_MAIN_STORE_IMAGE = #{goodsMainStoreImage}
+			</if>
+			<if test="goodsDetailImage != null">
+				,GOODS_DETAIL_IMAGE = #{goodsDetailImage}
+				,GOODS_DETAIL_STORE_IMAGE = #{goodsDetailStoreImage}
+			</if>
+			, REGIST_EMP_NUM = #{registEmpNum}
+			, UPDATE_EMP_NUM = #{updateEmpNum}
+			, GOODS_UPDATE_DATE = sysdate
+			, CATEGORY = #{category}
+		where GOODS_NUM = #{goodsNum}
+
+	
+	</update>
+	
+	<delete id="goodsDelete" parameterType="string">
+		delete from goods
+		where goods_num = #{goodsNum}
+	</delete>
+	
 
 </mapper>

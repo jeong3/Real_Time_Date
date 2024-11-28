@@ -25,7 +25,10 @@
           <ol class="breadcrumb-list">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="javascript:window.history.back()">back</a></li>
-            <li class="breadcrumb-item"><a>[[${dto.goodsNum}]]</a></li>
+            
+            <li th:if="${session.auth != null and session.auth.grade == 'emp'}" class="breadcrumb-item"><a onclick="goodsUpdate(this)" th:data-goods-num="${dto.goodsNum}">[[${dto.goodsNum}]] update</a></li>
+         	<li th:if="${session.auth != null and session.auth.grade == 'emp'}" class="breadcrumb-item"><a onclick="goodsDelete(this)" th:data-goods-num="${dto.goodsNum}">[[${dto.goodsNum}]] delete</a></li>
+         		
           </ol>
         </nav>
       </div>
@@ -57,6 +60,7 @@
         </div>
         <button class="add-to-cart">Add To Cart</button>
         <button class="add-to-cart">Pay</button>
+        
       </div>
     </div>
     <!-- 같은 카테고리에 있는 상품  -->

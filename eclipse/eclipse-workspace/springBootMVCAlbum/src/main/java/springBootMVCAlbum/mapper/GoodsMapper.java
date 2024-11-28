@@ -10,8 +10,16 @@ import springBootMVCAlbum.domain.GoodsDTO;
 public interface GoodsMapper {
 	Integer goodsInsert(GoodsDTO dto);
 
-	List<GoodsDTO> goodsSelectAll(String category);
+	List<GoodsDTO> goodsSelectAll(String searchWord, String category);
 
 	GoodsDTO goodsSelectOne(String goodsNum);
+
+	Integer goodsUpdate(GoodsDTO dto);
+
+	int goodsDelete(String goodsNum);
+
+	List<GoodsDTO> maingoodsSelectList(int startRow, int endRow);
+
+	int goodsCount(String string);
 	
 }

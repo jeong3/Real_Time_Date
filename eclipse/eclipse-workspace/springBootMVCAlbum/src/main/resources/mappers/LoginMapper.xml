@@ -18,4 +18,10 @@ select emp_num, emp_id, emp_pw, emp_name, emp_email, 'emp' from employees
 where emp_id = #{userId} 
 </select>
 
+<select id="idCheckSelectOne" parameterType="string" resultType="integer">
+select 1 from members where member_id = #{userId}
+union
+select 1 from employees where emp_id = #{userId}
+</select>
+
 </mapper>

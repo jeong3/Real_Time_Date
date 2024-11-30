@@ -1,6 +1,35 @@
 <head>
 <link rel="stylesheet" href="/static/css/goodsDetail.css">
 <script src="/static/js/goodsDetail.js"></script>
+<script>
+
+
+$(document).ready(function () {
+    const goodsPrice = parseFloat($("#goodsPrice").text());
+    const totalPriceDisplay = $("#totalPrice");
+
+    // 수량 입력 값 변경 이벤트
+    $("#cartQty").on("input", function () {
+        const quantity = parseInt($(this).val()) || 1; // 수량이 없거나 잘못 입력되면 기본값 1로 설정
+
+        // AJAX 요청
+        $.ajax({
+            url: "/totalPrice", // 서버 요청 URL
+            type: "POST",
+            contentType: "application/json", // JSON 형식으로 데이터 전송
+            data: JSON.stringify({ goodsPrice: goodsPrice, quantity: quantity }), // 요청 데이터
+            success: function (response) {
+                // 성공 시 서버 응답 데이터로 총 금액 업데이트
+                totalPriceDisplay.text(response.totalPrice.toLocaleString());
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            },
+        });
+    });
+});
+
+</script>
 </head>
 <nav class="flex-nav">
   <div class="container">
@@ -49,14 +78,17 @@
       <div class="column-xs-12 column-md-5">
         <h1>[[${dto.goodsDTO.artistName}]] - [[${dto.goodsDTO.goodsName}]]</h1>
         <h5>[[${dto.goodsDTO.goodsContents}]]</h5>
-        <h5>판매가 [[${dto.goodsDTO.goodsPrice}]]</h5>
+        <h5>판매가  <span id="goodsPrice">[[${dto.goodsDTO.goodsPrice}]]</span></h5>
         <h5>조회수 [[${dto.goodsDTO.visitCount}]]</h5>
         <div class="description">
-        
+      	<h5>수량 <input type="number" name="cartQty" id="cartQty" min="1" value="1" style="width:45px;"> 개</h5>
+      	<h5>총 금액  <span id="totalPrice">[[${dto.goodsDTO.goodsPrice}]]</span>원</h5>
+        <span th:if="${session.auth != null and session.auth.grade == 'emp'}" >
         <h5>등록한 직원 [[${dto.goodsDTO.registEmpNum}]]</h5>
         <h5>등록일 [[${#dates.format(dto.goodsDTO.goodsRegistDate,'yyyy-MM-dd')}]]</h5>
         <h5>수정한 직원 [[${dto.goodsDTO.updateEmpNum}]]</h5>
         <h5>수정한 날짜 [[${#dates.format(dto.goodsDTO.goodsUpdateDate,'yyyy-MM-dd')}]]</h5>
+        </span>
         </div>
         <button class="add-to-cart">Add To Cart</button>
         <button class="add-to-cart">Pay</button>

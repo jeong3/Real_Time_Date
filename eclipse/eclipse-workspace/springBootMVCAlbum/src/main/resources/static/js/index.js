@@ -248,7 +248,7 @@ function memberList1(){
 	});
 }
 function myInfo(element) {
-    const memberNum = element.getAttribute("data-member-num");
+    const memberNum = $(element).data('memberNum');
     if (memberNum == null) {
         return ; // memberNum이 없으면 함수 종료
     }

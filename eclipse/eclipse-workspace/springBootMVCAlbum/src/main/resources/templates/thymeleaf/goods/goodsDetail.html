@@ -6,7 +6,7 @@
   <div class="container">
     <div class="grid menu">
       <div class="column-xs-8 column-md-6">
-        <p id="highlight">[[${dto.category}]]</p>
+        <p id="highlight">[[${dto.goodsDTO.category}]]</p>
       </div>
       <div class="column-xs-4 column-md-6">
         <a href="#" class="toggle-nav">Menu <i class="ion-navicon-round"></i></a>
@@ -26,8 +26,8 @@
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="javascript:window.history.back()">back</a></li>
             
-            <li th:if="${session.auth != null and session.auth.grade == 'emp'}" class="breadcrumb-item"><a onclick="goodsUpdate(this)" th:data-goods-num="${dto.goodsNum}">[[${dto.goodsNum}]] update</a></li>
-         	<li th:if="${session.auth != null and session.auth.grade == 'emp'}" class="breadcrumb-item"><a onclick="goodsDelete(this)" th:data-goods-num="${dto.goodsNum}">[[${dto.goodsNum}]] delete</a></li>
+            <li th:if="${session.auth != null and session.auth.grade == 'emp'}" class="breadcrumb-item"><a onclick="goodsUpdate(this)" th:data-goods-num="${dto.goodsDTO.goodsNum}">[[${dto.goodsDTO.goodsNum}]] update</a></li>
+         	<li th:if="${session.auth != null and session.auth.grade == 'emp'}" class="breadcrumb-item"><a onclick="goodsDelete(this)" th:data-goods-num="${dto.goodsDTO.goodsNum}">[[${dto.goodsDTO.goodsNum}]] delete</a></li>
          		
           </ol>
         </nav>
@@ -37,26 +37,26 @@
       <div class="column-xs-12 column-md-7">
         <div class="product-gallery">
           <div class="product-image">
-            <img class="active" th:src="|/static/images/${dto.goodsMainStoreImage}|">
+            <img class="active" th:src="|/static/images/${dto.goodsDTO.goodsMainStoreImage}|">
           </div><
           <ul class="image-list">
-            <li class="image-item"><img th:src="|/static/images/${dto.goodsDetailStoreImage}|"></li>
-            <li class="image-item"><img th:src="|/static/images/${dto.goodsMainStoreImage}|"></li>
+            <li class="image-item"><img th:src="|/static/images/${dto.goodsDTO.goodsDetailStoreImage}|"></li>
+            <li class="image-item"><img th:src="|/static/images/${dto.goodsDTO.goodsMainStoreImage}|"></li>
             <li class="image-item"><img src="https://source.unsplash.com/5WbYFH0kf_8"></li>
           </ul>
         </div>
       </div>
       <div class="column-xs-12 column-md-5">
-        <h1>[[${dto.artistName}]] - [[${dto.goodsName}]]</h1>
-        <h5>[[${dto.goodsContents}]]</h5>
-        <h5>판매가 [[${dto.goodsPrice}]]</h5>
-        <h5>조회수 [[${dto.visitCount}]]</h5>
+        <h1>[[${dto.goodsDTO.artistName}]] - [[${dto.goodsDTO.goodsName}]]</h1>
+        <h5>[[${dto.goodsDTO.goodsContents}]]</h5>
+        <h5>판매가 [[${dto.goodsDTO.goodsPrice}]]</h5>
+        <h5>조회수 [[${dto.goodsDTO.visitCount}]]</h5>
         <div class="description">
         
-        <h5>등록한 직원 [[${dto.registEmpNum}]]</h5>
-        <h5>등록일 [[${#dates.format(dto.goodsRegistDate,'yyyy-MM-dd')}]]</h5>
-        <h5>수정한 직원 [[${dto.updateEmpNum}]]</h5>
-        <h5>수정한 날짜 [[${dto.goodsUpdateDate}]]</h5>
+        <h5>등록한 직원 [[${dto.goodsDTO.registEmpNum}]]</h5>
+        <h5>등록일 [[${#dates.format(dto.goodsDTO.goodsRegistDate,'yyyy-MM-dd')}]]</h5>
+        <h5>수정한 직원 [[${dto.goodsDTO.updateEmpNum}]]</h5>
+        <h5>수정한 날짜 [[${#dates.format(dto.goodsDTO.goodsUpdateDate,'yyyy-MM-dd')}]]</h5>
         </div>
         <button class="add-to-cart">Add To Cart</button>
         <button class="add-to-cart">Pay</button>
@@ -69,17 +69,17 @@
         <h3>You may also like</h3>
       </div>
       <div class="column-xs-12 column-md-4">
-        <img th:src="|/static/images/${dto.goodsDetailStoreImage}|">
+        <img th:src="|/static/images/${dto.goodsDTO.goodsDetailStoreImage}|">
         <h4>Succulent</h4>
         <p class="price">$19.99</p>
       </div>
       <div class="column-xs-12 column-md-4">
-        <img th:src="|/static/images/${dto.goodsDetailStoreImage}|">
+        <img th:src="|/static/images/${dto.goodsDTO.goodsDetailStoreImage}|">
         <h4>Terranium</h4>
         <p class="price">$19.99</p>
       </div>
       <div class="column-xs-12 column-md-4">
-        <img th:src="|/static/images/${dto.goodsDetailStoreImage}|">
+        <img th:src="|/static/images/${dto.goodsDTO.goodsDetailStoreImage}|">
         <h4>Cactus</h4>
         <p class="price">$19.99</p>
       </div>

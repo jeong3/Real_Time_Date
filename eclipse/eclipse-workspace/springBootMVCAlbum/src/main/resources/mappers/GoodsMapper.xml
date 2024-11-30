@@ -17,32 +17,75 @@
 	</insert>
 	
 	<select id="goodsSelectAll" parameterType="string" resultType="goodsDTO">
-		select <include refid="BaseColumn" />
-		from goods
-		<where>
-			<if test="category != null">
-				CATEGORY = #{category}
-			</if>
-		
-			<if test="searchWord !=null">
-				and(
-				goods_num like '%'||#{searchWord}||'%' or
-				goods_name like '%'||#{searchWord}||'%' or
-				ARTIST_NAME like '%'||#{searchWord}||'%' or
-				CATEGORY like '%'||#{searchWord}||'%'
-				 )
-			</if>
-		
-		
-		
-			
+			select <include refid="BaseColumn" />
+			from goods
+			<where>
+				<if test="category != null">
+					CATEGORY = #{category}
+				</if>
+				<if test="category != null and searchWord !=null">and</if>
+				<if test="searchWord !=null">
+					(
+					goods_num like '%'||#{searchWord}||'%' or
+					goods_name like '%'||#{searchWord}||'%' or
+					ARTIST_NAME like '%'||#{searchWord}||'%' or
+					CATEGORY like '%'||#{searchWord}||'%'
+					 )
+			</if>	
 		</where>
-		
 	</select>
 	
-	<select id="goodsSelectOne" parameterType="string" resultType="goodsDTO">
-		select <include refid="BaseColumn" /> from goods
-		where goods_num = #{goodsNum}
+	<select id="goodsSearchSelectAll" parameterType="string" resultType="goodsDTO">
+			select <include refid="BaseColumn" />
+			from goods
+			<where>
+				<if test="searchWord !=null">
+					(
+					goods_num like '%'||#{searchWord}||'%' or
+					goods_name like '%'||#{searchWord}||'%' or
+					ARTIST_NAME like '%'||#{searchWord}||'%' or
+					CATEGORY like '%'||#{searchWord}||'%'
+					 )
+			</if>	
+		</where>
+	</select>
+	<resultMap type="goodsStockDTO" id="goodsStockResultMap">
+		<result column="stock" jdbcType="VARCHAR" property="stock"/>
+		<association property="goodsDTO" javaType="goodsDTO">
+	    <id column="goods_num" jdbcType="VARCHAR" property="goodsNum"/>
+	    <result column="goods_name" jdbcType="VARCHAR" property="goodsName"/>
+	    <result column="artist_name" jdbcType="VARCHAR" property="artistName"/>
+	    <result column="goods_price" jdbcType="BIGINT" property="goodsPrice"/>
+	    <result column="goods_contents" jdbcType="VARCHAR" property="goodsContents"/>
+	    <result column="visit_count" jdbcType="BIGINT" property="visitCount"/>
+	    <result column="goods_main_image" jdbcType="VARCHAR" property="goodsMainImage"/>
+	    <result column="goods_main_store_image" jdbcType="VARCHAR" property="goodsMainStoreImage"/>
+	    <result column="goods_detail_image" jdbcType="VARCHAR" property="goodsDetailImage"/>
+	    <result column="goods_detail_store_image" jdbcType="VARCHAR" property="goodsDetailStoreImage"/>
+	    <result column="regist_emp_num" jdbcType="VARCHAR" property="registEmpNum"/>
+	    <result column="goods_regist_date" jdbcType="DATE" property="goodsRegistDate"/>
+	    <result column="update_emp_num" jdbcType="VARCHAR" property="updateEmpNum"/>
+	    <result column="goods_update_date" jdbcType="DATE" property="goodsUpdateDate"/>
+    	<result column="category" jdbcType="VARCHAR" property="category"/>
+	</association>
+	</resultMap>
+	
+	<select id="goodsSelectOne" parameterType="string" resultMap="goodsStockResultMap">
+		select g.GOODS_NUM, GOODS_NAME, ARTIST_NAME, GOODS_PRICE, GOODS_CONTENTS, VISIT_COUNT
+			, GOODS_MAIN_IMAGE, GOODS_MAIN_STORE_IMAGE, GOODS_DETAIL_IMAGE, GOODS_DETAIL_STORE_IMAGE
+			, REGIST_EMP_NUM, GOODS_REGIST_DATE, UPDATE_EMP_NUM, GOODS_UPDATE_DATE, CATEGORY
+			,coalesce(stock, 0) as stock
+			from goods g left outer join 
+			(select ip.goods_num, (ipqty - coalesce(plqty,0)) as stock from(select goods_num, sum(ipgo_qty) as ipqty
+			from goods_ipgo 
+			group by goods_num 
+			) ip
+			left outer join ( 
+			select goods_num, sum(purchase_qty) plqty from purchase_list
+			group by goods_num
+			) pl on ip.goods_num = pl.goods_num) st
+			on g.goods_num = st.goods_num
+		where g.goods_num = #{goodsNum}
 	</select>
 	
 	<update id="goodsUpdate" parameterType="goodsDTO" >
@@ -72,6 +115,12 @@
 		delete from goods
 		where goods_num = #{goodsNum}
 	</delete>
+	
+	<update id="goodsVisitUpdate" parameterType="string">
+	update goods set
+	VISIT_COUNT = VISIT_COUNT + 1 
+	where goods_num = #{goodsNum}
+	</update>
 	
 
 </mapper>

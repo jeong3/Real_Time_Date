@@ -35,10 +35,11 @@ public class SpringBootMvcAlbumApplication {
 		SpringApplication.run(SpringBootMvcAlbumApplication.class, args);
 	}
 	@GetMapping("/")
-	public String index(LoginCommand loginCommand, Model model , HttpServletRequest request) {
+	public String index(LoginCommand loginCommand,String searchWord, Model model , HttpServletRequest request) {
 			//@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
 			//,LoginCommand loginCommand, Model model) {  SSR
 		//mainGoodsListService.execute(page,model);
+		goodsListService.execute(searchWord, null, model);
 		//쿠키 사용
 		Cookie [] cookies = request.getCookies();
 		if(cookies != null) {
@@ -58,12 +59,13 @@ public class SpringBootMvcAlbumApplication {
 		return "thymeleaf/index";
 	}
 	@PostMapping("/")
-	public ModelAndView index(String searchWord, Model model) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("jsonView");
-		goodsListService.execute(searchWord, null, model);
+	public String index(String searchWord,String category, Model model) {
+	
+		goodsListService.execute(searchWord, category, model);
+		
+		
 			
-		return mav;
+		return "thymeleaf/goods/searchGoods";
 	}
 	
 }

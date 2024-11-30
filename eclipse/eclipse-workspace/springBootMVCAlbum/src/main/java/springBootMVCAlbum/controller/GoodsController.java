@@ -33,11 +33,12 @@ public class GoodsController {
 	@Autowired
 	GoodsDeleteService goodsDeleteService;
 	
-	@GetMapping("goodsList")
-	public String goodsList(@RequestParam(value = "searchWord", required = false) String searchWord,
+	@RequestMapping("goodsList")
+	public String goodsList(String searchWord,
 			String category, Model model) {
+		System.out.println(category+"컨트롤러");
 		goodsListService.execute(searchWord, category, model);
-		System.out.println(category+"asdasdasd");
+		
 		return "thymeleaf/goods/goodsList";
 	}
 	

@@ -31,6 +31,26 @@ function w3_close() {
   document.getElementById("myOverlay").style.display = "none";
 }
 
+function searchGoods(element) {
+    const searchWord = $("#searchWord").val(); // 입력된 검색어 가져오기
+	var category = null;
+	if (element instanceof HTMLElement) category = $(element).data('category');
+	alert(category);
+    $.ajax({
+        type: "POST",
+        url: "/",
+        data: { "searchWord": searchWord , "category": category}, // 데이터 객체로 전송
+        dataType: "html",
+        success: function(result) {
+            alert(result);
+			 $("#searchResult").html(result);
+        },
+        error: function() {
+            alert("검색에 실패했습니다. 다시 시도해주세요.");
+        }
+    });
+}
+
 
 function fileDel(btn, orgFile, storeFile, kind){
 	

@@ -14,7 +14,7 @@ public class GoodsDetailService {
 	GoodsMapper goodsMapper;
 	public void execute(String goodsNum, Model model) {
 		goodsMapper.goodsVisitUpdate(goodsNum);
-		GoodsStockDTO dto = goodsMapper.goodsSelectOne(goodsNum);
+		GoodsStockDTO dto = goodsMapper.goodsStockSelectOne(goodsNum);
 		model.addAttribute("dto", dto);
 	}
 

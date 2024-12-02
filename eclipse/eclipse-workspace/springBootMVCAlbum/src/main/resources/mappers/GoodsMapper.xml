@@ -69,8 +69,11 @@
     	<result column="category" jdbcType="VARCHAR" property="category"/>
 	</association>
 	</resultMap>
-	
-	<select id="goodsSelectOne" parameterType="string" resultMap="goodsStockResultMap">
+	<select id="goodsSelectOne" parameterType="string" resultType="goodsDTO">
+	select <include refid="BaseColumn" /> from goods
+	where goods_num = #{goodsNum}
+	</select>
+	<select id="goodsStockSelectOne" parameterType="string" resultMap="goodsStockResultMap">
 		select g.GOODS_NUM, GOODS_NAME, ARTIST_NAME, GOODS_PRICE, GOODS_CONTENTS, VISIT_COUNT
 			, GOODS_MAIN_IMAGE, GOODS_MAIN_STORE_IMAGE, GOODS_DETAIL_IMAGE, GOODS_DETAIL_STORE_IMAGE
 			, REGIST_EMP_NUM, GOODS_REGIST_DATE, UPDATE_EMP_NUM, GOODS_UPDATE_DATE, CATEGORY

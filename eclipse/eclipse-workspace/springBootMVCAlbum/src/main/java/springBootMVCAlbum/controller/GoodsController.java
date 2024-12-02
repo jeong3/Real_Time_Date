@@ -41,6 +41,14 @@ public class GoodsController {
 		
 		return "thymeleaf/goods/goodsList";
 	}
+	@GetMapping("goodsItem")
+	public String goodsItem(String searchWord,
+			String category, Model model) {
+		System.out.println(category+"컨트롤러");
+		goodsListService.execute(null, null, model);
+		
+		return "thymeleaf/goods/goodsItem";
+	}
 	
 	
 	@GetMapping("goodsRegist")

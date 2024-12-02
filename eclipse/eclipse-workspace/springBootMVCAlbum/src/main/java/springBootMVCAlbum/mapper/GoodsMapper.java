@@ -15,13 +15,15 @@ public interface GoodsMapper {
 	
 	List<GoodsDTO> goodsSearchSelectAll(String searchWord);
 
-	GoodsStockDTO goodsSelectOne(String goodsNum);
+	GoodsDTO goodsSelectOne(String goodsNum);
 
 	Integer goodsUpdate(GoodsDTO dto);
 
 	int goodsDelete(String goodsNum);
 
 	int goodsVisitUpdate(String goodsNum);
+
+	GoodsStockDTO goodsStockSelectOne(String goodsNum);
 
 	
 	

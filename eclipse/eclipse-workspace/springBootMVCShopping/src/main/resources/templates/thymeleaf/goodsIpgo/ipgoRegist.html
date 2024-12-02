@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $(function(){
 	$("#btn").click(function(){
-		window.open("/goods/goodsItem","상품검색","width=600, height=500, top=500, left=60")
+		window.open("/goods/goodsItem","상품검색","width=600, height=300, top=500, left=60")
 	});
 	
 	$("#regist").click(function(){ //CSR
@@ -70,7 +70,7 @@ $(function(){
 <tr><th>상품번호</th> <td><input type="search" name= "goodsNum" id="goodsNum" readonly="readonly"/> <button type="button" id="btn" >상품 검색</button></td> </tr>
 <tr><th>상품명</th> <td> <input type="text"  id="goodsName" readonly="readonly"/></td> </tr>
 
-<tr><th>입고수량</th> <td><input type="number" id="ipgoQty" name= "ipgoQty" /></td> </tr>
+<tr><th>입고수량</th> <td><input type="number" id="ipgoQty" name= "ipgoQty" value="1" min="1"/></td> </tr>
 <tr><th>제조일</th> <td><input type="datetime-local" id="madeDate" name="madeDate" /></td> </tr>
 <tr><th>가격</th> <td><input type="number" name="ipgoPrice" id="ipgoPrice" /></td> </tr>
 <tr><th colspan="2"><input type="button" value="입고 등록" id="regist" /></th></tr>

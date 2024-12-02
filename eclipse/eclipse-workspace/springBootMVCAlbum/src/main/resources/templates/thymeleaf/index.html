@@ -60,7 +60,8 @@ font-size: 15px;
   <br />
   <span th:if="${session.auth != null}">
 	  <span th:if="${session.auth.grade == 'emp'}">
-	  	<a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">상품등록</a> 
+	  	<a class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">상품등록</a> 
+	  		<a  class="w3-bar-item w3-button w3-padding" onclick="goodsIpgoList()">입고현황</a> 
 	  </span>
   </span>
   <a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>
@@ -143,10 +144,10 @@ font-size: 15px;
 	<!-- Product grid -->
 
 	<th:block th:each="dto : ${list}">
-		<div class="w3-col l3 s6" th:data-goods-num="${dto.goodsNum}" onclick="goodsDetail(this)">
+		<div class="w3-col l3 s6" >
 			<div class="w3-container">
 				<div class="w3-display-container">
-					<img height= "200px", width= "200px"
+					<img height= "200px", width= "200px" th:data-goods-num="${dto.goodsNum}" onclick="goodsDetail(this)"
 						th:src="|/static/images/${dto.goodsMainStoreImage}|"> <span
 						class="w3-tag w3-display-topleft">New</span>
 					<div class="w3-display-middle w3-display-hover">
@@ -157,8 +158,10 @@ font-size: 15px;
 				</div>
 				<p>
 					[[${dto.goodsName}]]
-					<img style="width: 20px; height: 20px; float: right;"
-						src="/static/images/hart0.png">
+					
+					<img style="width: 20px; height: 20px; float: right;" th:data-goods-num="${dto.goodsNum}" onclick="addWish(this)"
+						src="/static/images/hart1.png" >
+						
 					<br> <b>[[${dto.goodsPrice}]]</b>
 					<!-- 오른쪽 끝에 작은 이미지 추가 -->
 					

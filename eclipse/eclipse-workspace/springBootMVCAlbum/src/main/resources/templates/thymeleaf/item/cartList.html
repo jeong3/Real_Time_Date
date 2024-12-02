@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cartList</title>
+</head>
+<body>
+  <div align="center">
+    <h2>장바구니</h2>
+    <a href="/">MainPage</a>
+    <hr/>
+
+    <table border="1" cellpadding="5" cellspacing="0" style="width: 80%; text-align: center;">
+      <thead>
+        <tr>
+          <th>사진</th>
+          <th>상품번호</th>
+          <th>상품명</th>
+          <th>수량</th>
+          <th>가격</th>
+          <th>삭제</th>
+        </tr>
+      </thead>
+      <!-- <tbody>
+        <tr th:each="dto : ${list}" th:data-cart-num="${dto.cartNum}">
+          <td><img src="/static/images/cover.jpg" style="width:60px;"></td>
+          <td>[[${dto.goodsNum}]]</td>
+          <td>[[${dto.goodsName}]]</td>
+          <td>[[${dto.cartQty}]]</td>
+          <td>[[${dto.goodsPrice}]]</td>
+          <td>
+            <a th:attr="onclick=|deleteFromCart('${dto.cartNum}')|" style="text-decoration: none;">×</a>
+          </td>
+        </tr>
+      </tbody> -->
+    </table>
+  </div>
+</body>
+</html>

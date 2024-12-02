@@ -1,40 +1,34 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-
+<head>
+<meta charset="UTF-8">
+<title>Member List</title>
+</head>
 <body>
-<div class="w3-container" align="center">
- <h2>MemberList</h2>
-  <a href="/member/memberRegist">회원가입</a>
-  <hr/>
-  
-  <table class="w3-ul w3-card-4">
-  <tr class="w3-bar" th:each="dto : ${list}" th:data-member-num="${dto.memberNum}" onclick="myInfo(this)">
-    <td>
-      <img src="/static/images/cover.jpg" class="w3-bar-item w3-circle w3-hide-small" style="width:60px">
-    </td>
-    <td>
-      <div class="w3-bar-item">
-        <span class="w3-large">[[${dto.memberNum}]]</span>
-      </div>
-    </td>
-    <td>
-      <div class="w3-bar-item">
-        <span class="w3-large">[[${dto.memberName}]]</span>
-      </div>
-    </td>
-    <td>
-    <a type="button" th:attr="onclick=|deleteMember('${dto.memberNum}')|" style="text-decoration: underline">
-    <span class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span> </a>
-    </td>
-  </tr>
-</table>
+  <div align="center">
+    <h2>Member List</h2>
+    <a href="/member/memberRegist">회원가입</a>
+    <hr/>
 
-
+    <table border="1" cellpadding="5" cellspacing="0" style="width: 80%; text-align: center;">
+      <thead>
+        <tr>
+          
+          <th>회원번호</th>
+          <th>회원 이름</th>
+          <th>삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="dto : ${list}" th:data-member-num="${dto.memberNum}" onclick="myInfo(this)">
+          <td>[[${dto.memberNum}]]</td>
+          <td>[[${dto.memberName}]]</td>
+          <td>
+            <a href="#" th:attr="onclick=|deleteMember('${dto.memberNum}')|" style="text-decoration: none;">×</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-
 </body>
 </html>

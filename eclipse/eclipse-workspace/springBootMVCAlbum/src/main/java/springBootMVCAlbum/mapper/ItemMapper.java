@@ -1,6 +1,11 @@
 package springBootMVCAlbum.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import springBootMVCAlbum.domain.CartGoodsDTO;
 
 @Mapper
 public interface ItemMapper {
@@ -9,6 +14,14 @@ public interface ItemMapper {
 
 	Integer wishCount(String goodsNum, String memberNum);
 
-	void setDefindOff();
+	int cartUpdate(Map<String, String> map);
+
+	List<CartGoodsDTO> cartList(String memberNum);
+
+	int upQtyUpdate(String goodsNum);
+
+	int downQtyUpdate(String goodsNum);
+
+	int cartDelete(List<String> cartNums);
 	
 }

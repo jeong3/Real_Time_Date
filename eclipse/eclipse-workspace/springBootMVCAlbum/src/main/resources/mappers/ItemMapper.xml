@@ -20,4 +20,77 @@
 		select count(*) from wish where goods_num = #{goodsNum} and member_num = #{memberNum}
 	</select>
 	
+	<update id="cartUpdate" parameterType="hashmap">
+	merge into cart c
+	using (select goods_num from goods where goods_num = #{goodsNum}) g
+	on (c.goods_num = g.goods_num)
+	when matched then
+		update set cart_date = sysdate,
+		cart_qty = cart_qty + #{cartQty}
+		where g.goods_num = #{goodsNum} and member_num = #{memberNum} 
+	when not matched then
+			insert (MEMBER_NUM, GOODS_NUM, CART_DATE, CART_QTY)
+			values (#{memberNum}, #{goodsNum}, sysdate, #{cartQty})
+	</update>
+	
+	<resultMap type="goodsDTO" id="goodsResultMap">
+	    <id column="GOODS_NUM" jdbcType="VARCHAR" property="goodsNum"/>
+	    <result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName"/>
+	    <result column="ARTIST_NAME" jdbcType="VARCHAR" property="artistName"/>
+	    <result column="GOODS_PRICE" jdbcType="BIGINT" property="goodsPrice"/>
+	    <result column="GOODS_CONTENTS" jdbcType="VARCHAR" property="goodsContents"/>
+	    <result column="VISIT_COUNT" jdbcType="BIGINT" property="visitCount"/>
+	    <result column="GOODS_MAIN_IMAGE" jdbcType="VARCHAR" property="goodsMainImage"/>
+	    <result column="GOODS_MAIN_STORE_IMAGE" jdbcType="VARCHAR" property="goodsMainStoreImage"/>
+	    <result column="GOODS_DETAIL_IMAGE" jdbcType="VARCHAR" property="goodsDetailImage"/>
+	    <result column="GOODS_DETAIL_STORE_IMAGE" jdbcType="VARCHAR" property="goodsDetailStoreImage"/>
+	    <result column="REGIST_EMP_NUM" jdbcType="VARCHAR" property="registEmpNum"/>
+	    <result column="GOODS_REGIST_DATE" jdbcType="DATE" property="goodsRegistDate"/>
+	    <result column="UPDATE_EMP_NUM" jdbcType="VARCHAR" property="updateEmpNum"/>
+	    <result column="GOODS_UPDATE_DATE" jdbcType="DATE" property="goodsUpdateDate"/>
+	    <result column="CATEGORY" jdbcType="VARCHAR" property="category"/>
+	</resultMap>
+	
+	<resultMap type="cartDTO" id="cartResultMap">
+		<id column="goods_num" jdbcType="VARCHAR" property="goodsNum"/>
+		<id column="member_num" jdbcType="VARCHAR" property="memberNum"/>
+		<result column="cart_Num" jdbcType="BIGINT" property="cartNum"/>
+		<result column="cart_date" jdbcType="DATE" property="cartDate"/>
+		<result column="cart_qty" jdbcType="BIGINT" property="cartQty"/>
+	</resultMap>
+	
+	<resultMap type="cartGoodsDTO" id="cartGoodsResultMap">
+		<association property="goodsDTO" javaType="goodsDTO" column="goodsNum" resultMap="goodsResultMap" />
+		<association property="cartDTO" javaType="cartDTO" column="cartNum" resultMap="cartResultMap" />
+	</resultMap>
+	
+	<select id="cartList" parameterType="string" resultMap="cartGoodsResultMap">
+		select  MEMBER_NUM, CART_NUM, g.GOODS_NUM, CART_DATE, CART_QTY
+		, GOODS_NAME, ARTIST_NAME, GOODS_PRICE, GOODS_CONTENTS, VISIT_COUNT
+		, GOODS_MAIN_IMAGE, GOODS_MAIN_STORE_IMAGE, GOODS_DETAIL_IMAGE, GOODS_DETAIL_STORE_IMAGE
+		, REGIST_EMP_NUM, GOODS_REGIST_DATE, UPDATE_EMP_NUM, GOODS_UPDATE_DATE, CATEGORY
+		from cart c join goods g 
+		on c.goods_num = g.goods_num
+		where member_num = #{memberNum}
+	</select>
+	
+	<update id="upQtyUpdate" parameterType="string">
+		update cart set 
+		cart_Qty = cart_Qty + 1
+		where goods_num = #{goodsNum}
+	</update>
+	
+	<update id="downQtyUpdate" parameterType="string">
+		update cart set 
+		cart_Qty = cart_Qty - 1
+		where goods_num = #{goodsNum}
+	</update>
+	
+	<delete id="cartDelete" parameterType="string">
+		delete from cart
+		where cart_num in
+		<foreach item="cartNum" collection="cartNums" open="(" separator="," close=")">
+        #{cartNum}
+    </foreach>
+	</delete>
 </mapper>

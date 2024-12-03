@@ -30,6 +30,45 @@ function w3_close() {
 	document.getElementById("mySidebar").style.display = "none";
 	document.getElementById("myOverlay").style.display = "none";
 }
+function submitOrder() {
+           const form = document.querySelector('form');
+           const formData = new FormData(form);
+
+           // AJAX 요청
+           $.ajax({
+               url: '/purchase/goodsOrder', // 서버의 처리 URL
+               type: 'POST',
+               data: Object.fromEntries(formData), // 데이터를 JSON 형식으로 변환
+               contentType: 'application/json; charset=UTF-8', // JSON 형식으로 전송
+               success: function(result) {
+                   alert('주문이 완료되었습니다!');
+                   // 서버 응답 처리
+                   $("#content").html(result);
+               },
+               error: function(xhr, status, error) {
+                   alert('주문 처리 중 오류가 발생했습니다.');
+                   console.error(error);
+               }
+           });
+       }
+function purchaseRegist(){
+	var cartNums = [];
+	$("input:checkbox[name=nums]:checked").each(function(){
+		cartNums.push($(this).val());
+	});
+	$.ajax({
+		type: "post",
+		url: "/purchase/purchaseRegist",
+		contentType: "application/json",
+        data: JSON.stringify(cartNums), // JSON 형식의 데이터 전송
+		success: function(result) {
+			$("#content").html(result);
+		},
+		error: function() {
+			alert("서버 오류가 발생했습니다.");
+		},
+	});
+}
 function deleteIpgo(ipgoNum) {
 	if (confirm("정말 삭제하시겠습니까?")) {
 		$.ajax({
@@ -37,14 +76,15 @@ function deleteIpgo(ipgoNum) {
 			url: "/ipgo/ipgoDelete",
 			data: { ipgoNum: ipgoNum },
 			success: function(response) {
-				location.reload();
+				
 			},
 			error: function() {
 				alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
-			}
+			},
+			complete : goodsIpgoList
 		});
 	} else {
-		location.href = "/";
+		goodsIpgoList();
 	}
 }
 function addCart(element) {
@@ -277,8 +317,11 @@ function goodsDelete(element) {
 			},
 			error: function() {
 				alert("서버오류");
-			}
+			},
+			complete : goodsList
 		});
+	}else{
+		goodsList();
 	}
 }
 function goodsUpdate(element) {
@@ -494,15 +537,18 @@ function deleteMember(memberNum) {
 			data: { memberNum: memberNum }, // 삭제할 멤버 ID 전달
 			success: function(response) {
 				if (response == "success") {
-					memberList1(); // 삭제 후 리스트 갱신
+					
 				} else {
 					alert("삭제를 취소했습니다.");
 				}
 			},
 			error: function() {
 				alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
-			}
+			},
+			complete:memberList1
 		});
+	}else{
+		memberList1();
 	}
 }
 function deleteEmp(empNum) {
@@ -513,15 +559,18 @@ function deleteEmp(empNum) {
 			data: { empNum: empNum }, // 삭제할 직원 ID 전달
 			success: function(response) {
 				if (response == "success") {
-					empList1(); // 삭제 후 리스트 갱신
+					
 				} else {
 					alert("삭제를 취소했습니다.");
 				}
 			},
 			error: function() {
 				alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
-			}
+			},
+			complete:empList1
 		});
+	}else{
+		empList1();
 	}
 }
 

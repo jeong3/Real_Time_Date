@@ -11,16 +11,19 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
+
 <style>
 .w3-sidebar a { 
     font-family: "Roboto", sans-serif;
     text-decoration: none; /* 밑줄 제거 */
 }
 a { 
+	cursor: pointer;
     font-family: "Roboto", sans-serif;
     text-decoration: none; /* 밑줄 제거 */
-font-size: 15px;
+	font-size: 15px;
 }
+
 body, h1, h2, h3, h4, h5, h6, .w3-wide { 
     font-family: "Montserrat", sans-serif;
 }
@@ -71,6 +74,7 @@ font-size: 15px;
   <span th:if="${session.auth.grade == 'mem'}">
  	 <a th:data-member-num="${session.auth.userNum}" onclick="myInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
   </span>
+  
   <span th:if="${session.auth.grade == 'emp'}">
 	  <a th:data-emp-num="${session.auth.userNum}" onclick="empMyInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
   	  <a id="memberList" class="w3-bar-item w3-button w3-padding">회원관리</a>
@@ -147,7 +151,7 @@ font-size: 15px;
 		<div class="w3-col l3 s6" >
 			<div class="w3-container">
 				<div class="w3-display-container">
-					<img height= "200px", width= "200px" th:data-goods-num="${dto.goodsNum}" onclick="goodsDetail(this)"
+					<img height= "200px", width= "200px" th:data-goods-num="${dto.goodsNum}" style="cursor: pointer;" onclick="goodsDetail(this)"
 						th:src="|/static/images/${dto.goodsMainStoreImage}|"> <span
 						class="w3-tag w3-display-topleft">New</span>
 					<div class="w3-display-middle w3-display-hover">

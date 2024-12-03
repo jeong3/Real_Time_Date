@@ -1,0 +1,108 @@
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootMVCAlbum.mapper.PurchaseMapper">
+
+<resultMap type="goodsDTO" id="goodsResultMap">
+	    <id column="GOODS_NUM" jdbcType="VARCHAR" property="goodsNum"/>
+	    <result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName"/>
+	    <result column="ARTIST_NAME" jdbcType="VARCHAR" property="artistName"/>
+	    <result column="GOODS_PRICE" jdbcType="BIGINT" property="goodsPrice"/>
+	    <result column="GOODS_CONTENTS" jdbcType="VARCHAR" property="goodsContents"/>
+	    <result column="VISIT_COUNT" jdbcType="BIGINT" property="visitCount"/>
+	    <result column="GOODS_MAIN_IMAGE" jdbcType="VARCHAR" property="goodsMainImage"/>
+	    <result column="GOODS_MAIN_STORE_IMAGE" jdbcType="VARCHAR" property="goodsMainStoreImage"/>
+	    <result column="GOODS_DETAIL_IMAGE" jdbcType="VARCHAR" property="goodsDetailImage"/>
+	    <result column="GOODS_DETAIL_STORE_IMAGE" jdbcType="VARCHAR" property="goodsDetailStoreImage"/>
+	    <result column="REGIST_EMP_NUM" jdbcType="VARCHAR" property="registEmpNum"/>
+	    <result column="GOODS_REGIST_DATE" jdbcType="DATE" property="goodsRegistDate"/>
+	    <result column="UPDATE_EMP_NUM" jdbcType="VARCHAR" property="updateEmpNum"/>
+	    <result column="GOODS_UPDATE_DATE" jdbcType="DATE" property="goodsUpdateDate"/>
+	    <result column="CATEGORY" jdbcType="VARCHAR" property="category"/>
+	</resultMap>
+	
+	<resultMap type="cartDTO" id="cartResultMap">
+		<id column="goods_num" jdbcType="VARCHAR" property="goodsNum"/>
+		<id column="member_num" jdbcType="VARCHAR" property="memberNum"/>
+		<result column="cart_Num" jdbcType="BIGINT" property="cartNum"/>
+		<result column="cart_date" jdbcType="DATE" property="cartDate"/>
+		<result column="cart_qty" jdbcType="BIGINT" property="cartQty"/>
+	</resultMap>
+	
+	<resultMap type="cartGoodsDTO" id="cartGoodsResultMap">
+		<association property="goodsDTO" javaType="goodsDTO" column="goodsNum" resultMap="goodsResultMap" />
+		<association property="cartDTO" javaType="cartDTO" column="cartNum" resultMap="cartResultMap" />
+	</resultMap>
+	
+	<select id="cartList" parameterType="string" resultMap="cartGoodsResultMap">
+		select  MEMBER_NUM, CART_NUM, g.GOODS_NUM, CART_DATE, CART_QTY
+		, GOODS_NAME, ARTIST_NAME, GOODS_PRICE, GOODS_CONTENTS, VISIT_COUNT
+		, GOODS_MAIN_IMAGE, GOODS_MAIN_STORE_IMAGE, GOODS_DETAIL_IMAGE, GOODS_DETAIL_STORE_IMAGE
+		, REGIST_EMP_NUM, GOODS_REGIST_DATE, UPDATE_EMP_NUM, GOODS_UPDATE_DATE, CATEGORY
+		from cart c join goods g 
+		on c.goods_num = g.goods_num
+		where member_num = #{memberNum}
+	</select>
+	
+	<select id="CartGoodsSelect" parameterType="string" resultMap="cartGoodsResultMap">
+		select  MEMBER_NUM, CART_NUM, g.GOODS_NUM, CART_DATE, CART_QTY
+		, GOODS_NAME, ARTIST_NAME, GOODS_PRICE, GOODS_CONTENTS, VISIT_COUNT
+		, GOODS_MAIN_IMAGE, GOODS_MAIN_STORE_IMAGE, GOODS_DETAIL_IMAGE, GOODS_DETAIL_STORE_IMAGE
+		, REGIST_EMP_NUM, GOODS_REGIST_DATE, UPDATE_EMP_NUM, GOODS_UPDATE_DATE, CATEGORY
+		from cart c join goods g 
+		on c.goods_num = g.goods_num
+		where CART_NUM in
+		<foreach item="cartNum" collection="cartNums" open="(" separator="," close=")">
+        #{cartNum}
+    	</foreach>
+	</select>
+	
+	<select id="purchaseNumSelect">
+		SELECT CONCAT(TO_CHAR(SYSDATE, 'YYYYMMDD'), NVL(MAX(SUBSTR(purchase_num, 9)), 0) + 1) 
+		FROM purchase;
+	</select>
+	
+	<sql id="purchaseBaseColumn">
+	PURCHASE_NUM, PURCHASE_DATE, PURCHASE_PRICE, DELIVERY_ADDR
+	, DELIVERY_ADDR_DETAIL, DELIVERY_POST, DELIVERY_PHONE, MESSAGE
+	, PURCHASE_STATUS, MEMBER_NUM, DELIVERY_NAME, PURCHASE_NAME
+	</sql>
+	
+	<sql id="purchaseListBaseColumn">
+	GOODS_NUM, PURCHASE_NUM, PURCHASE_QTY, PURCHASE_PRICE
+	</sql>
+	
+	<insert id="purchaseInsert" parameterType="purchaseDTO">
+		insert into purchase ( <include refid="purchaseBaseColumn"/> )
+		values (#{purchaseNum}, sysdate, #{purchasePrice}, #{deliveryAddr}
+		, #{deliveryAddrDetail}, #{deliveryPost}, #{deliveryPhone}, #{message}
+		, '배송 준비중', #{memberNum}, #{deliveryName}, #{purchaseName})
+	</insert>
+	
+	<insert id="purchaseListInsert" parameterType="hashmap">
+		insert into purchase_list ( <include refid="purchaseListBaseColumn"/> )
+		select c.goods_num , #{purchaseNum}, cart_qty,
+		cart_qty * goods_price
+		from cart c join goods g
+		on c.goods_num =
+		g.goods_num
+		where member_num = #{memberNum}
+		and c.goods_num in
+		<foreach collection="goodsNums" item="goodsNum" open="("
+			close=")" index="index" separator=",">
+			#{goodsNum}
+		</foreach>
+	</insert>
+	
+	<delete id="cartDelete" parameterType="hashmap">
+		delete from cart
+		where member_num = #{memberNum}
+		and goods_num in
+		<foreach collection="goodsNums" item="goodsNum" open="("
+			close=")" index="index" separator=",">
+			#{goodsNum}
+		</foreach>
+	</delete>
+	
+	
+</mapper>

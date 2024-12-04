@@ -80,7 +80,7 @@
 		      </th>
 		      <th>
 		        <div class="w3-bar-item">
-		          <input type="text" name="memberAddr" id="sample4_roadAddress"  readonly="readonly" th:value="${memberCommand.memberAddr}"/> <button type="button" onclick="execDaumPostcode();" >주소검색</button>
+		          <input type="text" name="memberAddr" id="sample4_roadAddress"  readonly="readonly" th:value="${memberCommand.memberAddr}" onclick="execDaumPostcode();" />
 		          <span style="color: red" th:if="${#fields.hasErrors('memberAddr')}" th:errors="*{memberAddr}"  />
 		        </div>
 		      </th>

@@ -14,6 +14,9 @@ import jakarta.servlet.http.HttpSession;
 import springBootMVCAlbum.command.PurchaseCommand;
 import springBootMVCAlbum.service.purchase.GoodsOrderRegistService;
 import springBootMVCAlbum.service.purchase.GoodsOrderService;
+import springBootMVCAlbum.service.purchase.IniPayReqService;
+import springBootMVCAlbum.service.purchase.MyPurchaseSevice;
+import springBootMVCAlbum.service.purchase.PurchaseListSevice;
 
 @Controller
 @RequestMapping("purchase")
@@ -22,6 +25,12 @@ public class PurchaseController {
 	GoodsOrderService goodsOrderService;
 	@Autowired
 	GoodsOrderRegistService goodsOrderRegistService;
+	@Autowired
+	IniPayReqService iniPayReqService;
+	@Autowired
+	MyPurchaseSevice myPurchaseSevice;
+	@Autowired
+	PurchaseListSevice purchaseListSevice;
 	
 	@RequestMapping("purchaseRegist")
 	public String purchaseRegist(@RequestBody List<String> cartNums, Model model) {
@@ -29,17 +38,27 @@ public class PurchaseController {
 	    return "thymeleaf/purchase/purchaseRegist";
 	}
 	@PostMapping("goodsOrder")
-	public String goodsOrder(PurchaseCommand purchaseCommand, HttpSession session) {
+	public String goodsOrder(@RequestBody PurchaseCommand purchaseCommand, HttpSession session) {
 		String purchaseNum = goodsOrderRegistService.execute(purchaseCommand, session);
 		return "redirect:paymentOk?purchaseNum="+purchaseNum;
 	}
 	@GetMapping("paymentOk")
-	public String paymentOk(String purchaseNum, Model model) {
+	public String paymentOk(String purchaseNum, Model model, HttpSession session) {
 		try {
-			//iniPayReqService.execute(purchaseNum, model);
+			iniPayReqService.execute(purchaseNum, model, session);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "thymeleaf/purchase/payment";
+	}
+	@GetMapping("myPurchase")
+	public String myPurchase(HttpSession session, Model model) {
+		myPurchaseSevice.execute(session, model);
+		return "thymeleaf/purchase/myPurchase";
+	}
+	@GetMapping("purchaseList")
+	public String purchaseList(Model model) {
+		purchaseListSevice.execute(model);
+		return "thymeleaf/purchase/purchaseList";
 	}
 }

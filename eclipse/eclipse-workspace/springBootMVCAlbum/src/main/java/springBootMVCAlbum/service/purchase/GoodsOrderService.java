@@ -16,7 +16,8 @@ public class GoodsOrderService {
 	public void execute(List<String> cartNums, Model model) {
 		List<CartGoodsDTO> list = purchaseMapper.CartGoodsSelect(cartNums);
 		Integer sumPrice = 0; //결제금액
-		Integer DeliveryCost = 3000; // 배송비
+		//Integer DeliveryCost = 3000; // 배송비
+		Integer DeliveryCost = 0; // 배송비
 		String goodsNums = ""; //상품번호 저장
 		for(CartGoodsDTO dto : list) {
 			sumPrice += dto.getGoodsDTO().getGoodsPrice() * dto.getCartDTO().getCartQty();

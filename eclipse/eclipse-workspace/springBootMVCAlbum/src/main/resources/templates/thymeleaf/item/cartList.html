@@ -134,10 +134,13 @@ function downQty(goodsNum, goodsPrice) {
 
 function deleteFromCart(cartNum) {
 	var cartNums = [];
-	if(cartNum != null)cartNums.push(cartNum);
-	$("input:checkbox[name=nums]:checked").each(function(){
-		cartNums.push($(this).val());
-	});
+	if(cartNum != null){
+		cartNums.push(cartNum);
+	} else{
+		 $("input:checkbox[name=nums]:checked").each(function(){
+				cartNums.push($(this).val());
+		 });
+	}
 	if (confirm("정말 삭제하시겠습니까?")) {
 		$.ajax({
 			type: "post",

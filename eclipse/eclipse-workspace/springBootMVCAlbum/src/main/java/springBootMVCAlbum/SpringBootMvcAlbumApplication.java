@@ -17,7 +17,6 @@ import springBootMVCAlbum.command.LoginCommand;
 import springBootMVCAlbum.domain.AuthInfoDTO;
 import springBootMVCAlbum.mapper.LoginMapper;
 import springBootMVCAlbum.service.goods.GoodsListService;
-import springBootMVCAlbum.service.goods.MainGoodsListService;
 import springBootMVCAlbum.service.login.AutoLoginService;
 
 @Controller
@@ -60,7 +59,7 @@ public class SpringBootMvcAlbumApplication {
 	}
 	@PostMapping("/")
 	public String index(String searchWord,String category, Model model) {
-	
+		
 		goodsListService.execute(searchWord, category, model);
 		
 		

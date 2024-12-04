@@ -91,7 +91,7 @@ $(document).ready(function () {
         </span>
         </div>
         <button class="add-to-cart" th:data-goods-num="${dto.goodsDTO.goodsNum}" onclick="addCart(this)">Add To Cart</button>
-        <button class="add-to-cart" >Pay</button>
+        <button class="add-to-cart" th:data-goods-num="${dto.goodsDTO.goodsNum}" onclick="buyNow(this)">Pay</button>
         
       </div>
     </div>

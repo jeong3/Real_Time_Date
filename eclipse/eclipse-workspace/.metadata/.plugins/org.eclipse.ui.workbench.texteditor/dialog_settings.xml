@@ -6,25 +6,26 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="goodsNum"/>
+		<item key="selection" value=""/>
 		<list key="findhistory">
-			<item value="goodsNum"/>
-			<item value="add to cart"/>
+			<item value="request"/>
+			<item value="mapper"/>
+			<item value="form"/>
+			<item value="addcar"/>
 			<item value="add"/>
-			<item value="cartList"/>
+			<item value="confir"/>
+			<item value="con"/>
+			<item value="ini"/>
 			<item value="cart"/>
-			<item value="search"/>
-			<item value="deleteemp"/>
-			<item value="deletegoods"/>
-			<item value="elemen"/>
-			<item value="update"/>
-			<item value="ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ"/>
-			<item value="ㅁㅁㅁㅁㅁㅁㅁ"/>
-			<item value="aaaaaaaaaaaaaaa"/>
-			<item value="입고현"/>
-			<item value="list"/>
+			<item value="dele"/>
+			<item value="장바구니"/>
+			<item value="배송"/>
+			<item value="values"/>
+			<item value="model"/>
+			<item value="purcha"/>
 		</list>
 		<list key="replacehistory">
+			<item value="complete"/>
 			<item value="[[${dto.goodsDTO."/>
 			<item value="dto.category"/>
 			<item value="&lt;input type=&quot;text&quot; th:value=&quot;&quot;&gt;"/>
@@ -39,12 +40,11 @@
 			<item value="springBootMVCAlbum"/>
 			<item value="list[0]"/>
 			<item value="}]]"/>
-			<item value="[[${"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="798"/>
-		<item key="DIALOG_Y_ORIGIN" value="297"/>
+		<item key="DIALOG_X_ORIGIN" value="60"/>
+		<item key="DIALOG_Y_ORIGIN" value="239"/>
 		<item key="DIALOG_WIDTH" value="369"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

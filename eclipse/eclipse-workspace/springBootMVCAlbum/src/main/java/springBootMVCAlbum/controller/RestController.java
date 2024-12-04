@@ -65,10 +65,10 @@ public class RestController {
 	}
 	
 	@PostMapping("/item/addCart")
-    public String addCart(@RequestBody Map<String, String> map, HttpSession session) {
+    public Integer addCart(@RequestBody Map<String, String> map, HttpSession session) {
 		System.out.println(map.get("cartQty")+"|||"+map.get("goodsNum"));
-        cartUpdateService.execute(map, session);
-        return "200";  // 성공 응답
+		Integer cartNum = cartUpdateService.execute(map, session);
+        return cartNum;  // 성공 응답
     }
 	@GetMapping("/item/checkStock")
 	public int checkStock(@RequestParam String goodsNum) {

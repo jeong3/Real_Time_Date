@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Purchase List</title>
+</head>
+<body>
+  <div align="center">
+    <h2>Purchase List</h2>
+    주문목록
+    <hr/>
+ 
+    <table border="1" cellpadding="5" cellspacing="0" style="width: 80%; text-align: center;">
+      <thead>
+        <tr>
+          <th>사진</th>
+          <th>회원번호</th>
+          <th>상품명</th>
+          <th>주문일자</th>
+          <th>결제금액</th>
+          <th>배송상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="dto : ${list}">
+          <th><img th:src="|/static/images/${dto.purchaseListGoodsDTO[0].goodsDTO.goodsMainStoreImage}|" alt="상품" class="product-image"></th>
+          <th>[[${dto.purchaseDTO.memberNum}]]</th>
+          <th>[[${dto.purchaseDTO.purchaseName}]]</th>
+          <th>[[${#dates.format(dto.purchaseDTO.purchaseDate,'yyyy.MM.dd')}]]</th>
+          <th>[[${dto.paymentDTO.totalprice}]]</th>
+          <th:block th:if="${dto.deliveryDTO.deliveryStatus == null}">
+          <th>[[${dto.purchaseDTO.purchaseStatus}]]</th>
+          </th:block>
+          <th:block th:if="${dto.deliveryDTO.deliveryStatus != null}">
+          <th>[[${dto.deliveryDTO.deliveryStatus}]]</th>
+          </th:block>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

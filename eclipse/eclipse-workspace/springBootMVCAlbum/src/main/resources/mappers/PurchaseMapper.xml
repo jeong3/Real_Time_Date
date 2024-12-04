@@ -58,8 +58,8 @@
 	</select>
 	
 	<select id="purchaseNumSelect">
-		SELECT CONCAT(TO_CHAR(SYSDATE, 'YYYYMMDD'), NVL(MAX(SUBSTR(purchase_num, 9)), 0) + 1) 
-		FROM purchase;
+		select concat(to_char(sysdate, 'yyyyMMdd'), nvl(max(substr(purchase_num, 9)), 0) + 1) 
+		from purchase
 	</select>
 	
 	<sql id="purchaseBaseColumn">
@@ -104,5 +104,16 @@
 		</foreach>
 	</delete>
 	
+	<select id="purchaseSelectOne">
+		select <include refid="purchaseBaseColumn" /> from purchase
+		where purchase_num = #{purchaseNum}
+	</select>
+	
+	<insert id="paymentInsert" parameterType="paymentDTO">
+		insert into payment(purchase_num, confirmnumber, cardnum, tid, totalprice
+		, resultmessage, paymethod, appldate, appltime)
+		values(#{purchaseNum}, #{confirmnumber}, #{cardnum}, #{tid}, #{totalprice}
+		, #{resultmessage}, #{paymethod}, #{appldate}, #{appltime})
+	</insert>
 	
 </mapper>

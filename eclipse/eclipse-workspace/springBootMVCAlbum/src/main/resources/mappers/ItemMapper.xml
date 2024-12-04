@@ -33,6 +33,11 @@
 			values (#{memberNum}, #{goodsNum}, sysdate, #{cartQty})
 	</update>
 	
+	<select id="cartNumSelect">
+		select cart_num from cart 
+		where goods_num = #{goodsNum} and member_num = #{memberNum} 
+	</select>
+	
 	<resultMap type="goodsDTO" id="goodsResultMap">
 	    <id column="GOODS_NUM" jdbcType="VARCHAR" property="goodsNum"/>
 	    <result column="GOODS_NAME" jdbcType="VARCHAR" property="goodsName"/>

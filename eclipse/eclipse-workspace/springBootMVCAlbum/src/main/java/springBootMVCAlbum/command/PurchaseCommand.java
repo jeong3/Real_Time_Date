@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class PurchaseCommand {
 	String goodsNums;
-	Integer totalPaymentPrice;
+	Integer purchasePrice;
 	String purchaseName;
 	String deliveryName;
 	String deliveryAddr;

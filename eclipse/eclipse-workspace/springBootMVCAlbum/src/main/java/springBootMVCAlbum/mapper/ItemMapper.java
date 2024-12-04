@@ -15,6 +15,8 @@ public interface ItemMapper {
 	Integer wishCount(String goodsNum, String memberNum);
 
 	int cartUpdate(Map<String, String> map);
+	
+	Integer cartNumSelect(Map<String, String> map);
 
 	List<CartGoodsDTO> cartList(String memberNum);
 
@@ -23,5 +25,7 @@ public interface ItemMapper {
 	int downQtyUpdate(String goodsNum);
 
 	int cartDelete(List<String> cartNums);
+
+
 	
 }

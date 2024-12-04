@@ -13,11 +13,11 @@ import springBootMVCAlbum.mapper.ItemMapper;
 public class CartUpdateService {
 	@Autowired
 	ItemMapper itemMapper;
-	public void execute(Map<String, String> map, HttpSession session) {
+	public Integer execute(Map<String, String> map, HttpSession session) {
 		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
 		map.put("memberNum", auth.getUserNum());
 		itemMapper.cartUpdate(map);
-		
+		return itemMapper.cartNumSelect(map);
 	}
 
 }

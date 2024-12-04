@@ -20,7 +20,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr th:each="dto : ${list}" th:data-member-num="${dto.memberNum}" onclick="myInfo(this)">
+        <tr th:each="dto : ${list}" th:data-member-num="${dto.memberNum}" onclick="myInfo(this)" style="cursor:pointer">
           <td>[[${dto.memberNum}]]</td>
           <td>[[${dto.memberName}]]</td>
           <td>

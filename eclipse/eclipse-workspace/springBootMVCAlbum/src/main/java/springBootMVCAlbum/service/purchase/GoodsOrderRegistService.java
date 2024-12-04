@@ -30,7 +30,6 @@ public class GoodsOrderRegistService {
 		PurchaseDTO dto = new PurchaseDTO();
 		BeanUtils.copyProperties(purchaseCommand, dto);
 		dto.setPurchaseNum(purchaseNum);
-		dto.setPurchasePrice(purchaseCommand.getTotalPaymentPrice());
 		dto.setMemberNum(memberNum);
 		purchaseMapper.purchaseInsert(dto);
 		

@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
-<!-- <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="/static/js/daumAddressScript.js"></script> -->
+
 <style>
     table {
         width: 90%;
@@ -58,9 +55,13 @@
 <body>
 <form id="orderForm">
         <input type="hidden" name="goodsNums" th:value="${goodsNums}">
-        <input type="hidden" name="totalPaymentPrice" th:value="${sumPrice + DeliveryCost}">
-        <input type="hidden" name="purchaseName" th:value="${list[0].goodsDTO.goodsName + ' 외' + (list.size() - 1)}">
-
+        <input type="hidden" name="purchasePrice" th:value="${sumPrice + DeliveryCost}">
+        <span th:if="${(list.size() - 1) == 0}">
+       		 <input type="hidden" name="purchaseName" th:value="${list[0].goodsDTO.goodsName}">
+		</span>
+        <span th:if="${(list.size() - 1) != 0}">
+       		 <input type="hidden" name="purchaseName" th:value="${list[0].goodsDTO.goodsName + ' 외' + (list.size() - 1)}">
+		</span>
         <!-- 주문상품 테이블 -->
         <table>
             <tr>

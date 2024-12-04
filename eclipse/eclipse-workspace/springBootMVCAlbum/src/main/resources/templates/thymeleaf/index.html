@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
+<title>AlbumShop</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="/static/js/daumAddressScript.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
+
 
 <style>
 .w3-sidebar a { 
@@ -47,12 +50,12 @@ font-size: 15px;
     <a href="/"><h3 class="w3-wide"><b>ALBUM</b></h3></a>
   </div>
   <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-    <a href="#" class="w3-bar-item w3-button">맨 위로</a>
+    <a href="/" class="w3-bar-item w3-button">홈</a>
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
       앨범 <i class="fa fa-caret-down"></i>
     </a>
      <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-	    <a type="button" data-category="KPOP" onclick="goodsList(this)" class="w3-bar-item w3-button"><i class="fa fa-caret-right w3-margin-right"></i>가요</a>
+	    <a type="button" data-category="KPOP" onclick="goodsList(this)" class="w3-bar-item w3-button">가요</a>
 	    <a type="button" data-category="POP/ROCK" onclick="goodsList(this)" class="w3-bar-item w3-button">팝/락</a>
 	    <a type="button" data-category="CLASSIC" onclick="goodsList(this)" class="w3-bar-item w3-button">클래식</a>
 	    <a type="button" data-category="LP" onclick="goodsList(this)" class="w3-bar-item w3-button">LP</a>
@@ -60,25 +63,23 @@ font-size: 15px;
    
   
     
-  <br />
+  <br /><br />
+  
   <span th:if="${session.auth != null}">
 	  <span th:if="${session.auth.grade == 'emp'}">
+	  
 	  	<a class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">상품등록</a> 
 	  		<a  class="w3-bar-item w3-button w3-padding" onclick="goodsIpgoList()">입고현황</a> 
-	  </span>
-  </span>
-  <a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>
-  
-  <br />
-<span th:if="${session.auth != null}">
-  <span th:if="${session.auth.grade == 'mem'}">
- 	 <a th:data-member-num="${session.auth.userNum}" onclick="myInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
-  </span>
-  
-  <span th:if="${session.auth.grade == 'emp'}">
-	  <a th:data-emp-num="${session.auth.userNum}" onclick="empMyInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
+	
+
+  	  <a  class="w3-bar-item w3-button w3-padding" onclick="empPurchaseList()">주문목록</a> 
   	  <a id="memberList" class="w3-bar-item w3-button w3-padding">회원관리</a>
   	  <a id="empList" class="w3-bar-item w3-button w3-padding">직원관리</a>
+  	  <a th:data-emp-num="${session.auth.userNum}" onclick="empMyInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
+  </span>
+  <span th:if="${session.auth.grade == 'mem'}">
+     <a class="w3-bar-item w3-button w3-padding" onclick="memPurchaseList()">내 주문</a> 
+ 	 <a th:data-member-num="${session.auth.userNum}" onclick="myInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
   </span>
 </span>
   
@@ -155,7 +156,7 @@ font-size: 15px;
 						th:src="|/static/images/${dto.goodsMainStoreImage}|"> <span
 						class="w3-tag w3-display-topleft">New</span>
 					<div class="w3-display-middle w3-display-hover">
-						<button class="w3-button w3-black">
+						<button class="w3-button w3-black" th:data-goods-num="${dto.goodsNum}" onclick="buyNow(this)">
 							Buy now<i class="fa fa-shopping-cart"></i>
 						</button>
 					</div>

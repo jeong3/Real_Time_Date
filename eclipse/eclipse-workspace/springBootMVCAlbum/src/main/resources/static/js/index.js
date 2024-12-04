@@ -38,10 +38,9 @@ function submitOrder() {
            $.ajax({
                url: '/purchase/goodsOrder', // 서버의 처리 URL
                type: 'POST',
-               data: Object.fromEntries(formData), // 데이터를 JSON 형식으로 변환
+               data: JSON.stringify(Object.fromEntries(formData)), // 데이터를 JSON 형식으로 변환
                contentType: 'application/json; charset=UTF-8', // JSON 형식으로 전송
                success: function(result) {
-                   alert('주문이 완료되었습니다!');
                    // 서버 응답 처리
                    $("#content").html(result);
                },
@@ -51,11 +50,42 @@ function submitOrder() {
                }
            });
        }
-function purchaseRegist(){
-	var cartNums = [];
-	$("input:checkbox[name=nums]:checked").each(function(){
-		cartNums.push($(this).val());
+
+function memPurchaseList(){
+	$.ajax({
+		type:"get",
+		url:"/purchase/myPurchase",
+		dataType: "html",  // 응답을 HTML 형식으로 처리
+        success: function(result) {
+			$("#content").html(result);
+        },
+        error: function() {
+            alert("주문정보를 불러오는데 실패했습니다.");
+        }
 	});
+}	   
+function empPurchaseList(){
+	$.ajax({
+		type:"get",
+		url:"/purchase/purchaseList",
+		dataType: "html",  // 응답을 HTML 형식으로 처리
+        success: function(result) {
+			$("#content").html(result);
+        },
+        error: function() {
+            alert("주문정보를 불러오는데 실패했습니다.");
+        }
+	});
+}	   
+function purchaseRegist(cartNum){
+	var cartNums = [];
+		if(cartNum != null){
+			cartNums.push(cartNum);
+		} else{
+			 $("input:checkbox[name=nums]:checked").each(function(){
+					cartNums.push($(this).val());
+			 });
+		}
 	$.ajax({
 		type: "post",
 		url: "/purchase/purchaseRegist",
@@ -87,12 +117,33 @@ function deleteIpgo(ipgoNum) {
 		goodsIpgoList();
 	}
 }
+function buyNow(element){
+	var goodsNum = $(element).data('goodsNum');  // 상품 번호
+	var cartQty = "1";           // 수량
+
+	   $.ajax({
+	       type: "POST",
+	       url: "/item/addCart",  // 서버에서 처리할 URL
+	       contentType: "application/json",  // JSON 형식으로 데이터 전송
+	       data: JSON.stringify({  // 데이터를 JSON 형식으로 변환하여 전송
+	           "goodsNum": goodsNum,
+	           "cartQty": cartQty
+	       }),
+	       dataType: "html",  // 응답을 HTML 형식으로 처리
+	       success: function(result) {
+				purchaseRegist(result);
+	       },
+	       error: function() {
+	           alert("주문을 실패하였습니다.");
+	       }
+	   });
+}
+
 function addCart(element) {
+	
     var goodsNum = $(element).data('goodsNum');  // 상품 번호
     var cartQty = $('#cartQty').val();           // 수량
-
-    alert(goodsNum + cartQty);
-
+	
     $.ajax({
         type: "POST",
         url: "/item/addCart",  // 서버에서 처리할 URL
@@ -103,8 +154,10 @@ function addCart(element) {
         }),
         dataType: "html",  // 응답을 HTML 형식으로 처리
         success: function(result) {
-            if(result == "200"){
-                alert("장바구니에 추가되었습니다.");
+            if(result != null){
+               if (confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?")) {
+				cartList();
+				}
             } else {
                 alert("장바구니 추가에 실패했습니다.");
             }
@@ -545,7 +598,7 @@ function deleteMember(memberNum) {
 			error: function() {
 				alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
 			},
-			complete:memberList1
+			complete: memberList1
 		});
 	}else{
 		memberList1();
@@ -567,7 +620,7 @@ function deleteEmp(empNum) {
 			error: function() {
 				alert("서버 오류가 발생했습니다. 삭제할 수 없습니다.");
 			},
-			complete:empList1
+			complete: empList1
 		});
 	}else{
 		empList1();

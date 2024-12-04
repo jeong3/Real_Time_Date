@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import springBootMVCAlbum.domain.CartGoodsDTO;
+import springBootMVCAlbum.domain.PaymentDTO;
 import springBootMVCAlbum.domain.PurchaseDTO;
 
 @Mapper
@@ -20,5 +21,9 @@ public interface PurchaseMapper {
 	int purchaseListInsert(Map<String, Object> map);
 
 	int cartDelete(Map<String, Object> map);
+
+	PurchaseDTO purchaseSelectOne(String purchaseNum);
+
+	int paymentInsert(PaymentDTO dto);
 
 }

@@ -9,7 +9,6 @@ import lombok.Data;
 @Alias("inquireDTO")
 @Data
 public class InquireDTO {
-		 Integer inquireNum;
 	     String memberNum;
 	     String goodsNum;
 	     String inquireSubject;

@@ -72,6 +72,7 @@ public class GoodsController {
 	}
 	@GetMapping("goodsUpdate")
 	public String goodsUpdate(String goodsNum, Model model) {
+		System.out.println(goodsNum+"goooooodsNum");
 		goodsDetailService.execute(goodsNum, model);
 		return "thymeleaf/goods/goodsUpdate";
 	}

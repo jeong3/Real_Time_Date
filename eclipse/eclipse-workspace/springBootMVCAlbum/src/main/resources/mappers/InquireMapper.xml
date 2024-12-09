@@ -1,0 +1,27 @@
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootMVCAlbum.mapper.InquireMapper">
+<select id="inquireSelect" resultType="inquireDTO">
+	select INQUIRE_NUM,MEMBER_NUM,GOODS_NUM,INQUIRE_SUBJECT,INQUIRE_CONTENTS,INQUIRE_KIND
+	,INQUIRE_DATE,INQUIRE_ANSWER,INQUIRE_ANSWER_DATE,EMP_NUM from inquire
+
+</select>
+
+<insert id="inquireRegist" parameterType="inquireDTO">
+	insert into inquire (INQUIRE_NUM,MEMBER_NUM,GOODS_NUM,INQUIRE_SUBJECT,INQUIRE_CONTENTS,INQUIRE_KIND
+	,INQUIRE_DATE,INQUIRE_ANSWER,INQUIRE_ANSWER_DATE,EMP_NUM)
+	values ((select nvl(max(inquire_num),0)+1 from inquire), #{memberNum}, #{goodsNum}, #{inquireSubject}, #{inquireContents}, #{inquireKind}, sysdate, null,null,null)
+
+</insert>
+
+<update id="inquireAnswerRegist" parameterType="inquireDTO">
+	update inquire set 
+	INQUIRE_ANSWER = #{inquireAnswer}
+	,INQUIRE_ANSWER_DATE = sysdate
+	,EMP_NUM = #{empNum}
+	where inquire_num = #{inquireNum}
+</update>
+
+
+</mapper>

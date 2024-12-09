@@ -9,17 +9,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
+import springBootMVCAlbum.command.ReviewCommand;
 import springBootMVCAlbum.domain.GoodsStockDTO;
 import springBootMVCAlbum.mapper.GoodsMapper;
 import springBootMVCAlbum.mapper.ItemMapper;
+import springBootMVCAlbum.mapper.PurchaseSelectMapper;
 import springBootMVCAlbum.service.FileDelService;
 import springBootMVCAlbum.service.goods.WishStatusService;
 import springBootMVCAlbum.service.goods.WishUpdateService;
 import springBootMVCAlbum.service.item.CartDeleteService;
 import springBootMVCAlbum.service.item.CartUpdateService;
+import springBootMVCAlbum.service.review.ReviewRegistService;
+import springBootMVCAlbum.service.review.ReviewUpdateService;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
@@ -37,6 +42,13 @@ public class RestController {
 	ItemMapper itemMapper;
 	@Autowired
 	CartDeleteService cartDeleteService;
+	@Autowired
+	PurchaseSelectMapper purchaseMapper;
+	@Autowired
+	ReviewRegistService reviewRegistService;
+	@Autowired
+	ReviewUpdateService reviewUpdateService;
+	
 	
 	@PostMapping("/file/fileDel")
 	public int fileDel(String orgFile, String storeFile, HttpSession session) {
@@ -91,4 +103,36 @@ public class RestController {
 		Integer i = cartDeleteService.execute(cartNums);
 		return ResponseEntity.ok(i);
 	}
+	@RequestMapping("/purchase/paymentDelete")
+	public int paymentDelete(@RequestParam("purchaseNum") String purchaseNum) {
+		purchaseMapper.paymentDelete(purchaseNum);
+		return 200;
+	}
+	@RequestMapping("/purchase/deliveryRegist")
+	public int deliveryRegist(@RequestBody Map<String, String> map) {
+		System.out.println(map.get("purchaseNum")+"aaa"+map.get("deliveryNum"));
+		purchaseMapper.deliveryInsert(map);
+		return 200;
+	}
+	@RequestMapping("/purchase/deliveryStatusUpdate")
+	public int deliveryStatusUpdate(@RequestParam("deliveryNum") String deliveryNum) {
+		System.out.println(deliveryNum+"딜리버리넘");
+		purchaseMapper.deliveryStatusUpdate(deliveryNum);
+		return 200;
+	}
+	@PostMapping("/reviews/reviewRegist")
+	public int reviewRegist(@RequestBody ReviewCommand reviewCommand , HttpSession session) {
+	
+		reviewRegistService.execute(reviewCommand, session);
+		
+		return 200;
+	}
+	@PostMapping("/reviews/reviewUpdate")
+	public int reviewUpdate(@RequestBody ReviewCommand reviewCommand , HttpSession session) {
+	
+		reviewUpdateService.execute(reviewCommand, session);
+		
+		return 200;
+	}
+			
 }

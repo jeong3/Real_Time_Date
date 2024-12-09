@@ -11,21 +11,20 @@
 		<result column="delivery_status" jdbcType="VARCHAR" property="deliveryStatus"/>
 	</association>
 	<association property="purchaseDTO" javaType="purchaseDTO">
-		<constructor>
-			<idArg column="purchase_Num" javaType="string" />
-			<arg column="purchase_Date" javaType="java.util.Date"/>
-			<arg column="purchase_Price" javaType="integer"/>
-			<arg column="delivery_Addr" javaType="string"/>
-			<arg column="delivery_Addr_Detail" javaType="string"/>
-			<arg column="delivery_Post" javaType="string"/>
-			<arg column="delivery_Phone" javaType="string"/>
-			<arg column="message" javaType="string"/>
-			<arg column="purchase_Status" javaType="string"/>
-			<arg column="member_num" javaType="string"/>
-			<arg column="delivery_name" javaType="string"/>
-			<arg column="purchase_Name" javaType="string"/>		
-		</constructor>
+	    <id column="purchase_Num" property="purchaseNum" javaType="string" jdbcType="VARCHAR" />
+	    <result column="purchase_Date" property="purchaseDate" javaType="java.util.Date" jdbcType="DATE" />
+	    <result column="purchase_Price" property="purchasePrice" javaType="integer" jdbcType="INTEGER" />
+	    <result column="DELIVERY_ADDR" property="deliveryAddr" javaType="string" jdbcType="VARCHAR" />
+	    <result column="DELIVERY_ADDR_DETAIL" property="deliveryAddrDetail" javaType="string" jdbcType="VARCHAR" />
+	    <result column="DELIVERY_POST" property="deliveryPost" javaType="string" jdbcType="VARCHAR" />
+	    <result column="DELIVERY_PHONE" property="deliveryPhone" javaType="string" jdbcType="VARCHAR" />
+	    <result column="MESSAGE" property="message" javaType="string" jdbcType="VARCHAR" />
+	    <result column="purchase_Status" property="purchaseStatus" javaType="string" jdbcType="VARCHAR" />
+	    <result column="member_num" property="memberNum" javaType="string" jdbcType="VARCHAR" />
+	    <result column="delivery_name" property="deliveryName" javaType="string" jdbcType="VARCHAR" />
+	    <result column="purchase_Name" property="purchaseName" javaType="string" jdbcType="VARCHAR" />
 	</association>
+
 	<association property="paymentDTO" javaType="paymentDTO">
 		<id column="purchase_Num" jdbcType="VARCHAR" property="purchaseNum"/>
 		<result column="confirmnumber" jdbcType="VARCHAR" property="confirmnumber"/>
@@ -47,6 +46,7 @@
 		</association>
 		<association property="reviewDTO" javaType="reviewDTO">
 			<result column="review_Date" jdbcType="DATE" property="reviewDate"/>
+			<result column="review_subject" jdbcType="VARCHAR" property="reviewSubject"/>
 			<result column="review_Contents" jdbcType="VARCHAR" property="reviewContents"/>
 			<result column="member_Id" jdbcType="VARCHAR" property="memberId"/>
 		</association>
@@ -54,32 +54,65 @@
 </resultMap>
 
 <select id="myPurchaseSelect" parameterType="string" resultMap="orderListResultMap">
-select p.PURCHASE_NUM, p.PURCHASE_DATE, p.PURCHASE_PRICE, p.DELIVERY_ADDR, p.DELIVERY_ADDR_DETAIL, p.DELIVERY_POST
-, p.DELIVERY_PHONE, p.MESSAGE, p.PURCHASE_STATUS, p.MEMBER_NUM, p.DELIVERY_NAME, p.PURCHASE_NAME
-,pl.GOODS_NUM, pl.PURCHASE_NUM, pl.PURCHASE_QTY, pl.PURCHASE_PRICE
-,g.GOODS_NUM, g.GOODS_NAME, g.GOODS_MAIN_STORE_IMAGE
-,pm.PURCHASE_NUM, pm.CONFIRMNUMBER, pm.TOTALPRICE, pm.PAYMETHOD
-,d.PURCHASE_NUM, d.DELIVERY_NUM, d.DELIVERY_DATE, d.DELIVERY_STATUS
-from purchase p
-join purchase_list pl on p.PURCHASE_NUM = pl.PURCHASE_NUM
-join goods g on pl.goods_num = g.goods_num
-join payment pm on pl.purchase_num = pm.purchase_num
-left outer join delivery d on pl.purchase_num = d.purchase_num
-where p.MEMBER_NUM = #{memberNum}
+	select g.GOODS_NUM, p.PURCHASE_NUM, p.PURCHASE_DATE, p.PURCHASE_PRICE, p.DELIVERY_ADDR, p.DELIVERY_ADDR_DETAIL, p.DELIVERY_POST
+	, p.DELIVERY_PHONE, p.MESSAGE, p.PURCHASE_STATUS, p.MEMBER_NUM, p.DELIVERY_NAME, p.PURCHASE_NAME
+	,pl.GOODS_NUM, pl.PURCHASE_NUM, pl.PURCHASE_QTY, pl.PURCHASE_PRICE
+	, g.GOODS_NAME, g.GOODS_MAIN_STORE_IMAGE
+	,pm.PURCHASE_NUM, pm.CONFIRMNUMBER, pm.TOTALPRICE, pm.PAYMETHOD
+	,d.PURCHASE_NUM, d.DELIVERY_NUM, d.DELIVERY_DATE, d.DELIVERY_STATUS
+    ,r.review_date, r.review_Contents, r.member_Id, r.review_subject
+	from purchase p
+	join purchase_list pl on p.PURCHASE_NUM = pl.PURCHASE_NUM
+	join goods g on pl.goods_num = g.goods_num
+	left outer join payment pm on pl.purchase_num = pm.purchase_num
+	left outer join delivery d on pl.purchase_num = d.purchase_num
+    left outer join reviews r on g.goods_num = r.goods_num 
+	where p.MEMBER_NUM = #{memberNum}
 </select>
 
 <select id="PurchaseSelectAll" resultMap="orderListResultMap">
-select p.PURCHASE_NUM, p.PURCHASE_DATE, p.PURCHASE_PRICE, p.DELIVERY_ADDR, p.DELIVERY_ADDR_DETAIL, p.DELIVERY_POST
-, p.DELIVERY_PHONE, p.MESSAGE, p.PURCHASE_STATUS, p.MEMBER_NUM, p.DELIVERY_NAME, p.PURCHASE_NAME
-,pl.GOODS_NUM, pl.PURCHASE_NUM, pl.PURCHASE_QTY, pl.PURCHASE_PRICE
-,g.GOODS_NUM, g.GOODS_NAME, g.GOODS_MAIN_STORE_IMAGE
-,pm.PURCHASE_NUM, pm.CONFIRMNUMBER, pm.TOTALPRICE, pm.PAYMETHOD
-,d.PURCHASE_NUM, d.DELIVERY_NUM, d.DELIVERY_DATE, d.DELIVERY_STATUS
-from purchase p
-join purchase_list pl on p.PURCHASE_NUM = pl.PURCHASE_NUM
-join goods g on pl.goods_num = g.goods_num
-join payment pm on pl.purchase_num = pm.purchase_num
-left outer join delivery d on pl.purchase_num = d.purchase_num
+	select p.PURCHASE_NUM, p.PURCHASE_DATE, p.PURCHASE_PRICE, p.DELIVERY_ADDR, p.DELIVERY_ADDR_DETAIL, p.DELIVERY_POST
+	, p.DELIVERY_PHONE, p.MESSAGE, p.PURCHASE_STATUS, p.MEMBER_NUM, p.DELIVERY_NAME, p.PURCHASE_NAME
+	,pl.GOODS_NUM, pl.PURCHASE_NUM, pl.PURCHASE_QTY, pl.PURCHASE_PRICE
+	,g.GOODS_NUM, g.GOODS_NAME, g.GOODS_MAIN_STORE_IMAGE
+	,pm.PURCHASE_NUM, pm.CONFIRMNUMBER, pm.TOTALPRICE, pm.PAYMETHOD
+	,d.PURCHASE_NUM, d.DELIVERY_NUM, d.DELIVERY_DATE, d.DELIVERY_STATUS
+	from purchase p
+	join purchase_list pl on p.PURCHASE_NUM = pl.PURCHASE_NUM
+	join goods g on pl.goods_num = g.goods_num
+	left outer join payment pm on pl.purchase_num = pm.purchase_num
+	left outer join delivery d on pl.purchase_num = d.purchase_num
 </select>
 
+<delete id="paymentDelete" parameterType="string">
+	delete from payment
+	where purchase_num = #{purchaseNum}
+</delete>
+
+<select id="purchaseSelectOne" parameterType="string" resultMap="orderListResultMap">
+	select p.PURCHASE_NUM, p.PURCHASE_DATE, p.PURCHASE_PRICE, p.DELIVERY_ADDR, p.DELIVERY_ADDR_DETAIL, p.DELIVERY_POST
+	, p.DELIVERY_PHONE, p.MESSAGE, p.PURCHASE_STATUS, p.MEMBER_NUM, p.DELIVERY_NAME, p.PURCHASE_NAME
+	,pl.GOODS_NUM, pl.PURCHASE_NUM, pl.PURCHASE_QTY, pl.PURCHASE_PRICE
+	,g.GOODS_NUM, g.GOODS_NAME, g.GOODS_MAIN_STORE_IMAGE
+	,pm.PURCHASE_NUM, pm.CONFIRMNUMBER, pm.TOTALPRICE, pm.PAYMETHOD
+	,d.PURCHASE_NUM, d.DELIVERY_NUM, d.DELIVERY_DATE, d.DELIVERY_STATUS
+	from purchase p
+	join purchase_list pl on p.PURCHASE_NUM = pl.PURCHASE_NUM
+	join goods g on pl.goods_num = g.goods_num
+	left outer join payment pm on pl.purchase_num = pm.purchase_num
+	left outer join delivery d on pl.purchase_num = d.purchase_num
+	where p.purchase_num = #{purchaseNum}
+</select>
+
+
+<insert id="deliveryInsert" parameterType="hashmap">
+	insert into delivery (PURCHASE_NUM,DELIVERY_NUM,DELIVERY_DATE,DELIVERY_STATUS)
+	values ( #{purchaseNum}, #{deliveryNum}, sysdate, '배송중')
+</insert>
+
+<update id="deliveryStatusUpdate" parameterType="string">
+	update delivery set
+	DELIVERY_STATUS = '배송완료'
+	where delivery_num = #{deliveryNum}
+</update>
 </mapper>

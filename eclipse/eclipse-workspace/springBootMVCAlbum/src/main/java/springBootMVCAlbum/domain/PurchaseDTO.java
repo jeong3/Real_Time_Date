@@ -9,8 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Alias("purchaseDTO")
 public class PurchaseDTO {
 	String purchaseNum;

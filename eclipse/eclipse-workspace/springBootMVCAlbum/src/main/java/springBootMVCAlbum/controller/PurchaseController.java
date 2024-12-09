@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 import springBootMVCAlbum.command.PurchaseCommand;
+import springBootMVCAlbum.domain.OrderListDTO;
+import springBootMVCAlbum.mapper.PurchaseSelectMapper;
 import springBootMVCAlbum.service.purchase.GoodsOrderRegistService;
 import springBootMVCAlbum.service.purchase.GoodsOrderService;
 import springBootMVCAlbum.service.purchase.IniPayReqService;
@@ -31,6 +34,8 @@ public class PurchaseController {
 	MyPurchaseSevice myPurchaseSevice;
 	@Autowired
 	PurchaseListSevice purchaseListSevice;
+	@Autowired
+	PurchaseSelectMapper purchaseMapper;
 	
 	@RequestMapping("purchaseRegist")
 	public String purchaseRegist(@RequestBody List<String> cartNums, Model model) {
@@ -42,8 +47,8 @@ public class PurchaseController {
 		String purchaseNum = goodsOrderRegistService.execute(purchaseCommand, session);
 		return "redirect:paymentOk?purchaseNum="+purchaseNum;
 	}
-	@GetMapping("paymentOk")
-	public String paymentOk(String purchaseNum, Model model, HttpSession session) {
+	@RequestMapping("paymentOk")
+	public String paymentOk(@RequestParam("purchaseNum") String purchaseNum, Model model, HttpSession session) {
 		try {
 			iniPayReqService.execute(purchaseNum, model, session);
 		} catch (Exception e) {
@@ -61,4 +66,22 @@ public class PurchaseController {
 		purchaseListSevice.execute(model);
 		return "thymeleaf/purchase/purchaseList";
 	}
+	@GetMapping("deliveryRegist")
+	public String deliveryRegist(@RequestParam("purchaseNum") String purchaseNum, Model model) {
+		System.out.println(purchaseNum);
+		List<OrderListDTO> list = purchaseMapper.purchaseSelectOne(purchaseNum);
+		model.addAttribute("list", list);
+		return "thymeleaf/delivery/deliveryRegist";
+	}
+	@GetMapping("purchaseDetail")
+	public String purchaseDetail(@RequestParam("purchaseNum") String purchaseNum, Model model , HttpSession session) {
+		System.out.println(purchaseNum);
+		List<OrderListDTO> list = purchaseMapper.purchaseSelectOne(purchaseNum);
+		
+		model.addAttribute("list", list);
+
+		return "thymeleaf/purchase/myPurchaseDetail";
+	}
+	
+	
 }

@@ -7,7 +7,7 @@
 </head>
 <body>
 	<form action="/goods/goodsUpdate" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="registEmpNum" th:value="${dto.registEmpNum}">
+	
 		<div class="w3-container" align="center">
 			<h2>상품 수정</h2>
 			<p>수정 및 추가</p>
@@ -18,7 +18,7 @@
 					<th>상품번호</th>
 					<th>
 						<div class="w3-bar-item">
-							<input type="text" name="goodsNum" th:value="${dto.goodsNum}" readonly="readonly" />
+							<input type="text" name="goodsNum" th:value="${dto.goodsDTO.goodsNum}" readonly="readonly" />
 						</div>
 					</th>
 				</tr>
@@ -26,7 +26,7 @@
 					<th>상품명</th>
 					<th>
 						<div class="w3-bar-item">
-							<input type="text" name="goodsName" th:value="${dto.goodsName}" />
+							<input type="text" name="goodsName" th:value="${dto.goodsDTO.goodsName}" />
 						</div>
 					</th>
 				</tr>
@@ -34,7 +34,7 @@
 					<th>아티스트명</th>
 					<th>
 						<div class="w3-bar-item">
-							<input type="text" name="artistName"  th:value="${dto.artistName}"/>
+							<input type="text" name="artistName"  th:value="${dto.goodsDTO.artistName}"/>
 						</div>
 					</th>
 				</tr>
@@ -42,7 +42,7 @@
 					<th>상품가격</th>
 					<th>
 						<div class="w3-bar-item">
-							<input type="number" name="goodsPrice" th:value="${dto.goodsPrice}" />
+							<input type="number" name="goodsPrice" th:value="${dto.goodsDTO.goodsPrice}" />
 						</div>
 					</th>
 				</tr>
@@ -50,29 +50,30 @@
 					<th>상품 설명</th>
 					<th>
 						<div class="w3-bar-item">
-							<textarea name="goodsContents">[[${dto.goodsContents}]]</textarea>
+							<textarea name="goodsContents">[[${dto.goodsDTO.goodsContents}]]</textarea>
 						</div>
 					</th>
 				</tr>
 				<tr class="w3-bar">
 					<th>메인이미지</th>
-					<th th:if="${dto.goodsMainImage != null or dto.goodsMainImage != ''}">
+					<th th:if="${dto.goodsDTO.goodsMainImage != null or dto.goodsDTO.goodsMainImage != ''}">
 						<div class="w3-bar-item" >
 						<br>
-							<span id="main">[[${dto.goodsMainImage}]]</span> <br>
-							<a type="button" th:attr="onclick=|javascript:fileDel(this, '${dto.goodsMainImage}' ,'${dto.goodsMainStoreImage}','main');|" ><span class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span></a>
+							<span id="main">[[${dto.goodsDTO.goodsMainImage}]]</span> <br>
+							<span id="mainFile" />
+							<a type="button" th:attr="onclick=|javascript:fileDel(this, '${dto.goodsDTO.goodsMainImage}' ,'${dto.goodsDTO.goodsMainStoreImage}','main');|" ><span class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span></a>
 						</div>
 					</th>
 				</tr>
 				<tr class="w3-bar" >
 					<th>상세이미지</th>
-					<th th:if="${dto.goodsDetailImage != null or dto.goodsDetailImage != ''}">
+					<th th:if="${dto.goodsDTO.goodsDetailImage != null or dto.goodsDTO.goodsDetailImage != ''}">
 					 
 						<div class="w3-bar-item" >
 						<br>
-							<div th:each="image, idx : ${#strings.arraySplit(dto.goodsDetailImage,'[`/]')}" >
+							<div th:each="image, idx : ${#strings.arraySplit(dto.goodsDTO.goodsDetailImage,'[`/]')}" >
 								[[${image}]] <br> 
-								<a type="button" th:attr="onclick=|javascript:fileDel(this, '${image}', '${#strings.arraySplit(dto.goodsDetailStoreImage, '[`/]')[idx.index]}');|">
+								<a type="button" th:attr="onclick=|javascript:fileDel(this, '${image}', '${#strings.arraySplit(dto.goodsDTO.goodsDetailStoreImage, '[`/]')[idx.index]}');|">
 									<span class="w3-bar-item w3-button w3-white w3-xlarge w3-right">×</span>
 								</a>
 								<br>
@@ -87,17 +88,17 @@
 					<th>
 						<div class="w3-bar-item">
 							<select name="category">
-								<option value="KPOP" th:selected="${dto.category == 'KPOP' or dto.category == 'KP_'}">KPOP</option>
-								<option value="POP/ROCK" th:selected="${dto.category == 'POP/ROCK' or dto.category == 'P&R'}">POP/ROCK</option>
-								<option value="CLASSIC" th:selected="${dto.category == 'CLASSIC' or dto.category == 'CL_'}">CLASSIC</option>
-								<option value="LP" th:selected="${dto.category == 'LP' or dto.category == 'LP_'}">LP</option>
+								<option value="KPOP" th:selected="${dto.goodsDTO.category == 'KPOP' or dto.goodsDTO.category == 'KP_'}">KPOP</option>
+								<option value="POP/ROCK" th:selected="${dto.goodsDTO.category == 'POP/ROCK' or dto.goodsDTO.category == 'P&R'}">POP/ROCK</option>
+								<option value="CLASSIC" th:selected="${dto.goodsDTO.category == 'CLASSIC' or dto.goodsDTO.category == 'CL_'}">CLASSIC</option>
+								<option value="LP" th:selected="${dto.goodsDTO.category == 'LP' or dto.goodsDTO.category == 'LP_'}">LP</option>
 							</select>
 						</div>
 					</th>
 				</tr>
 				<tr class="w3-bar">
 					<th colspan="2">
-						<input type="submit" th:data-goods-num="${dto.goodsNum}" onclick="goodsUpdateSubmit(this)" value="수정" />
+						<input type="submit" th:data-goods-num="${dto.goodsDTO.goodsNum}" onclick="goodsUpdateSubmit(this)" value="수정" />
 						<input type="button" onclick="javascript:location.href='/'" value="수정취소">
 					</th>
 					

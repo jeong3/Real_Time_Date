@@ -64,6 +64,23 @@
             color: #aaaaaa;
         }
     </style>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+<script type="text/javascript">
+function memPurchaseList(){
+	$.ajax({
+		type:"get",
+		url:"/purchase/myPurchase",
+		dataType: "html",  // 응답을 HTML 형식으로 처리
+        success: function(result) {
+			$("#content").html(result);
+        },
+        error: function() {
+            alert("주문정보를 불러오는데 실패했습니다.");
+        }
+	});
+}	
+</script>
 </head>
 <body>
     <div class="container">

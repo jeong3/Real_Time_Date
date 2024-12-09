@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+	"-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="springBootMVCAlbum.mapper.ReviewInquiryMapper">
+
+<select id="choiceGoods">
+	select goods_num from purchase_list
+	where purchase_num = #{purchaseNum}
+</select>
+
+<select id="goodsNumSelect">
+	select goods_num, purchase_num from purchase_list
+	where purchase_num = #{purchaseNum} and
+	goods_num in 
+	<foreach collection="goodsNums" item="goodsNum" open="(" close=")" separator=",">
+		#{goodsNum}
+	</foreach> 
+</select>
+<select id="ReviewSelect" parameterType="string" resultType="reviewDTO">
+	select GOODS_NUM, PURCHASE_NUM, REVIEW_DATE,REVIEW_CONTENTS,MEMBER_ID,RATING,REVIEW_SUBJECT from reviews
+	where PURCHASE_NUM = #{purchaseNum} and
+	GOODS_NUM = #{goodsNum}
+	 
+</select>
+
+<insert id="ReviewInsert" parameterType="reviewDTO">
+	insert into reviews (REVIEW_NUM,GOODS_NUM,PURCHASE_NUM,REVIEW_DATE,REVIEW_CONTENTS,MEMBER_ID,RATING,REVIEW_SUBJECT)
+	values ((select nvl(max(review_num),0)+1 from reviews) , #{goodsNum}, #{purchaseNum}, sysdate, #{reviewContents}, #{memberId}, #{rating}, #{reviewSubject})
+</insert>
+<update id="ReviewUpdate">
+	update reviews set 
+	REVIEW_DATE = sysdate,
+	REVIEW_CONTENTS = #{reviewContents},
+	REVIEW_SUBJECT = #{reviewSubject},
+	RATING = #{rating}
+	where purchase_num = #{purchaseNum} and goods_num = #{goodsNum}
+
+</update>
+
+<select id="goodsSelect">
+	select goods_main_store_image, goods_num, goods_name, goods_price
+	from goods where goods_num in 
+	<foreach collection="goodsNums" item="goodsNum" open="(" close=")" separator=",">
+		#{goodsNum}
+	</foreach> 
+
+</select>
+
+<select id="reviewSelectAll" parameterType="string" resultType="reviewDTO">
+	select REVIEW_NUM,GOODS_NUM,PURCHASE_NUM,REVIEW_DATE,REVIEW_CONTENTS,MEMBER_ID,RATING,REVIEW_SUBJECT 
+	from reviews where goods_num = #{goodsNum}
+</select>
+
+
+
+</mapper>

@@ -76,10 +76,12 @@ font-size: 15px;
   	  <a id="memberList" class="w3-bar-item w3-button w3-padding">회원관리</a>
   	  <a id="empList" class="w3-bar-item w3-button w3-padding">직원관리</a>
   	  <a th:data-emp-num="${session.auth.userNum}" onclick="empMyInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
+  	  <a class="w3-bar-item w3-button w3-padding" onclick="InquireListEmp()">문의</a> 
   </span>
   <span th:if="${session.auth.grade == 'mem'}">
      <a class="w3-bar-item w3-button w3-padding" onclick="memPurchaseList()">내 주문</a> 
  	 <a th:data-member-num="${session.auth.userNum}" onclick="myInfo(this)" class="w3-bar-item w3-button w3-padding">내 정보</a>
+  	 <a class="w3-bar-item w3-button w3-padding" onclick="InquireList()">문의</a> 
   </span>
 </span>
   
@@ -167,9 +169,8 @@ font-size: 15px;
 					<img style="width: 20px; height: 20px; float: right;" th:data-goods-num="${dto.goodsNum}" onclick="addWish(this)"
 						src="/static/images/hart1.png" >
 						
-					<br> <b>[[${dto.goodsPrice}]]</b>
+					<br> <b>[[${#numbers.formatCurrency(dto.goodsPrice)}]]</b>
 					<!-- 오른쪽 끝에 작은 이미지 추가 -->
-					
 				</p>
 			</div>
 		</div>

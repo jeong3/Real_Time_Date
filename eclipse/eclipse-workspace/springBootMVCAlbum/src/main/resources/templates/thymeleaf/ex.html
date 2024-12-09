@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Purchase List</title>
+</head>
+<body>
+  <div align="center">
+    <h2>myPurchase</h2>
+    내 주문목록
+    <hr/>
+ 
+    <table border="1" cellpadding="5" cellspacing="0" style="width: 80%; text-align: center;">
+      <thead>
+        <tr>
+          <th>번호</th>
+          <th>사진</th>
+          <th>주문번호</th>
+          <th>상품명</th>
+          <th>주문일자</th>
+          <th>결제금액</th>
+          <th>배송상태(송장번호)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="dto,idx : ${list}">
+          <th>[[${idx.count}]]</th>
+          <th><img th:src="|/static/images/${dto.purchaseListGoodsDTO[0].goodsDTO.goodsMainStoreImage}|" alt="상품" class="product-image" style="width: 100px;">
+          <br> 리뷰하기</th>
+          <th>[[${dto.purchaseDTO.purchaseNum}]]</th>
+          <th>[[${dto.purchaseDTO.purchaseName}]]</th>
+          
+          <th>[[${#dates.format(dto.purchaseDTO.purchaseDate,'yyyy.MM.dd')}]]</th>
+            <th:block th:if="${dto.paymentDTO.totalprice == null}">
+          	<th><a th:data-purchase-num="${dto.purchaseDTO.purchaseNum}" onclick="paymentOk(this)">결제하기(클릭)</a></th>
+          	<th>미결제</th>
+          </th:block>
+          
+          <th:block th:if="${dto.paymentDTO.totalprice != null}">
+         	 <th>[[${#numbers.formatCurrency(dto.paymentDTO.totalprice)}]] <br>
+         	 	<th:block th:if="${dto.deliveryDTO.deliveryStatus != '배송완료'}">
+         	 		<a th:data-purchase-num="${dto.purchaseDTO.purchaseNum}" onclick="paymentDelete(this)">결제취소(클릭)</a>
+         	 	</th:block>
+         	 		</th>
+	          <th:block th:if="${dto.deliveryDTO.deliveryStatus == null}">
+	          	<th>[[${dto.purchaseDTO.purchaseStatus}]]</th>
+	          </th:block>
+	          <th:block th:if="${dto.deliveryDTO.deliveryStatus != null}">
+	          	<th>[[${dto.deliveryDTO.deliveryStatus}]] <br>
+	          	 ([[${dto.deliveryDTO.deliveryNum}]]) </th>
+	          </th:block>
+          </th:block>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

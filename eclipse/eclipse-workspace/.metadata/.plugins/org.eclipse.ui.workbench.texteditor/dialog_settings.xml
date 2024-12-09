@@ -8,43 +8,43 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value=""/>
 		<list key="findhistory">
-			<item value="request"/>
-			<item value="mapper"/>
-			<item value="form"/>
-			<item value="addcar"/>
-			<item value="add"/>
-			<item value="confir"/>
-			<item value="con"/>
-			<item value="ini"/>
-			<item value="cart"/>
-			<item value="dele"/>
-			<item value="장바구니"/>
-			<item value="배송"/>
-			<item value="values"/>
-			<item value="model"/>
-			<item value="purcha"/>
+			<item value="choic"/>
+			<item value="hart1"/>
+			<item value="addWish"/>
+			<item value="cartList"/>
+			<item value="cartDelete"/>
+			<item value="inquireAnswerRegist"/>
+			<item value="myPurchaseSelect"/>
+			<item value="memPurchaseList"/>
+			<item value="inpu"/>
+			<item value="답"/>
+			<item value="답변"/>
+			<item value="JSON.STR"/>
+			<item value="문의 리스"/>
+			<item value="문의"/>
+			<item value="content"/>
 		</list>
 		<list key="replacehistory">
+			<item value="goods"/>
+			<item value="reviewSubject"/>
+			<item value="goodsNum"/>
+			<item value="${list[0]."/>
+			<item value="&lt;/span&gt;"/>
+			<item value="&lt;span&gt;"/>
+			<item value="미등록"/>
+			<item value="dto.goodsDTO."/>
+			<item value="th"/>
 			<item value="complete"/>
 			<item value="[[${dto.goodsDTO."/>
 			<item value="dto.category"/>
 			<item value="&lt;input type=&quot;text&quot; th:value=&quot;&quot;&gt;"/>
 			<item value="td"/>
 			<item value="alert(&quot;서버 오류&quot;);"/>
-			<item value="th"/>
-			<item value="60"/>
-			<item value="cover"/>
-			<item value="/static/images/"/>
-			<item value="/static/images"/>
-			<item value="static"/>
-			<item value="springBootMVCAlbum"/>
-			<item value="list[0]"/>
-			<item value="}]]"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="60"/>
-		<item key="DIALOG_Y_ORIGIN" value="239"/>
+		<item key="DIALOG_X_ORIGIN" value="1177"/>
+		<item key="DIALOG_Y_ORIGIN" value="237"/>
 		<item key="DIALOG_WIDTH" value="369"/>
 		<item key="DIALOG_HEIGHT" value="454"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-15|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>

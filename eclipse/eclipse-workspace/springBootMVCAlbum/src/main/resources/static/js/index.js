@@ -1,6 +1,8 @@
 /**
  * 
  */
+const formatter = new Intl.NumberFormat('ko-KR',{style : 'currency', currency : 'KRW'});
+
 $(function() {
 	memEmpInfo();
 	memberList();
@@ -30,6 +32,109 @@ function w3_close() {
 	document.getElementById("mySidebar").style.display = "none";
 	document.getElementById("myOverlay").style.display = "none";
 }
+
+function InquireList(){
+	$.ajax({
+			type: "get",
+			url: "/inquire/inquireList",
+			dataType: "html",
+			success: function(result) {
+				$("#content").html(result);
+			},
+			error: function() {
+				alert("서버 오류");
+			}
+		});
+}
+function InquireListEmp(){
+	$.ajax({
+			type: "get",
+			url: "/inquire/InquireListEmp",
+			dataType: "html",
+			success: function(result) {
+				$("#content").html(result);
+			},
+			error: function() {
+				alert("서버 오류");
+			}
+		});
+}
+function InquireRegist() {
+	$.ajax({
+			type: "get",
+			url: "/inquire/inquireRegist",
+			dataType: "html",
+			success: function(result) {
+				$("#content").html(result);
+			},
+			error: function() {
+				alert("서버 오류");
+			}
+		});
+	}
+	
+	function InquireRegistPost() {
+		var formData = JSON.stringify({
+		    "inquireKind": $("#inquireKind").val(),
+		    "goodsNum": $("#goodsNum").val(),
+		    "inquireSubject": $("#inquireSubject").val(),
+		    "inquireContents": $("#inquireContents").val()
+		});
+
+		$.ajax({
+				type: "post",
+				url: "/inquire/inquireRegist",
+				data: formData,
+				contentType: "application/json",
+				dataType: "html",
+				success: function(result) {
+					
+				},
+				error: function() {
+					alert("서버 오류");
+				},
+				complete:InquireList
+			});
+		}
+
+
+function paymentDelete(element){
+	if (confirm("정말 취소하시겠습니까?")) {
+	var purchaseNum = $(element).data('purchaseNum');
+		$.ajax({
+			type: "post",
+			url: "/purchase/paymentDelete",
+			data: { "purchaseNum": purchaseNum },
+			dataType: "json",
+			success: function(result) {
+				if(result == 200){
+					alert("결제가 취소되었습니다.");
+				}
+			},
+			error: function() {
+				alert("결제 취소를 실패하였습니다. 다시 시도 후 문의해주세요.");
+			},
+			complete : memPurchaseList
+		});
+	}
+}
+function paymentOk(element){
+	var purchaseNum = $(element).data('purchaseNum');
+		$.ajax({
+			type: "post",
+			url: "/purchase/paymentOk",
+			data: { "purchaseNum": purchaseNum },
+			dataType: "html",
+			success: function(result) {
+				$("#content").html(result);
+			},
+			error: function() {
+				alert("서버 오류");
+			}
+		});
+	
+}
+
 function submitOrder() {
            const form = document.querySelector('form');
            const formData = new FormData(form);
@@ -178,7 +283,7 @@ function cartList(){
 			$("#content").html(result);
 		},
 		error:function(){
-			alert("서버 오류");
+			alert("로그인 후 이용해주세요");
 		}
 	});
 }
@@ -313,11 +418,12 @@ function fileDel(btn, orgFile, storeFile, kind) {
 		dataType: "text",
 		success: function(result) {
 			if (result == 1) {
-				$(btn).html("<span class='w3-bar-item w3-button w3-white w3-xlarge w3-right'>⤾</span>");
+				$(btn).html("⤾");
 				if (kind == 'main') {
 					$("#main").css("display", "none");
 					$("#mainFile").html("<input type='file' name='goodsMainImage'/>")
 				}
+				
 			} else {
 				$(btn).html("<span class='w3-bar-item w3-button w3-white w3-xlarge w3-right'>×</span>");
 				if (kind == 'main') {
@@ -348,7 +454,7 @@ function goodsUpdateSubmit(element) {
 		url: "/goods/goodsUpdate",
 		dataType: "html",
 		success: function(result) {
-
+			alert(result);
 		},
 		error: function() {
 			alert("서버오류");

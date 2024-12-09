@@ -25,6 +25,8 @@ public interface GoodsMapper {
 
 	GoodsStockDTO goodsStockSelectOne(String goodsNum);
 
+	List<GoodsDTO> goodsCategorySelectAll(String category);
+
 	
 	
 }

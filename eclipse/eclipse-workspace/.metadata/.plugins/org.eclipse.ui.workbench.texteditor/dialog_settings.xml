@@ -6,8 +6,12 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="tabl"/>
 		<list key="findhistory">
+			<item value="tabl"/>
+			<item value="frm"/>
+			<item value="login"/>
+			<item value="idCheckSelectOne"/>
 			<item value="choic"/>
 			<item value="hart1"/>
 			<item value="addWish"/>
@@ -19,10 +23,6 @@
 			<item value="inpu"/>
 			<item value="답"/>
 			<item value="답변"/>
-			<item value="JSON.STR"/>
-			<item value="문의 리스"/>
-			<item value="문의"/>
-			<item value="content"/>
 		</list>
 		<list key="replacehistory">
 			<item value="goods"/>
